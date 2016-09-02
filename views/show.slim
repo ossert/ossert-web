@@ -1,0 +1,72 @@
+header
+  h1 Ossert Web
+  h2= "Analysis for project: '#{@project.name}'"
+h3 Classification:
+div{style="width: 800px; margin: auto;"}
+  div{style="max-width: 400px; float: left; padding: 1em;"}
+    h4 by DecisionTree
+    h4= "Marks are:"
+    ul
+      li
+        | Agility actions for whole life: &nbsp;
+        strong= "#{@analysis_dt[:agility][:total]}"
+      li
+        | Agility actions for last year activity: &nbsp;
+        strong= "#{@analysis_dt[:agility][:last_year]}"
+      li
+        | Community actions for whole life: &nbsp;
+        strong="#{@analysis_dt[:community][:total]}"
+      li
+        | Community actions for last year: &nbsp;
+        strong= "#{@analysis_dt[:community][:last_year]}"
+  div{style="margin-left: 400px; border-left: 1px solid gray; padding: 1em;"}
+    h4 by properties growth
+    h4= "Marks are:"
+    ul
+      li
+        | Agility actions for whole life: &nbsp;
+        strong= "#{@analysis_gr[:agility][:total]}"
+      li
+        | Agility actions for last year activity: &nbsp;
+        strong= "#{@analysis_gr[:agility][:last_year]}"
+      li
+        | Community actions for whole life: &nbsp;
+        strong="#{@analysis_gr[:community][:total]}"
+      li
+        | Community actions for last year: &nbsp;
+        strong= "#{@analysis_gr[:community][:last_year]}"
+
+h3 Total Data:
+div{style="width: 650px; margin: auto;"}
+  div{style="max-width: 325px; float: left; padding: 1em;"}
+    h4 Community Actions
+    strong= "Properties:"
+    pre= " #{JSON.pretty_generate @project.community.total.metrics_to_hash}"
+
+  div{style="margin-left: 325px; border-left: 1px solid gray; padding: 1em;"}
+    h4 Agility Actions
+    strong= "Properties: "
+    pre= "#{JSON.pretty_generate @project.agility.total.metrics_to_hash}"
+
+h3 Data for quarters
+ul
+  - for quarter in @quarters_end_date.to_i.step(@quarters_start_date.to_i, -93.days.to_i) do
+    - quarter_start = Time.at(quarter).to_date.to_time(:utc).beginning_of_quarter
+    - quarter_end = quarter_start.end_of_quarter
+    - quarter = quarter_start.to_i
+    li
+      h4= "Period: #{quarter_start.strftime('%Y/%m/%d')} -> #{quarter_end.strftime('%Y/%m/%d')}"
+      div{style="width: 650px; margin: auto;"}
+        div{style="max-width: 325px; float: left;"}
+          strong= "Community Properties:"
+          pre= "#{JSON.pretty_generate(@project.community.quarters[quarter].metrics_to_hash)}"
+        div{style="margin-left: 325px; border-left: 1px solid gray; padding-left: 1em;"}
+          strong= "Agility Properties: "
+          pre="#{JSON.pretty_generate(@project.agility.quarters[quarter].metrics_to_hash)}"
+      br
+
+
+
+
+
+
