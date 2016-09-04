@@ -4,37 +4,49 @@ header
 h3 Classification:
 div{style="width: 800px; margin: auto;"}
   div{style="max-width: 400px; float: left; padding: 1em;"}
-    h4 by DecisionTree
+    h4 Decision Tree
     h4= "Marks are:"
     ul
       li
-        | Agility actions for whole life: &nbsp;
-        strong= "#{@analysis_dt[:agility][:total]}"
+        | Agility actions
+        ul
+          li
+            | whole life: &nbsp;
+            strong= "#{@analysis_dt[:agility][:total]}"
+          li
+            | last year activity: &nbsp;
+            strong= "#{@analysis_dt[:agility][:last_year]}"
       li
-        | Agility actions for last year activity: &nbsp;
-        strong= "#{@analysis_dt[:agility][:last_year]}"
-      li
-        | Community actions for whole life: &nbsp;
-        strong="#{@analysis_dt[:community][:total]}"
-      li
-        | Community actions for last year: &nbsp;
-        strong= "#{@analysis_dt[:community][:last_year]}"
+        | Community actions
+        ul
+          li
+            | whole life: &nbsp;
+            strong="#{@analysis_dt[:community][:total]}"
+          li
+            | last year: &nbsp;
+            strong= "#{@analysis_dt[:community][:last_year]}"
   div{style="margin-left: 400px; border-left: 1px solid gray; padding: 1em;"}
-    h4 by properties growth
+    h4 Properties Growth
     h4= "Marks are:"
     ul
       li
-        | Agility actions for whole life: &nbsp;
-        strong= "#{@analysis_gr[:agility][:total]}"
+        | Agility actions
+        ul
+          li
+            | whole life: &nbsp;
+            strong= "#{@analysis_gr[:agility][:total]}"
+          li
+            | last year activity: &nbsp;
+            strong= "#{@analysis_gr[:agility][:last_year]}"
       li
-        | Agility actions for last year activity: &nbsp;
-        strong= "#{@analysis_gr[:agility][:last_year]}"
-      li
-        | Community actions for whole life: &nbsp;
-        strong="#{@analysis_gr[:community][:total]}"
-      li
-        | Community actions for last year: &nbsp;
-        strong= "#{@analysis_gr[:community][:last_year]}"
+        | Community actions
+        ul
+          li
+            | whole life: &nbsp;
+            strong="#{@analysis_gr[:community][:total]}"
+          li
+            | last year: &nbsp;
+            strong= "#{@analysis_gr[:community][:last_year]}"
 
 h3 Total Data:
 div{style="width: 650px; margin: auto;"}
@@ -50,12 +62,17 @@ div{style="width: 650px; margin: auto;"}
 
 h3 Data for quarters
 ul
-  - for quarter in @quarters_end_date.to_i.step(@quarters_start_date.to_i, -93.days.to_i) do
+  - current_year = nil
+  - for quarter in @quarters_end_date.to_i.step(@quarters_start_date.to_i, -90.days.to_i) do
     - quarter_start = Time.at(quarter).to_date.to_time(:utc).beginning_of_quarter
     - quarter_end = quarter_start.end_of_quarter
     - quarter = quarter_start.to_i
+    - if current_year != quarter_start.year
+      - current_year = quarter_start.year
+      h3= "Year #{quarter_start.strftime('%Y')}"
+      hr
     li
-      h4= "Period: #{quarter_start.strftime('%Y/%m/%d')} -> #{quarter_end.strftime('%Y/%m/%d')}"
+      h4= "Period: #{quarter_start.strftime('%B')}  ->  #{quarter_end.strftime('%B')}"
       div{style="width: 650px; margin: auto;"}
         div{style="max-width: 325px; float: left;"}
           strong= "Community Properties:"
