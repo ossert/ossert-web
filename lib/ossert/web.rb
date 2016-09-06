@@ -56,6 +56,8 @@ module Ossert
         @quarters_start_date = [agility_start_date, community_start_date].min
         @quarters_end_date = [agility_end_date, community_end_date].max
 
+        @decorated_project = Ossert::ProjectDecorator.new(@project)
+
         slim :show
       end
     end

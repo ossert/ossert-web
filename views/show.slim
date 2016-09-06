@@ -49,16 +49,16 @@ div{style="width: 800px; margin: auto;"}
             strong= "#{@analysis_gr[:community][:last_year]}"
 
 h3 Total Data:
-div{style="width: 650px; margin: auto;"}
-  div{style="max-width: 325px; float: left; padding: 1em;"}
+div{style="width: 750px; margin: auto;"}
+  div{style="max-width: 375px; float: left; padding: 1em;"}
     h4 Community Actions
     strong= "Properties:"
-    pre= " #{JSON.pretty_generate @project.community.total.metrics_to_hash}"
+    pre= " #{JSON.pretty_generate @decorated_project.community_total}"
 
-  div{style="margin-left: 325px; border-left: 1px solid gray; padding: 1em;"}
+  div{style="margin-left: 375px; border-left: 1px solid gray; padding: 1em;"}
     h4 Agility Actions
     strong= "Properties: "
-    pre= "#{JSON.pretty_generate @project.agility.total.metrics_to_hash}"
+    pre= "#{JSON.pretty_generate @decorated_project.agility_total}"
 
 h3 Data for quarters
 ul
@@ -76,10 +76,10 @@ ul
       div{style="width: 650px; margin: auto;"}
         div{style="max-width: 325px; float: left;"}
           strong= "Community Properties:"
-          pre= "#{JSON.pretty_generate(@project.community.quarters[quarter].metrics_to_hash)}"
+          pre= "#{JSON.pretty_generate(@decorated_project.community_quarter(quarter))}"
         div{style="margin-left: 325px; border-left: 1px solid gray; padding-left: 1em;"}
           strong= "Agility Properties: "
-          pre="#{JSON.pretty_generate(@project.agility.quarters[quarter].metrics_to_hash)}"
+          pre="#{JSON.pretty_generate(@decorated_project.agility_quarter(quarter))}"
       br
 
 
