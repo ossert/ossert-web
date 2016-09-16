@@ -12,51 +12,51 @@ div{style="width: 800px; margin: auto;"}
         ul
           li
             | whole life: &nbsp;
-            strong= "#{@analysis_dt[:agility][:total]}"
+            strong= "#{@analysis_dt[:agility][:total].gsub(/Class/, '')}"
           li
             | last year activity: &nbsp;
-            strong= "#{@analysis_dt[:agility][:last_year]}"
+            strong= "#{@analysis_dt[:agility][:last_year].gsub(/Class/, '')}"
       li
         | Community actions
         ul
           li
             | whole life: &nbsp;
-            strong="#{@analysis_dt[:community][:total]}"
+            strong="#{@analysis_dt[:community][:total].gsub(/Class/, '')}"
           li
             | last year: &nbsp;
-            strong= "#{@analysis_dt[:community][:last_year]}"
+            strong= "#{@analysis_dt[:community][:last_year].gsub(/Class/, '')}"
   div{style="margin-left: 400px; border-left: 1px solid gray; padding: 1em;"}
     h4 Properties Growth
     h4= "Marks are:"
     ul
       li
-        | Agility actions
+        | Maintenance Quality
         ul
           li
-            | whole life: &nbsp;
-            strong= "#{@analysis_gr[:agility][:total]}"
+            | total: &nbsp;
+            strong= "#{@analysis_gr[:agility][:total].gsub(/Class/, '')}"
           li
-            | last year activity: &nbsp;
-            strong= "#{@analysis_gr[:agility][:last_year]}"
+            | last year trends: &nbsp;
+            strong= "#{@analysis_gr[:agility][:last_year].gsub(/Class/, '')}"
       li
-        | Community actions
+        | Populartity
         ul
           li
-            | whole life: &nbsp;
-            strong="#{@analysis_gr[:community][:total]}"
+            | total: &nbsp;
+            strong="#{@analysis_gr[:community][:total].gsub(/Class/, '')}"
           li
-            | last year: &nbsp;
-            strong= "#{@analysis_gr[:community][:last_year]}"
+            | last year trends: &nbsp;
+            strong= "#{@analysis_gr[:community][:last_year].gsub(/Class/, '')}"
 
 h3 Total Data:
 div{style="width: 750px; margin: auto;"}
   div{style="max-width: 375px; float: left; padding: 1em;"}
-    h4 Community Actions
+    h4 Popularity
     strong= "Properties:"
     pre= " #{JSON.pretty_generate @decorated_project.community_total}"
 
   div{style="margin-left: 375px; border-left: 1px solid gray; padding: 1em;"}
-    h4 Agility Actions
+    h4 Maintenance Quality
     strong= "Properties: "
     pre= "#{JSON.pretty_generate @decorated_project.agility_total}"
 
@@ -75,10 +75,10 @@ ul
       h4= "Period: #{quarter_start.strftime('%B')}  ->  #{quarter_end.strftime('%B')}"
       div{style="width: 650px; margin: auto;"}
         div{style="max-width: 325px; float: left;"}
-          strong= "Community Properties:"
+          strong= "Popularity:"
           pre= "#{JSON.pretty_generate(@decorated_project.community_quarter(quarter))}"
         div{style="margin-left: 325px; border-left: 1px solid gray; padding-left: 1em;"}
-          strong= "Agility Properties: "
+          strong= "Maintenance Quality: "
           pre="#{JSON.pretty_generate(@decorated_project.agility_quarter(quarter))}"
       br
 
