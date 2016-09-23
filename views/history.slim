@@ -1,0 +1,33 @@
+header
+  h1 Ossert Web
+  h2= "History for project: '#{@project.name}'"
+div{style="text-align: center;"}
+  h3 Data for quarters
+ul
+  - current_year = nil
+  - for quarter in @quarters_end_date.to_i.step(@quarters_start_date.to_i, -90.days.to_i) do
+    - quarter_start = Time.at(quarter).to_date.to_time(:utc).beginning_of_quarter
+    - quarter_end = quarter_start.end_of_quarter
+    - quarter = quarter_start.to_i
+    - if current_year != quarter_start.year
+      - current_year = quarter_start.year
+      div{style="text-align: center; margin-left: -50px;"}
+        h3= "Year #{quarter_start.strftime('%Y')}"
+      div{style="width: 900px; margin: auto; text-align: center;"}
+        div{style="max-width: 450px; float: left; padding: 1em; width: 400px"}
+          h3 Popularity
+
+        div{style="margin-left: 450px; border-left: 1px solid gray; padding: 1em;"}
+          h3 Maintenance Quality
+      hr
+    li
+      h4= "Period: #{quarter_start.strftime('%B')}  ->  #{quarter_end.strftime('%B')}"
+      div{style="width: 900px; margin: auto;"}
+        div{style="max-width: 450px; float: left;"}
+          /strong= "Popularity:"
+          pre= "#{JSON.pretty_generate(@decorated_project.community_quarter(quarter))}"
+        div{style="margin-left: 450px; border-left: 1px solid gray; padding-left: 1em;"}
+          /strong= "Maintenance Quality: "
+          pre="#{JSON.pretty_generate(@decorated_project.agility_quarter(quarter))}"
+      br
+
