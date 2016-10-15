@@ -37,11 +37,16 @@ module Ossert
         @quarters_start_date = 1.year.ago
         @quarters_end_date = Time.now.utc
 
+        fixed_start_date = params.fetch('from', 20.years.ago).to_datetime
+        fixed_end_date = params.fetch('to', Time.now.utc).to_datetime
+
+        @quarters_start_date = [@quarters_start_date, fixed_start_date].max
+        @quarters_end_date = [@quarters_end_date, fixed_end_date].min
+
         @projects = params[:projects].split(',').map do |name|
           project = Ossert::Project.load_by_name(name)
-          return "Project Not Found" unless project
-
-          Ossert::ProjectDecorator.new(project)
+          return "Project '#{name}' Not Found" unless project
+          project.decorated
         end
 
         @community_metrics = @projects.first.community_quarter(@quarters_end_date).keys
@@ -63,28 +68,23 @@ module Ossert
         @quarters_start_date = Time.now.utc
         @quarters_end_date = 20.years.ago
 
+        fixed_start_date = params.fetch('from', 20.years.ago).to_datetime
+        fixed_end_date = params.fetch('to', Time.now.utc).to_datetime
+
         @projects = params[:projects].split(',').map do |name|
           project = Ossert::Project.load_by_name(name)
           return "Project Not Found" unless project
 
-          agility_start_date = Time.now.utc
-          agility_end_date = 20.years.ago
-          community_start_date = Time.now.utc
-          community_end_date = 20.years.ago
+          @quarters_start_date, @quarters_end_date = project.prepare_time_bounds!(
+            extended_start: @quarters_start_date,
+            extended_end: @quarters_end_date
+          )
 
-          project.agility.quarters.fullfill!
-          agility_start_date = [project.agility.quarters.start_date, agility_start_date].min
-          agility_end_date = [project.agility.quarters.end_date, agility_end_date].max
-
-          project.community.quarters.fullfill!
-          community_start_date = [project.community.quarters.start_date, community_start_date].min
-          community_end_date = [project.community.quarters.end_date, community_end_date].max
-
-          @quarters_start_date = [@quarters_start_date, agility_start_date, community_start_date].min
-          @quarters_end_date = [@quarters_end_date, agility_end_date, community_end_date].max
-
-          Ossert::ProjectDecorator.new(project)
+          project.decorated
         end
+
+        @quarters_start_date = [@quarters_start_date, fixed_start_date].max
+        @quarters_end_date = [@quarters_end_date, fixed_end_date].min
 
         @community_metrics = @projects.first.community_quarter(@quarters_end_date).keys
         @agility_metrics = @projects.first.agility_quarter(@quarters_end_date).keys
@@ -103,25 +103,11 @@ module Ossert
 
       get '/history/:name' do
         @project = Ossert::Project.load_by_name(params[:name])
-        return "Not Found" unless @project
+        return "Project '#{params[:name]}' Not Found" unless @project
 
-        agility_start_date = Time.now.utc
-        agility_end_date = 20.years.ago
-        community_start_date = Time.now.utc
-        community_end_date = 20.years.ago
+        @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
 
-        @project.agility.quarters.fullfill!
-        agility_start_date = [@project.agility.quarters.start_date, agility_start_date].min
-        agility_end_date = [@project.agility.quarters.end_date, agility_end_date].max
-
-        @project.community.quarters.fullfill!
-        community_start_date = [@project.community.quarters.start_date, community_start_date].min
-        community_end_date = [@project.community.quarters.end_date, community_end_date].max
-
-        @quarters_start_date = [agility_start_date, community_start_date].min
-        @quarters_end_date = [agility_end_date, community_end_date].max
-
-        @decorated_project = Ossert::ProjectDecorator.new(@project)
+        @decorated_project = @project.decorated
 
         slim :history
       end
@@ -133,23 +119,10 @@ module Ossert
         @analysis_dt = @project.analyze_by_decisision_tree
         @analysis_gr = @project.analyze_by_growing_classifier
 
-        agility_start_date = Time.now.utc
-        agility_end_date = 20.years.ago
-        community_start_date = Time.now.utc
-        community_end_date = 20.years.ago
 
-        @project.agility.quarters.fullfill!
-        agility_start_date = [@project.agility.quarters.start_date, agility_start_date].min
-        agility_end_date = [@project.agility.quarters.end_date, agility_end_date].max
+        @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
 
-        @project.community.quarters.fullfill!
-        community_start_date = [@project.community.quarters.start_date, community_start_date].min
-        community_end_date = [@project.community.quarters.end_date, community_end_date].max
-
-        @quarters_start_date = [agility_start_date, community_start_date].min
-        @quarters_end_date = [agility_end_date, community_end_date].max
-
-        @decorated_project = Ossert::ProjectDecorator.new(@project)
+        @decorated_project = @project.decorated
 
         slim :show
       end
