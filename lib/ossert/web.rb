@@ -34,14 +34,11 @@ module Ossert
       end
 
       get '/last_year_graph/:metric' do
-        @quarters_start_date = 1.year.ago
-        @quarters_end_date = Time.now.utc
-
         fixed_start_date = params.fetch('from', 20.years.ago).to_datetime
         fixed_end_date = params.fetch('to', Time.now.utc).to_datetime
 
-        @quarters_start_date = [@quarters_start_date, fixed_start_date].max
-        @quarters_end_date = [@quarters_end_date, fixed_end_date].min
+        @quarters_start_date = [1.year.ago, fixed_start_date].max
+        @quarters_end_date = [Time.now.utc, fixed_end_date].min
 
         @projects = params[:projects].split(',').map do |name|
           project = Ossert::Project.load_by_name(name)
@@ -53,12 +50,12 @@ module Ossert
         @agility_metrics = @projects.first.agility_quarter(@quarters_end_date).keys
 
         @metric_type = if @community_metrics.include?(params[:metric])
-                    :community
-                  elsif @agility_metrics.include?(params[:metric])
-                    :agility
-                  else
-                    raise "Metric Not Found"
-                  end
+                         :community
+                       elsif @agility_metrics.include?(params[:metric])
+                         :agility
+                       else
+                         raise "Metric '#{params[:metric]}' Not Found"
+                       end
         @metric = params[:metric]
 
         slim :graph_show, layout: false
@@ -73,7 +70,7 @@ module Ossert
 
         @projects = params[:projects].split(',').map do |name|
           project = Ossert::Project.load_by_name(name)
-          return "Project Not Found" unless project
+          return "Project '#{name}' Not Found" unless project
 
           @quarters_start_date, @quarters_end_date = project.prepare_time_bounds!(
             extended_start: @quarters_start_date,
@@ -90,12 +87,12 @@ module Ossert
         @agility_metrics = @projects.first.agility_quarter(@quarters_end_date).keys
 
         @metric_type = if @community_metrics.include?(params[:metric])
-                    :community
-                  elsif @agility_metrics.include?(params[:metric])
-                    :agility
-                  else
-                    raise "Metric Not Found"
-                  end
+                         :community
+                       elsif @agility_metrics.include?(params[:metric])
+                         :agility
+                       else
+                         raise "Metric '#{params[:metric]}' Not Found"
+                       end
         @metric = params[:metric]
 
         slim :graph_show, layout: false
@@ -106,7 +103,6 @@ module Ossert
         return "Project '#{params[:name]}' Not Found" unless @project
 
         @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
-
         @decorated_project = @project.decorated
 
         slim :history
@@ -121,7 +117,6 @@ module Ossert
 
 
         @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
-
         @decorated_project = @project.decorated
 
         slim :show

@@ -5,7 +5,7 @@ body { font-size:62.5%; }
 table {width: 500px; height: 200px; margin-left: 30px; }
 table.accessHide { position: absolute; left: -999999px; }
 td, th {  font-size: 1.2em; padding: 2px; width: 13%; }
-th { background-color:#f4f4f4; } 
+th { background-color:#f4f4f4; }
 caption { font-size: 1.5em;  }
 
 /*visualize extension styles*/
@@ -18,6 +18,6 @@ caption { font-size: 1.5em;  }
 .visualize .visualize-info { border: 0; position: static;  opacity: 1; background: none; }
 .visualize .visualize-title { position: absolute; top: 20px; color: #333; margin-bottom: 0; left: 20px; font-size: 2.1em; font-weight: bold; }
 .visualize ul.visualize-key { position: absolute; bottom: 15px; background: #eee; z-index: 10; padding: 10px 0; color: #aaa; width: 100%; left: 0;  }
-.visualize ul.visualize-key li { font-size: 1.2em;  margin-left: 20px; padding-left: 18px; }
-.visualize ul.visualize-key .visualize-key-color { width: 10px; height: 10px;  margin-top: -4px; }
+.visualize ul.visualize-key li { font-size: 2.2em;  margin-left: 22px; padding-left: 20px; padding-top: 3px; }
+.visualize ul.visualize-key .visualize-key-color { width: 15px; height: 15px;  margin-top: -4px; }
 .visualize ul.visualize-key .visualize-key-label { color: #333; }
