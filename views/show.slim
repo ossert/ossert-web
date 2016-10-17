@@ -1,66 +1,59 @@
 header
   h1 Ossert Web
   h2= "Analysis for project: '#{@project.name}'"
-div{style="width: 800px; margin: auto;"}
-  div{style="max-width: 400px; float: left; padding: 1em;"}
-    div{style="text-align: center; width: 350px;"}
-      h3 Populartity
-    ul
-      li
-        | last year trends: &nbsp;
-        strong= "#{@analysis_gr[:community][:last_year].gsub(/Class/, '')}"
-      li
-        | total: &nbsp;
-        strong="#{@analysis_gr[:community][:total].gsub(/Class/, '')}"
-  div{style="margin-left: 400px; border-left: 1px solid gray; padding: 1em;"}
-    div{style="text-align: center;"}
-      h3 Maintenance Quality
-    ul
-      li
-        | last year trends: &nbsp;
-        strong= "#{@analysis_gr[:agility][:last_year].gsub(/Class/, '')}"
-      li
-        | total: &nbsp;
-        strong= "#{@analysis_gr[:agility][:total].gsub(/Class/, '')}"
+div{style="width: 900px; height: 50px; margin: auto; position: relative;"}
+  div{style="text-align: center; float: left; width: 300px;"}
+    h3 Popularity
+    strong= "#{@analysis_gr[:popularity].gsub(/Class/, '')}"
+  div{style="text-align: center; float: left; width: 300px;"}
+    h3 Maintenance
+    strong= "#{@analysis_gr[:maintenance].gsub(/Class/, '')}"
+  div{style="text-align: center; float: left; width: 300px;"}
+    h3 Maturity
+    strong= "#{@analysis_gr[:maturity].gsub(/Class/, '')}"
+
+br
+br
+br
+
 hr
 
 div{style="text-align: center;"}
-  h3 Last Year Data
-div{style="width: 900px; margin: auto; text-align: center;"}
-  div{style="max-width: 450px; float: left; padding: 1em; width: 400px"}
+  h3 Last Year
+div{style="width: 1000px; margin: auto; text-align: center;"}
+  div{style="max-width: 500px; float: left; padding: 1em; width: 400px"}
     h3 Popularity
 
-  div{style="margin-left: 450px; border-left: 1px solid gray; padding: 1em;"}
-    h3 Maintenance Quality
+  div{style="margin-left: 500px; border-left: 1px solid gray; padding: 1em;"}
+    h3 Maintenance
 
-div{style="width: 750px; margin: auto;"}
-  div{style="max-width: 375px; float: left;"}
+div{style="width: 1000px; margin: auto;"}
+  div{style="max-width: 500px; float: left;"}
     pre= "#{JSON.pretty_generate(@decorated_project.community_last_year)}"
-  div{style="margin-left: 375px; border-left: 1px solid gray; padding-left: 1em;"}
+  div{style="margin-left: 500px; border-left: 1px solid gray; padding-left: 1em;"}
     pre="#{JSON.pretty_generate(@decorated_project.agility_last_year)}"
-br
-br
+
 br
 br
 hr
 
 div{style="text-align: center;"}
-  h3 Total Data
-div{style="width: 900px; margin: auto; text-align: center;"}
-  div{style="max-width: 450px; float: left; padding: 1em; width: 400px"}
+  h3 Total
+div{style="width: 1000px; margin: auto; text-align: center;"}
+  div{style="max-width: 500px; float: left; padding: 1em; width: 400px"}
     h3 Popularity
 
-  div{style="margin-left: 450px; border-left: 1px solid gray; padding: 1em;"}
-    h3 Maintenance Quality
+  div{style="margin-left: 500px; border-left: 1px solid gray; padding: 1em;"}
+    h3 Maintenance
 /div{style="text-align: center;"}
 /  h3 Total Data
-div{style="width: 750px; margin: auto;"}
-  div{style="max-width: 375px; float: left; padding: 1em;"}
+div{style="width: 1000px; margin: auto;"}
+  div{style="max-width: 500px; float: left; padding: 0.1em;"}
     /h4 Popularity
     /strong= "Properties:"
     pre= " #{JSON.pretty_generate @decorated_project.community_total}"
 
-  div{style="margin-left: 375px; border-left: 1px solid gray; padding: 1em;"}
+  div{style="margin-left: 500px; border-left: 1px solid gray; padding: 1em;"}
     /h4 Maintenance Quality
     /strong= "Properties: "
     pre= "#{JSON.pretty_generate @decorated_project.agility_total}"

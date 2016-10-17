@@ -112,9 +112,7 @@ module Ossert
         @project = Ossert::Project.load_by_name(params[:name])
         return "Not Found" unless @project
 
-        @analysis_dt = @project.analyze_by_decisision_tree
         @analysis_gr = @project.analyze_by_growing_classifier
-
 
         @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
         @decorated_project = @project.decorated
