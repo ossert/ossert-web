@@ -46,8 +46,8 @@ module Ossert
           project.decorated
         end
 
-        @community_metrics = @projects.first.community_quarter(@quarters_end_date).keys
-        @agility_metrics = @projects.first.agility_quarter(@quarters_end_date).keys
+        @community_metrics = @projects.first.community_quarter_values(@quarters_end_date).keys
+        @agility_metrics = @projects.first.agility_quarter_values(@quarters_end_date).keys
 
         @metric_type = if @community_metrics.include?(params[:metric])
                          :community
@@ -59,6 +59,37 @@ module Ossert
         @metric = params[:metric]
 
         slim :graph_show, layout: false
+      end
+
+      get '/section_graph/:section' do
+        raise "Section #{params[:section]} Unkonwn" unless params[:section].in? ["popularity", "maintenance"]
+        @section = params[:section]
+
+        @metric_type = @section == "popularity" ? :community : :agility
+        @metrics = Ossert::Classifiers::Growing.config['metrics'][@section]['last_year'].keys
+
+        @quarters_start_date = Time.now.utc
+        @quarters_end_date = 20.years.ago
+
+        fixed_start_date = params.fetch('from', 20.years.ago).to_datetime
+        fixed_end_date = params.fetch('to', Time.now.utc).to_datetime
+
+        @projects = params[:projects].split(',').map do |name|
+          project = Ossert::Project.load_by_name(name)
+          return "Project '#{name}' Not Found" unless project
+
+          @quarters_start_date, @quarters_end_date = project.prepare_time_bounds!(
+            extended_start: @quarters_start_date,
+            extended_end: @quarters_end_date
+          )
+
+          project.decorated
+        end
+
+        @quarters_start_date = [@quarters_start_date, fixed_start_date].max
+        @quarters_end_date = [@quarters_end_date, fixed_end_date].min
+
+        slim :graphs_show, layout: false
       end
 
       get '/total_graph/:metric' do
@@ -83,8 +114,8 @@ module Ossert
         @quarters_start_date = [@quarters_start_date, fixed_start_date].max
         @quarters_end_date = [@quarters_end_date, fixed_end_date].min
 
-        @community_metrics = @projects.first.community_quarter(@quarters_end_date).keys
-        @agility_metrics = @projects.first.agility_quarter(@quarters_end_date).keys
+        @community_metrics = @projects.first.community_quarter_values(@quarters_end_date).keys
+        @agility_metrics = @projects.first.agility_quarter_values(@quarters_end_date).keys
 
         @metric_type = if @community_metrics.include?(params[:metric])
                          :community
@@ -112,7 +143,7 @@ module Ossert
         @project = Ossert::Project.load_by_name(params[:name])
         return "Not Found" unless @project
 
-        @analysis_gr = @project.analyze_by_growing_classifier
+        @analysis_gr = @project.grade_by_growing_classifier
 
         @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
         @decorated_project = @project.decorated

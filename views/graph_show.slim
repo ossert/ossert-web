@@ -19,7 +19,7 @@ header
   h2= "Graph for metric: '#{@metric}'"
 
 table
-  caption= "#{@metric.split('_').map(&:capitalize) * ' '}"
+  caption= "#{Ossert.t @metric}"
   thead
     tr
       td

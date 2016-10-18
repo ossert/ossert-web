@@ -1,0 +1,45 @@
+link href='/css/basic.css' rel='stylesheet' type='text/css'
+script type="text/javascript" src="http://filamentgroup.github.com/EnhanceJS/enhance.js"
+javascript:
+  enhance({
+    loadScripts: [
+      {src: 'js/excanvas.js', iecondition: 'all'},
+      '/js/jquery.js',
+      '/js/visualize.jQuery.js',
+      '/js/example.js'
+    ],
+    loadStyles: [
+      '/css/visualize.css',
+      '/css/visualize-light.css'
+    ]
+  });
+
+header
+  h1 Ossert Web
+  h2= "Graph for section: #{@section}"
+
+- for metric in @metrics do
+  table
+    caption= "#{Ossert.t metric}"
+    thead
+      tr
+        td
+        - for quarter in @quarters_start_date.to_i.step(@quarters_end_date.to_i, 91.days.to_i) do
+          - quarter_start = Time.at(quarter).to_date.to_time(:utc).end_of_quarter
+          - if @projects.any? { |p| !p.send("#{@metric_type}_quarter_values", quarter_start.to_i)[metric].to_i.zero? }
+            th= "#{quarter_start.strftime("%m\n`%y")}"
+    tbody
+      - for project in @projects do
+        tr
+          th{scope="row"}= project.project.name
+          - for quarter in @quarters_start_date.to_i.step(@quarters_end_date.to_i, 91.days.to_i) do
+            - quarter_start = Time.at(quarter).to_date.to_time(:utc).end_of_quarter
+            - to_kilo = @projects.all? { |p| v = p.send("#{@metric_type}_quarter_values", quarter_start.to_i)[metric].to_i; v > 1000 || v.zero? }
+            - if @projects.any? { |p| p.send("#{@metric_type}_quarter_values", quarter_start.to_i)[metric].to_i > 0 }
+              - value = project.send("#{@metric_type}_quarter_values", quarter_start.to_i)[metric].to_i
+              - value = to_kilo ? (value / 1_000.to_f).ceil : value
+              td= value
+
+  br
+  br
+  br
