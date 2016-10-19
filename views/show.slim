@@ -4,13 +4,13 @@ header
 div{style="width: 900px; height: 50px; margin: auto; position: relative;"}
   div{style="text-align: center; float: left; width: 300px;"}
     h3 Popularity
-    strong= "#{@analysis_gr[:popularity].gsub(/Class/, '')}"
+    strong= "#{@analysis_gr[:popularity]}"
   div{style="text-align: center; float: left; width: 300px;"}
     h3 Maintenance
-    strong= "#{@analysis_gr[:maintenance].gsub(/Class/, '')}"
+    strong= "#{@analysis_gr[:maintenance]}"
   div{style="text-align: center; float: left; width: 300px;"}
     h3 Maturity
-    strong= "#{@analysis_gr[:maturity].gsub(/Class/, '')}"
+    strong= "#{@analysis_gr[:maturity]}"
 
 br
 br
