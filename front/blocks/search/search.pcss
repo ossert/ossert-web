@@ -1,6 +1,27 @@
 .search {
   position: relative;
 
+  &_big &__input {
+    padding: calc($layoutFactor / 2px) calc($layoutFactor * 4px) calc($layoutFactor / 2px) calc($layoutFactor * 1px);
+    font-size: calc($layoutFactor * 2px);
+    line-height: calc($layoutFactor * 3px);
+    height: auto;
+    border-width: 2px;
+    border-radius: 4px;
+  }
+
+  &_big &__submit {
+    right: 2px;
+    top: 2px;
+    width: calc($layoutFactor * 4px);
+    height: calc($layoutFactor * 4px);
+  }
+
+  &_big &__submit-icon {
+    width: calc($layoutFactor * 3px);
+    height: calc($layoutFactor * 3px);
+  }
+
   &__input {
     display: block;
     height: 36px;
@@ -25,10 +46,11 @@
 
   &__submit {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 1px;
+    top: 1px;
     width: 36px;
     height: 36px;
+    padding: 0;
     background-color: transparent;
     border: none;
     cursor: pointer;
