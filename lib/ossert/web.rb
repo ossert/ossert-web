@@ -148,7 +148,7 @@ module Ossert
 
         @decorated_project = @project.decorated
 
-        slim :show
+        erb :show
       end
     end
   end

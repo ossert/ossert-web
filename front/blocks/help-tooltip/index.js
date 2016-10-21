@@ -13,7 +13,7 @@ export function init() {
   $statsTables.on('mouseenter', '.gems-stats-table__row', function onRowMouseOver() {
     const $this = $(this);
 
-    $helpTooltipContent.html(tooltipTpl($this.data()));
+    $helpTooltipContent.html(tooltipTpl($this.data('tooltip')));
 
     const rowOffset = $this.offset();
     const helpTooltipHeight = $helpTooltip.outerHeight();
