@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ossert</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="layout">
@@ -88,11 +87,11 @@
                         <%= @project.meta[:description] %>
                     </p>
                     <div class="gem__links">
-                      <a class="gem__link link" href="<%= @project.meta[:homepage_url] %>" rel="nofollow" target="_blank">Website</a>
-                        <a class="gem__link link" href="<%= @project.meta[:docs_url] %>" rel="nofollow" target="_blank">RDoc</a>
-                        <a class="gem__link link" href="<%= @project.meta[:docs_url] %>" rel="nofollow" target="_blank">Wiki</a>
-                        <a class="gem__link link" href="<%= @project.meta[:source_url] %>" rel="nofollow" target="_blank">Source Code</a>
-                        <a class="gem__link link" href="<%= @project.meta[:issue_tracker_url] %>" rel="nofollow" target="_blank">Bug Tracker</a>
+                      <a class="gem__link link" href="<%= @project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
+                        <a class="gem__link link" href="<%= @project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
+                        <a class="gem__link link" href="<%= @project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
+                        <a class="gem__link link" href="<%= @project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
+                        <a class="gem__link link" href="<%= @project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
                     </div>
                 </div>
             </div>
@@ -163,12 +162,12 @@
                                 </td>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
                                   <% value = @project.decorated.community_last_year[metric] %>
-                                  <span class="mark-text mark-text_<%= value.try :mark %>"> <%= value.try :text %></span>
+                                  <span class="mark-text mark-text_<%= value.try(:[], :mark) %>"> <%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
                                   <% value = @project.decorated.community_total[metric] %>
 
-                                    <span class="mark-text mark-text_<%= value.try :mark %>"><%= value.try :text %></span>
+                                    <span class="mark-text mark-text_<%= value.try(:[], :mark) %>"><%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
                             </tr>
                           <% end %>
@@ -212,11 +211,11 @@
                                   <% value = @project.decorated.agility_last_year[metric] %>
 
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                                  <span class="mark-text mark-text_<%= value.try :mark %>"> <%= value.try :text %></span>
+                                  <span class="mark-text mark-text_<%= value.try :[], :mark %>"> <%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
                                   <% value = @project.decorated.agility_total[metric] %>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                                    <span class="mark-text mark-text_<%= value.try :mark %>"><%= value.try :text %></span>
+                                    <span class="mark-text mark-text_<%= value.try :[], :mark %>"><%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
                             </tr>
                           <% end %>
@@ -247,6 +246,7 @@
                         </tr>
                         </thead>
                         <tbody class="gems-stats-table__body">
+
                           <% @maturity_metrics.each do |metric|  %>
                             <% section = Ossert::Stats.guess_section_by_metric(metric) %>
                             <% next if section.to_s =~ /not_found/ %>
@@ -264,10 +264,10 @@
                                 <% section_total = @project.decorated.send("#{section}_total")[metric] %>
 
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                                  <span class="mark-text mark-text_<%= section_last_year.try(:mark) %>"> <%=section_last_year.try(:text)%></span>
+                                  <span class="mark-text mark-text_<%= section_last_year.try(:[], :mark) %>"> <%=section_last_year.try(:[], :text) || 'N/A' %></span>
                                 </td>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                                    <span class="mark-text mark-text_<%= section_total.try(:mark) %>"><%= section_total.try(:text)%></span>
+                                    <span class="mark-text mark-text_<%= section_total.try(:[], :mark) %>"><%= section_total.try(:[], :text) || 'N/A' %></span>
                                 </td>
                             </tr>
                           <% end %>
