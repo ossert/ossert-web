@@ -1,0 +1,22 @@
+.page-index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10vh;
+
+  &__description {
+    max-width: 100%;
+    font-size: calc($layoutFactor * 2px);
+    line-height: calc($layoutFactor * 3px);
+    font-weight: 600;
+    text-align: center;
+
+    @mixin columns 8;
+  }
+
+  &__search {
+    max-width: 100%;
+    @mixin columns 8;
+  }
+}
