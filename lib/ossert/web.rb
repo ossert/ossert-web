@@ -146,6 +146,12 @@ module Ossert
         @quarters_start_date = @quarters_start_date.to_time
         @quarters_end_date = @quarters_end_date.to_time
 
+        @popularity_metrics = ::Settings['stats']['community']['total']['metrics'] +
+                              ::Settings['stats']['community']['quarter']['metrics']
+
+        @maintenance_metrics = ::Settings['stats']['agility']['total']['metrics'] +
+                              ::Settings['stats']['agility']['quarter']['metrics']
+
         @maturity_metrics = ::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
           ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys
 
