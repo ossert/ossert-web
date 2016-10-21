@@ -1,0 +1,53 @@
+.header {
+  background-color: $themePrimary;
+
+  &__content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: calc($layoutFactor * 6px);
+    padding-top: calc($layoutFactor * 1px);
+    padding-bottom: calc($layoutFactor * 1px);
+
+    @media (--tablet) {
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+    }
+  }
+
+  &__logo {
+    display: inline-block;
+    font-family: $fontFamily;
+    font-size: calc($layoutFactor * 4px);
+    line-height: calc($layoutFactor * 4px);
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  &__description {
+    font-family: $fontFamily;
+    font-size: 16px;
+    line-height: 19px;
+    color: #fff;
+    margin-left: calc($layoutFactor / 2px);
+
+    @media (--tablet) {
+      width: 100%;
+      text-align: center;
+      margin: calc($layoutFactor * 1px) 0 0;
+    }
+  }
+
+  &__search {
+    margin: auto 0 auto auto;
+
+    @media (--tablet) {
+      width: 100%;
+      margin: calc($layoutFactor * 1px) 0 0;
+    }
+
+    @mixin columns 5;
+  }
+}

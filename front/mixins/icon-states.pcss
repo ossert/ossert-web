@@ -1,0 +1,24 @@
+@define-mixin icon-states $color {
+  > .icon {
+    fill: $color;
+    transition: fill 0.1s ease-out;
+  }
+
+  &:hover {
+    > .icon {
+      fill: color($color lightness(+20%));
+    }
+  }
+
+  &:focus {
+    > .icon {
+      fill: color($color lightness(+15%));
+    }
+  }
+
+  &:active {
+    > .icon {
+      fill: color($color lightness(+30%));
+    }
+  }
+}

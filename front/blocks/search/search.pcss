@@ -1,0 +1,47 @@
+.search {
+  position: relative;
+
+  &__input {
+    display: block;
+    height: 36px;
+    width: 100%;
+    padding: calc($layoutFactor / 2px) 36px calc($layoutFactor / 2px) calc($layoutFactor * 1px);
+    border: 1px solid;
+    border-radius: 2px;
+    font-family: $fontFamily;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    color: #4c4d58;
+
+    &::placeholder {
+      color: #939bac;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__submit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    @mixin icon-states $themePrimary;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__submit-icon {
+    width: 24px;
+    height: 24px;
+  }
+}

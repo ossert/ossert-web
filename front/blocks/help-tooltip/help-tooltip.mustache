@@ -1,0 +1,29 @@
+<div class="help-tooltip__header-container">
+    <h4 class="help-tooltip__header">{{title}}</h4>
+    <svg class="icon help-tooltip__info-icon">
+        <use xlink:href="#icon_type_info"></use>
+    </svg>
+</div>
+<p class="help-tooltip__description">{{description}}</p>
+<table class="help-tooltip__table">
+    <thead>
+        <tr>
+            <th class="help-tooltip__table-header-cell">Rank</th>
+            <th class="help-tooltip__table-header-cell help-tooltip__table-header-cell_values-column help-tooltip__table-header-cell_values-column-penultimate">This year</th>
+            <th class="help-tooltip__table-header-cell help-tooltip__table-header-cell_values-column">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#ranks}}
+        <tr>
+            <td class="help-tooltip__table-cell">
+                <svg class="icon icon_type_mark-{{type}} help-tooltip__table-mark">
+                    <use xlink:href="#icon_type_mark-{{type}}"></use>
+                </svg>
+            </td>
+            <td class="help-tooltip__table-cell help-tooltip__table-cell_values-column help-tooltip__table-cell_values-column-penultimate">&gt;&nbsp;{{year}}</td>
+            <td class="help-tooltip__table-cell help-tooltip__table-cell_values-column">&gt;&nbsp;{{total}}</td>
+        </tr>
+    {{/ranks}}
+    </tbody>
+</table>

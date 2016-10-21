@@ -1,0 +1,56 @@
+.gem-stats {
+  & + & {
+    margin-top: calc($layoutFactor * 2px);
+  }
+
+  &__header-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  &__header {
+    margin: 0;
+    font-family: $fontFamily;
+    font-size: 33px;
+    line-height: 36px;
+    font-weight: 600;
+    color: $textColorPrimary;
+  }
+
+  &__chart {
+    display: block;
+    width: 180px;
+    height: 56px;
+    margin-left: auto;
+
+    @media (--phone) {
+      margin-left: 0;
+      order: 1;
+    }
+  }
+
+  &__mark {
+    font-size: 36px;
+    margin-left: calc($layoutFactor * 2px);
+
+    @media (--phone) {
+      margin-left: calc($layoutFactor * 1px);
+      margin-right: calc($layoutFactor * 1px);
+    }
+  }
+
+  &__description {
+    margin: calc($layoutFactor * 2px) 0 0;
+    font-family: $fontFamily;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    color: $textColorPrimary;
+  }
+
+  &__table {
+    margin: calc($layoutFactor * 2px) 0 0;
+  }
+}

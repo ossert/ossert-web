@@ -1,0 +1,17 @@
+@define-mixin link-states $baseColor {
+  color: $baseColor;
+  transition: color 0.1s ease-out;
+
+  &:hover {
+    color: color($baseColor lightness(+12%));
+  }
+
+  &:focus {
+    color: color($baseColor lightness(-25%));
+    outline: none;
+  }
+
+  &:active {
+    color: color($baseColor lightness(-10%));
+  }
+}

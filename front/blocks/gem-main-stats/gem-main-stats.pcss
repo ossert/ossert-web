@@ -1,0 +1,58 @@
+.gem-main-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (--tablet) {
+    flex-direction: row;
+    margin-top: calc($layoutFactor * 2px);
+  }
+
+  @media (--tablet) {
+    flex-direction: column;
+  }
+
+  &__item {
+    @media (--tablet) {
+      flex-grow: 1;
+    }
+
+    & + & {
+      margin-top: calc($layoutFactor * 1px);
+    }
+  }
+
+  &__item-link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: calc($layoutFactor * 1px) calc($layoutFactor * 2px);
+    border-radius: 8px;
+    background-color: $layoutSecondaryBg;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    color: $textColorPrimary;
+    transition: background-color 0.1s ease-out;
+
+    @media (--tablet) {
+      padding: calc($layoutFactor * 1px) calc($layoutFactor * 1px);
+    }
+
+    &:hover {
+      background-color: color($layoutSecondaryBg lightness(-3%));
+    }
+  }
+
+  &__item-mark {
+    font-size: 36px;
+    flex-shrink: 0;
+    margin-right: calc($layoutFactor / 2px);
+  }
+}

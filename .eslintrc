@@ -1,0 +1,15 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true
+  },
+  "extends": "airbnb-base/legacy",
+  "rules": {
+    "no-use-before-define": [2, {"functions": false}],
+    "max-len": [2, 120],
+    "no-new": [0]
+  }
+}

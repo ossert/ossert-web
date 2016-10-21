@@ -1,0 +1,98 @@
+.gems-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  &__header {
+    border-bottom: 1px solid $layoutBorderColor;
+  }
+
+  &__header-cell {
+    padding: 12px calc($layoutFactor * 1px);
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: 700;
+    text-align: left;
+    color: $textColorPrimary;
+
+    &_values-column {
+      text-align: right;
+
+      @mixin columns 2;
+
+      @media (--desktop) {
+        @mixin columns 1;
+      }
+
+      @media (--tablet) {
+        width: auto;
+      }
+    }
+
+    &_values-column-penultimate {
+      padding-right: 0;
+    }
+  }
+
+  &__row {
+    border-bottom: 1px solid $layoutSecondaryBorderColor;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      .gems-stats-table__info-icon {
+        opacity: 0;
+      }
+
+      .gems-stats-table__cell {
+        background-color: color($layoutSecondaryBg lightness(+2%));
+      }
+    }
+  }
+
+  &__cell {
+    padding: 12px calc($layoutFactor * 1px);
+    font-size: 14px;
+    line-height: 19px;
+    text-align: left;
+    color: $textColorPrimary;
+    transition: background-color 0.15s ease-out;
+
+    &_title {
+      font-weight: 600;
+    }
+
+    &_values-column {
+      text-align: right;
+
+      @mixin columns 2;
+
+      @media (--desktop) {
+        @mixin columns 1;
+      }
+
+      @media (--tablet) {
+        width: auto;
+      }
+    }
+
+    &_values-column-penultimate {
+      padding-right: 0;
+    }
+  }
+
+  &__info-icon&__info-icon {
+    margin: -2px 0 0 5px;
+    color: #b1b5b8;
+    transition: opacity 0.15s ease-out;
+
+    @media (--desktop) {
+      display: none;
+    }
+
+    @media (--tablet) {
+      width: auto;
+    }
+  }
+}
