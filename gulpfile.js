@@ -13,8 +13,8 @@ const ENVS = {
   DEV: 'development'
 };
 const EXTS_TO_FREEZE = 'jpg|jpeg|png|svg|css|js';
-const SRC_DIR = path.join(__dirname, 'src');
-const BUILD_DIR = 'build';
+const SRC_DIR = path.join(__dirname, 'front');
+const BUILD_DIR = 'public';
 const BLOCKS_DIR = path.join(SRC_DIR, 'blocks');
 const POSTCSS_DIR = path.join(SRC_DIR, 'postcss');
 const JS_MAIN = path.join(SRC_DIR, 'main.js');
@@ -41,10 +41,6 @@ gulp.task('env:set-dev', fn => {
   fn();
 });
 
-gulp.task('clean', () => {
-  return del(BUILD_DIR);
-});
-
 gulp.task('blocks:styles', () => {
   return gulp.src([PATHS.VENDORS, PATHS.COMMON, PATHS.MIXINS, PATHS.BLOCKS])
     .pipe($.plumber({ errorHandler: notifyOnErrorFactory('CSS') }))
@@ -69,54 +65,34 @@ gulp.task('blocks:styles', () => {
     .pipe($.rewriteCss({ destination: SRC_DIR }))
     .pipe($.concat('styles.css'))
     .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(BUILD_DIR));
+    .pipe(gulp.dest(path.join(BUILD_DIR, 'css')));
 });
 
 gulp.task('blocks:assets', () => {
   return gulp.src([PATHS.BLOCKS_ASSETS, `!${PATHS.SVG_SPRITE}`], { base: SRC_DIR })
     .pipe($.plumber({ errorHandler: notifyOnErrorFactory('Blocks assets') }))
     .pipe($.newer(BUILD_DIR))
-    .pipe(gulp.dest(BUILD_DIR));
+    .pipe(gulp.dest(path.join(BUILD_DIR, 'assets')));
 });
 
 gulp.task('blocks:js', () => {
   return gulp.src(JS_MAIN)
     .pipe($.plumber({ errorHandler: notifyOnErrorFactory('Js') }))
     .pipe(webpackStream(require('./webpack.config')))
-    .pipe(gulp.dest(BUILD_DIR));
-});
-
-gulp.task('html', () => {
-  return gulp.src(PATHS.ROOT_HTML)
-    .pipe($.plumber({ errorHandler: notifyOnErrorFactory('Html') }))
-    .pipe($.replace('<!-- svgSprite -->', svgSprite))
-    .pipe(gulp.dest(BUILD_DIR));
-});
-
-gulp.task('revision:hash', () => {
-  return gulp.src(path.join(BUILD_DIR, '**', '*.*(' + EXTS_TO_FREEZE + ')'))
-    .pipe($.rev())
-    .pipe($.revDeleteOriginal())
-    .pipe(gulp.dest(BUILD_DIR))
-    .pipe($.rev.manifest())
-    .pipe(gulp.dest(BUILD_DIR));
-});
-
-gulp.task('revision:replace', () => {
-  return gulp.src(path.join(BUILD_DIR, '**', '*.*(html|css)'))
-    .pipe($.revReplace({ manifest: gulp.src(path.join(BUILD_DIR, 'rev-manifest.json')) }))
-    .pipe(gulp.dest(BUILD_DIR));
+    .pipe(gulp.dest(path.join(BUILD_DIR, 'js')));
 });
 
 gulp.task('watch', () => {
-  gulp.watch([PATHS.VENDORS, PATHS.COMMON, PATHS.MIXINS, PATHS.BLOCKS], gulp.parallel('blocks:styles', 'lint:styles')).on('unlink', filePath => {
-    const resolvedFilePath = path.resolve(filePath);
-    $.remember.forget('css-remember', resolvedFilePath);
+  gulp
+    .watch([PATHS.VENDORS, PATHS.COMMON, PATHS.MIXINS, PATHS.BLOCKS], gulp.parallel('blocks:styles', 'lint:styles'))
+    .on('unlink', filePath => {
+      const resolvedFilePath = path.resolve(filePath);
+      $.remember.forget('css-remember', resolvedFilePath);
 
-    if ($.cached && $.cached.caches && $.caches['css-cached']) {
-      delete $.cached.caches['css-cached'][resolvedFilePath];
-    }
-  });
+      if ($.cached && $.cached.caches && $.caches['css-cached']) {
+        delete $.cached.caches['css-cached'][resolvedFilePath];
+      }
+    });
   gulp.watch([JS_MAIN, PATHS.BLOCKS_JS], gulp.series('blocks:js'));
   gulp.watch([PATHS.BLOCKS_ASSETS, `!${PATHS.SVG_SPRITE}`], gulp.series('blocks:assets'));
   gulp.watch(PATHS.ROOT_HTML, gulp.series('html'));
@@ -170,8 +146,8 @@ function loadSvgSprite(svgPath, cb) { // eslint-disable-line consistent-return
 }
 
 
-gulp.task('default', gulp.series('clean', gulp.parallel('blocks:styles', 'lint:styles', 'blocks:assets', 'blocks:js'), 'html'));
-gulp.task('prod', gulp.series('env:set-prod', 'default', 'revision:hash', 'revision:replace'));
-gulp.task('prod:serve', gulp.series('env:set-prod', 'default', 'revision:hash', 'revision:replace', 'serve'));
+gulp.task('default', gulp.parallel('blocks:styles', 'lint:styles', 'blocks:assets', 'blocks:js'));
+gulp.task('prod', gulp.series('env:set-prod', 'default'));
+gulp.task('prod:serve', gulp.series('env:set-prod', 'default', 'serve'));
 gulp.task('dev', gulp.series('env:set-dev', 'default', gulp.parallel('watch', 'serve:watch')));
 gulp.task('dev:serve', gulp.series('env:set-dev', 'default', 'serve'));
