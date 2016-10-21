@@ -146,6 +146,9 @@ module Ossert
         @quarters_start_date = @quarters_start_date.to_time
         @quarters_end_date = @quarters_end_date.to_time
 
+        @maturity_metrics = ::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
+          ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys
+
         @decorated_project = @project.decorated
 
         erb :show
