@@ -5,6 +5,7 @@ import { init as helpTooltipInit } from './blocks/help-tooltip';
 import { draw } from './blocks/gem-stats-chart';
 import { smoothAnchorScrolling } from './blocks/link';
 import { isMobileView } from './blocks/utils';
+import searchForm from './blocks/search';
 
 $(() => {
   $(window).on('scroll', rafThrottle(onScroll));
@@ -16,6 +17,7 @@ $(() => {
     helpTooltipInit();
   }
 
+  searchForm('.search');
   $('.gem-stats-chart').each(function onEachChart() {
     draw(this, $(this).data('columns'));
   });
