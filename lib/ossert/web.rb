@@ -168,30 +168,31 @@ module Ossert
       end
 
       get '/:name' do
-        @project = Ossert::Project.load_by_name(params[:name])
-        unless @project
-          @name = params[:name]
-          return erb(:not_found)
+        begin
+          @project = Ossert::Project.load_by_name(params[:name])
+          unless @project
+            @name = params[:name]
+            return erb(:not_found)
+          end
+
+          @analysis_gr = @project.grade_by_growing_classifier
+
+          @popularity_metrics = ::Settings['stats']['community']['total']['metrics'] +
+                                ::Settings['stats']['community']['quarter']['metrics']
+
+          @maintenance_metrics = ::Settings['stats']['agility']['total']['metrics'] +
+                                ::Settings['stats']['agility']['quarter']['metrics']
+
+          @maturity_metrics = ::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
+            ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys
+
+          @decorated_project = @project.decorated
+
+          erb :show
+        rescue
+          session[:fail] = "Sorry, could not load <big>\"#{params[:name]}\"</big> project now,. We'll fix that soon..."
+          redirect to('/')
         end
-
-        @analysis_gr = @project.grade_by_growing_classifier
-
-        @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
-        @quarters_start_date = @quarters_start_date.to_time
-        @quarters_end_date = @quarters_end_date.to_time
-
-        @popularity_metrics = ::Settings['stats']['community']['total']['metrics'] +
-                              ::Settings['stats']['community']['quarter']['metrics']
-
-        @maintenance_metrics = ::Settings['stats']['agility']['total']['metrics'] +
-                              ::Settings['stats']['agility']['quarter']['metrics']
-
-        @maturity_metrics = ::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
-          ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys
-
-        @decorated_project = @project.decorated
-
-        erb :show
       end
     end
   end
