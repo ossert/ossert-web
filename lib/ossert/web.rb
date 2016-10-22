@@ -28,10 +28,11 @@ module Ossert
     class App < Sinatra::Base
       set :views, File.dirname(__FILE__) + '/../../views'
       set :public_dir, File.dirname(__FILE__) + '/../../public'
+      enable :sessions
 
       get '/' do
-        require'pry';binding.pry
         @fail = session[:fail]
+        session[:fail] = nil
 
         erb :index
       end
@@ -77,8 +78,7 @@ module Ossert
           return erb(:not_found) unless project
           redirect to(params[:name])
         rescue
-          require'pry';binding.pry
-          session[:fail] = "Could not get enough information for project <big>\"#{params[:name]}\"</big>..."
+          session[:fail] = "Trying to get enough information for project <big>\"#{params[:name]}\"</big>..."
           redirect to('/')
         end
       end
