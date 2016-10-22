@@ -30,6 +30,9 @@ module Ossert
       set :public_dir, File.dirname(__FILE__) + '/../../public'
 
       get '/' do
+        require'pry';binding.pry
+        @fail = session[:fail]
+
         erb :index
       end
 
@@ -64,7 +67,7 @@ module Ossert
       get '/search/:name' do
         project = Ossert::Project.load_by_name(params[:name])
         return erb(:not_found) unless project
-        redirect(params[:name])
+        redirect to(params[:name])
       end
 
       get '/suggest/:name' do
@@ -72,10 +75,11 @@ module Ossert
           Ossert::Project.fetch_all(params[:name])
           project = Ossert::Project.load_by_name(name)
           return erb(:not_found) unless project
-          redirect(params[:name])
+          redirect to(params[:name])
         rescue
-          session[:fail] = "Could not get enough information for project \"#{params[:name]}\""
-          erb :index
+          require'pry';binding.pry
+          session[:fail] = "Could not get enough information for project <big>\"#{params[:name]}\"</big>..."
+          redirect to('/')
         end
       end
 
