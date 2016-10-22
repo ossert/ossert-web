@@ -8,12 +8,14 @@ import { isMobileView } from './blocks/utils';
 import searchForm from './blocks/search';
 
 $(() => {
-  $(window).on('scroll', rafThrottle(onScroll));
-  onScroll();
+  if ($('#sticky-project-header').length) {
+    $(window).on('scroll', rafThrottle(onScroll));
+    onScroll();
+  }
 
   smoothAnchorScrolling();
 
-  if (!isMobileView()) {
+  if (!isMobileView() && $('.help-tooltip').length) {
     helpTooltipInit();
   }
 
