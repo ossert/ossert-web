@@ -727,9 +727,11 @@ html {
   font-weight: 700;
 }
 .help-tooltip__info-icon {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   width: 24px;
   height: 24px;
-  margin-left: 6;
+  margin-left: 6px;
   color: #2c3e50;
 }
 .help-tooltip__description {

@@ -30,7 +30,7 @@ module Ossert
       set :public_dir, File.dirname(__FILE__) + '/../../public'
 
       get '/' do
-        slim :index
+        erb :index
       end
 
       get '/last_year_graph/:metric' do
@@ -56,6 +56,23 @@ module Ossert
         @metric = params[:metric]
 
         slim :graph_show, layout: false
+      end
+
+      get '/search/:name' do
+        project = Ossert::Project.load_by_name(params[:name])
+        return erb :not_found unless project
+        redirect(params[:name])
+      end
+
+      get '/suggest/:name' do
+        begin
+          Ossert::Project.fetch_all(params[:name])
+          project = Ossert::Project.load_by_name(name)
+          erb :not_found unless project
+          redirect(params[:name])
+        rescue
+          erb :not_found
+        end
       end
 
       get '/section_graph/:section' do
