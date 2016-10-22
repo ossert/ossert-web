@@ -58,9 +58,9 @@
 
   <div class="page-index">
     <p class="page-index__description">
-      Sorry, but gem <big> "<%= @params[:name] %>" </big> was not analyzed yet.
+      Sorry, but gem <big> "<%= @name || @params[:name] %>" </big> was not analyzed yet.
         <br>
-You can try suggest <a href="/suggest/<%= @params[:name] %>"> suggest </a> it.
+You can try suggest <a href="/suggest/<%= @name || @params[:name] %>"> suggest </a> it.
     </p>
   </div>
     <footer class="footer">

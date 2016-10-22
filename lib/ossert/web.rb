@@ -42,7 +42,10 @@ module Ossert
 
         @projects = params[:projects].split(',').map do |name|
           project = Ossert::Project.load_by_name(name)
-          return "Project '#{name}' Not Found" unless project
+          unless project
+            @name = name
+            return erb(:not_found)
+          end
           project.decorated
         end
 
@@ -60,7 +63,7 @@ module Ossert
 
       get '/search/:name' do
         project = Ossert::Project.load_by_name(params[:name])
-        return erb :not_found unless project
+        return erb(:not_found) unless project
         redirect(params[:name])
       end
 
@@ -68,10 +71,11 @@ module Ossert
         begin
           Ossert::Project.fetch_all(params[:name])
           project = Ossert::Project.load_by_name(name)
-          erb :not_found unless project
+          return erb(:not_found) unless project
           redirect(params[:name])
         rescue
-          erb :not_found
+          session[:fail] = "Could not get enough information for project \"#{params[:name]}\""
+          erb :index
         end
       end
 
@@ -115,7 +119,10 @@ module Ossert
 
         @projects = params[:projects].split(',').map do |name|
           project = Ossert::Project.load_by_name(name)
-          return "Project '#{name}' Not Found" unless project
+          unless project
+            @name = name
+            return erb(:not_found)
+          end
 
           @quarters_start_date, @quarters_end_date = project.prepare_time_bounds!(
             extended_start: @quarters_start_date,
@@ -142,7 +149,10 @@ module Ossert
 
       get '/history/:name' do
         @project = Ossert::Project.load_by_name(params[:name])
-        return "Project '#{params[:name]}' Not Found" unless @project
+        unless @project
+          @name = name
+          return erb(:not_found)
+        end
 
         @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
         @quarters_start_date = @quarters_start_date.to_time
@@ -155,7 +165,10 @@ module Ossert
 
       get '/:name' do
         @project = Ossert::Project.load_by_name(params[:name])
-        return "Not Found" unless @project
+        unless @project
+          @name = params[:name]
+          return erb(:not_found)
+        end
 
         @analysis_gr = @project.grade_by_growing_classifier
 
