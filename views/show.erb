@@ -84,18 +84,48 @@
                         </div>
                     </div>
                     <p class="gem__description">
-                        <%= @project.meta["description"] %>
+                      <p><%= @project.meta["description"] %></p>
+                      <% if @project.meta["current_version"] %>
+                        <p class="gems-stats-table__cell_title">Current version: </p><p> <%= @project.meta["current_version"] %></p>
+                      <% end %>
+
+                      <% if @project.meta["authors"] %>
+                        <p class="gems-stats-table__cell_title">Authors: </p><p><%= @project.meta["authors"] %></p>
+                      <% end %>
+
+                      <% if @project.meta["top_10_contributors"].present? %>
+                        <p class="gems-stats-table__cell_title">Top Contributors:</p>
+                        <p>
+                        <% @project.meta["top_10_contributors"].each do |contributor| %>
+                          <% name = contributor.split('/').last %>
+                          <a class="gem__link link" href="<%= contributor %>" rel="nofollow" target="_blank"> <%= name %> </a>
+                        <% end %>
+                        </p>
+                      <% end %>
                     </p>
-                    <div class="gem__links">
-                      <a class="gem__link link" href="<%= @project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
+                  <div class="gem__links">
+                    <p class="gems-stats-table__cell_title"> Links: </p>
+                    <p>
+                      <% if @project.meta["homepage_url"] %>
+                        <a class="gem__link link" href="<%= @project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
+                      <% end %>
+                      <% if @project.meta["docs_url"] %>
                         <a class="gem__link link" href="<%= @project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
+                      <% end %>
+                      <% if @project.meta["wiki_url"] %>
                         <a class="gem__link link" href="<%= @project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
+                      <% end %>
+                      <% if @project.meta["source_url"] %>
                         <a class="gem__link link" href="<%= @project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
+                      <% end %>
+                      <% if @project.meta["issue_tracker_url"] %>
                         <a class="gem__link link" href="<%= @project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
+                      <% end %>
                     </div>
                     <div class="gem__links">
-                        <a class="gem__link link" href="/suggest/<%= @project.name %>" rel="nofollow" target="_blank">&#8635; Request Update</a>
+                        <a class="gem__link link" href="/suggest/<%= @project.name %>">&#8635; Request Update</a>
                     </div>
+                    </p>
                 </div>
             </div>
             <aside class="layout__sidebar-section">
@@ -195,6 +225,7 @@
                         <thead class="gems-stats-table__header">
                         <tr class="gems-stats-table__header-row">
                             <th class="gems-stats-table__header-cell">Metric</th>
+                            <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This Year</th>
                             <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
                         </tr>
                         </thead>
