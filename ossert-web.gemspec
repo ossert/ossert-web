@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "sinatra"
+  spec.add_runtime_dependency "puma"
   spec.add_runtime_dependency "slim"
   spec.add_runtime_dependency "sass"
   spec.add_runtime_dependency "thin"
