@@ -170,11 +170,11 @@ module Ossert
 
           @analysis_gr = @project.grade_by_growing_classifier
 
-          @popularity_metrics = (::Settings['stats']['community']['total']['metrics'] +
-                                 ::Settings['stats']['community']['quarter']['metrics']).uniq
+          @popularity_metrics = (::Settings['stats']['community']['quarter']['metrics'] +
+                                 ::Settings['stats']['community']['total']['metrics']).uniq
 
-          @maintenance_metrics = (::Settings['stats']['agility']['total']['metrics'] +
-                                  ::Settings['stats']['agility']['quarter']['metrics']).uniq
+          @maintenance_metrics = (::Settings['stats']['agility']['quarter']['metrics'] +
+                                  ::Settings['stats']['agility']['total']['metrics']).uniq
 
           @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
                                ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
