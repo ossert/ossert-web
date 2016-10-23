@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 180582e18d2faafbddcd0405ee9e56cc90efcb1f
+  revision: ec4f8ecb8d634a0f25f0b25e5e663ac66dee40ce
   specs:
     ossert (0.1.0)
       activesupport
@@ -13,6 +13,7 @@ GIT
       rom-repository
       rom-sql
       sequel
+      sucker_punch (~> 2.0)
 
 GIT
   remote: git://github.com/sclinede/decisiontree.git
@@ -144,6 +145,8 @@ GEM
       temple (~> 0.7.6)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
+    sucker_punch (2.0.2)
+      concurrent-ruby (~> 1.0.0)
     temple (0.7.7)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)

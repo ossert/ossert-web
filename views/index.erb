@@ -24,7 +24,7 @@
 <main class="layout__content width-container">
   <div class="page-index">
     <p class="page-index__description">
-      <%= @fail || 'Welcome to Ossert!'%>
+      <%= @warn || 'Welcome to Ossert!'%>
       <br>
       You can search for a finished analyzes of a project via its name on Rubygems
     </p>
@@ -36,6 +36,10 @@
         </svg>
       </button>
     </form>
+    <p> Random ready analyzes: </p>
+      <% Ossert::Project.random.each do |project| %>
+        <p><a class="gem__link link" href="/<%= project.name %>"> <%= project.github_name %></a> </p>
+      <% end %>
   </div>
 </main>
 <footer class="footer">

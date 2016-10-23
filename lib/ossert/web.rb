@@ -31,8 +31,8 @@ module Ossert
       enable :sessions
 
       get '/' do
-        @fail = session[:fail]
-        session[:fail] = nil
+        @warn = session[:warn]
+        session[:warn] = nil
 
         erb :index
       end
@@ -53,13 +53,9 @@ module Ossert
           project.decorated
         end
 
-        @metric_type = if Ossert::Stats::CommunityQuarter.metrics.include?(params[:metric])
-                         :community
-                       elsif Ossert::Stats::AgilityQuarter.metrics.include?(params[:metric])
-                         :agility
-                       else
-                         raise "Metric '#{params[:metric]}' Not Found"
-                       end
+        @metric_type = Ossert::Stats.guess_section_by_metric(params[:metric])
+        raise "Metric '#{params[:metric]}' Not Found" if @metric_type == :not_found
+
         @metric = params[:metric]
 
         slim :graph_show, layout: false
@@ -72,15 +68,12 @@ module Ossert
       end
 
       get '/suggest/:name' do
-        begin
-          Ossert::Project.fetch_all(params[:name])
-          project = Ossert::Project.load_by_name(name)
-          return erb(:not_found) unless project
-          redirect to(params[:name])
-        rescue
-          session[:fail] = "Trying to get enough information for project <big>\"#{params[:name]}\"</big>..."
-          redirect to('/')
-        end
+        Ossert::Jobs::Fetch.perform_async(params[:name])
+        project = Ossert::Project.load_by_name(params[:name])
+        return redirect(to(params[:name])) if project
+
+        session[:warn] = "Trying to get enough information for project <big>\"#{params[:name]}\"</big>..."
+        redirect to('/')
       end
 
       get '/section_graph/:section' do
@@ -183,14 +176,14 @@ module Ossert
           @maintenance_metrics = (::Settings['stats']['agility']['total']['metrics'] +
                                   ::Settings['stats']['agility']['quarter']['metrics']).uniq
 
-          @maturity_metrics = ::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
-            ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys
+          @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
+                               ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
 
           @decorated_project = @project.decorated
 
           erb :show
         rescue
-          session[:fail] = "Sorry, could not load <big>\"#{params[:name]}\"</big> project now,. We'll fix that soon..."
+          session[:warn] = "Sorry, could not load <big>\"#{params[:name]}\"</big> project now,. We'll fix that soon..."
           redirect to('/')
         end
       end
