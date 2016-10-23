@@ -166,7 +166,6 @@
                                 </td>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
                                   <% value = @project.decorated.community_total[metric] %>
-
                                     <span class="mark-text mark-text_<%= value.try(:[], :mark) %>"><%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
                             </tr>

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 66efdb2281b5b9ef47afbbe03fa378d5e04f3f75
+  revision: af8d44eba532fe6b7047e00ce51c1c95816d23e4
   specs:
     ossert (0.1.0)
       activesupport
@@ -51,7 +51,7 @@ GEM
     concurrent-ruby (1.0.2)
     daemons (1.2.4)
     diff-lcs (1.2.5)
-    dry-configurable (0.1.7)
+    dry-configurable (0.3.0)
       concurrent-ruby (~> 1.0)
     dry-container (0.5.0)
       concurrent-ruby (~> 1.0)
