@@ -34,6 +34,7 @@ PATH
   specs:
     ossert-web (0.1.0)
       puma
+      puma_worker_killer
       rake
       sass
       sinatra
@@ -77,6 +78,7 @@ GEM
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     gems (0.8.3)
+    get_process_mem (0.2.1)
     graphr (0.2.1)
     i18n (0.7.0)
     inflecto (0.0.2)
@@ -95,6 +97,9 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     puma (3.6.0)
+    puma_worker_killer (0.0.7)
+      get_process_mem (~> 0.2)
+      puma (>= 2.7, < 4)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
