@@ -183,7 +183,7 @@ module Ossert
 
           erb :show
         rescue
-          session[:warn] = "Sorry, could not load <big>\"#{params[:name]}\"</big> project now,. We'll fix that soon..."
+          session[:warn] = "Sorry, could not load <big>\"#{params[:name]}\"</big> project now. We'll fix that soon..."
           redirect to('/')
         end
       end

@@ -13,21 +13,19 @@ ul{style="padding-left: 1em;"}
       - current_year = quarter_start.year
       div{style="text-align: center; margin-left: -50px;"}
         h3= "Year #{quarter_start.strftime('%Y')}"
-      div{style="width: 1000px; margin: auto; text-align: center;"}
-        div{style="max-width: 500px; float: left; padding: 1em; width: 500px"}
+      div{style="width: 1200px; margin: auto; text-align: center;"}
+        div{style="max-width: 600px; float: left; padding: 1em; width: 500px"}
           h3 Popularity
 
-        div{style="margin-left: 500px; border-left: 1px solid gray; padding: 1em;"}
-          h3 Maintenance Quality
+        div{style="margin-left: 600px; border-left: 1px solid gray; padding: 1em;"}
+          h3 Maintenance
       hr
     li
       h4= "Period: #{quarter_start.strftime('%B')}  ->  #{quarter_end.strftime('%B')}"
-      div{style="width: 1000px; margin: auto;"}
-        div{style="max-width: 500px; float: left;"}
-          /strong= "Popularity:"
+      div{style="width: 1200px; margin: auto;"}
+        div{style="max-width: 600px; float: left;"}
           pre= "#{JSON.pretty_generate(@decorated_project.community_quarter(quarter))}"
-        div{style="margin-left: 500px; border-left: 1px solid gray; padding-left: 1em;"}
-          /strong= "Maintenance Quality: "
+        div{style="margin-left: 600px; border-left: 1px solid gray; padding-left: 1em;"}
           pre="#{JSON.pretty_generate(@decorated_project.agility_quarter(quarter))}"
       br
 
