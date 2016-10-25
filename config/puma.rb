@@ -5,7 +5,7 @@ before_fork do
     config.ram           = 1024 # mb
     config.frequency     = 5    # seconds
     config.percent_usage = 0.98
-    config.rolling_restart_frequency = 1800 # 30 min in seconds
+    config.rolling_restart_frequency = 2 * 3600 # 2 hours in seconds
   end
   PumaWorkerKiller.start
 end
