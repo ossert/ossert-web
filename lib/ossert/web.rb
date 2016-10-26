@@ -68,7 +68,7 @@ module Ossert
       end
 
       get '/suggest/:name' do
-        Ossert::Jobs::Fetch.perform_async(params[:name])
+        Ossert::Workers::Fetch.perform_async(params[:name])
         project = Ossert::Project.load_by_name(params[:name])
         return redirect(to(params[:name])) if project
 
