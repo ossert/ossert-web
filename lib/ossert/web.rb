@@ -128,8 +128,7 @@ module Ossert
 
       get '/suggest/:name' do
         Ossert::Workers::Fetch.perform_async(params[:name])
-        project = Ossert::Project.load_by_name(params[:name])
-        return redirect(to(params[:name])) if project
+        return redirect(to(params[:name])) if Ossert::Project.exist?(params[:name])
 
         session[:warn] = "Trying to get enough information for project <big>\"#{params[:name]}\"</big>..."
         redirect to('/')
