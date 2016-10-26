@@ -3,7 +3,7 @@ require 'ossert'
 SIDEKIQ_REDIS_CONFIGURATION = {
   url: ENV.fetch('REDIS_URL'),
   namespace: 'ossert_sidekiq',
-  size: 10
+  size: 9
 }
 
 Sidekiq.configure_server do |config|

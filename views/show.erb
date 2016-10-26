@@ -60,10 +60,10 @@
             <div class="layout__content-section">
                 <div class="gem">
                     <div class="gem-header" id="sticky-project-header">
-                      <h1 class="gem-header__heading"><%= @project.name %></h1>
+                      <h1 class="gem-header__heading"><%= project.name %></h1>
                         <div class="gem-header__fixed gem-header__fixed_hidden">
                             <div class="gem-header__fixed-container width-container">
-                                <h1 class="gem-header__fixed-heading"><%= @project.name %></h1>
+                                <h1 class="gem-header__fixed-heading"><%= project.name %></h1>
                                 <ul class="gem-header__fixed-items">
                                     <li class="gem-header__fixed-item">
                                         <a href="#popularity" class="gem-header__fixed-item-link link">Popularity</a>
@@ -84,19 +84,19 @@
                         </div>
                     </div>
                     <p class="gem__description">
-                      <p><%= @project.meta["description"] %></p>
-                      <% if @project.meta["current_version"] %>
-                        <p class="gems-stats-table__cell_title">Current version: </p><p> <%= @project.meta["current_version"] %></p>
+                      <p><%= project.meta["description"] %></p>
+                      <% if project.meta["current_version"] %>
+                        <p class="gems-stats-table__cell_title">Current version: </p><p> <%= project.meta["current_version"] %></p>
                       <% end %>
 
-                      <% if @project.meta["authors"] %>
-                        <p class="gems-stats-table__cell_title">Authors: </p><p><%= @project.meta["authors"] %></p>
+                      <% if project.meta["authors"] %>
+                        <p class="gems-stats-table__cell_title">Authors: </p><p><%= project.meta["authors"] %></p>
                       <% end %>
 
-                      <% if @project.meta["top_10_contributors"].present? %>
+                      <% if project.meta["top_10_contributors"].present? %>
                         <p class="gems-stats-table__cell_title">Top Contributors:</p>
                         <p>
-                        <% @project.meta["top_10_contributors"].each do |contributor| %>
+                        <% project.meta["top_10_contributors"].each do |contributor| %>
                           <% name = contributor.split('/').last %>
                           <a class="gem__link link" href="<%= contributor %>" rel="nofollow" target="_blank"> <%= name %> </a>
                         <% end %>
@@ -106,25 +106,25 @@
                   <div class="gem__links">
                     <p class="gems-stats-table__cell_title"> Links: </p>
                     <p>
-                      <% if @project.meta["homepage_url"] %>
-                        <a class="gem__link link" href="<%= @project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
+                      <% if project.meta["homepage_url"] %>
+                        <a class="gem__link link" href="<%= project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
                       <% end %>
-                      <% if @project.meta["docs_url"] %>
-                        <a class="gem__link link" href="<%= @project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
+                      <% if project.meta["docs_url"] %>
+                        <a class="gem__link link" href="<%= project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
                       <% end %>
-                      <% if @project.meta["wiki_url"] %>
-                        <a class="gem__link link" href="<%= @project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
+                      <% if project.meta["wiki_url"] %>
+                        <a class="gem__link link" href="<%= project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
                       <% end %>
-                      <% if @project.meta["source_url"] %>
-                        <a class="gem__link link" href="<%= @project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
+                      <% if project.meta["source_url"] %>
+                        <a class="gem__link link" href="<%= project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
                       <% end %>
-                      <% if @project.meta["issue_tracker_url"] %>
-                        <a class="gem__link link" href="<%= @project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
+                      <% if project.meta["issue_tracker_url"] %>
+                        <a class="gem__link link" href="<%= project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
                       <% end %>
                     </div>
                     <div class="gem__links">
-                        <a class="gem__link link" href="/suggest/<%= @project.name %>">&#8635; Request Update</a>
-                        <span>Updated at: <%= @project.updated_at.strftime('%d/%m/%Y %H:%M') %></span>
+                        <a class="gem__link link" href="/suggest/<%= project.name %>">&#8635; Request Update</a>
+                        <span>Updated at: <%= project.updated_at.strftime('%d/%m/%Y %H:%M') %></span>
                     </div>
                     </p>
                 </div>
@@ -133,24 +133,24 @@
                 <ul class="gem-main-stats">
                     <li class="gem-main-stats__item">
                         <a href="#popularity" class="gem-main-stats__item-link">
-                            <svg class="icon icon_type_mark-<%= @analysis_gr[:popularity].downcase %> gem-main-stats__item-mark">
-                                <use xlink:href="#icon_type_mark-<%= @analysis_gr[:popularity].downcase %>"></use>
+                            <svg class="icon icon_type_mark-<%= analysis_gr[:popularity].downcase %> gem-main-stats__item-mark">
+                                <use xlink:href="#icon_type_mark-<%= analysis_gr[:popularity].downcase %>"></use>
                             </svg>
                             Popularity
                         </a>
                     </li>
                     <li class="gem-main-stats__item">
                         <a href="#maintenance" class="gem-main-stats__item-link">
-                            <svg class="icon icon_type_mark-<%= @analysis_gr[:maintenance].downcase %> gem-main-stats__item-mark">
-                                <use xlink:href="#icon_type_mark-<%= @analysis_gr[:maintenance].downcase %>"></use>
+                            <svg class="icon icon_type_mark-<%= analysis_gr[:maintenance].downcase %> gem-main-stats__item-mark">
+                                <use xlink:href="#icon_type_mark-<%= analysis_gr[:maintenance].downcase %>"></use>
                             </svg>
                             Maintenance
                         </a>
                     </li>
                     <li class="gem-main-stats__item">
                         <a href="#maturity" class="gem-main-stats__item-link">
-                            <svg class="icon icon_type_mark-<%= @analysis_gr[:maturity].downcase %> gem-main-stats__item-mark">
-                                <use xlink:href="#icon_type_mark-<%= @analysis_gr[:maturity].downcase %>"></use>
+                            <svg class="icon icon_type_mark-<%= analysis_gr[:maturity].downcase %> gem-main-stats__item-mark">
+                                <use xlink:href="#icon_type_mark-<%= analysis_gr[:maturity].downcase %>"></use>
                             </svg>
                             Maturity
                         </a>
@@ -165,10 +165,10 @@
                         <h3 class="gem-stats__header">Popularity</h3>
                         <div
                             class="gem-stats__chart gem-stats-chart"
-                            data-columns='<%=@project.decorated.fast_preview_graph_data[:popularity].to_json%>'
+                            data-columns='<%=project.decorated.fast_preview_graph_data[:popularity].to_json%>'
                         ></div>
-                        <svg class="icon icon_type_mark-<%= @analysis_gr[:popularity].downcase %> gem-stats__mark">
-                          <use xlink:href="#icon_type_mark-<%= @analysis_gr[:popularity].downcase %>"></use>
+                        <svg class="icon icon_type_mark-<%= analysis_gr[:popularity].downcase %> gem-stats__mark">
+                          <use xlink:href="#icon_type_mark-<%= analysis_gr[:popularity].downcase %>"></use>
                         </svg>
                     </header>
                     <p class="gem-stats__description">
@@ -183,10 +183,10 @@
                             </tr>
                         </thead>
                         <tbody class="gems-stats-table__body">
-                          <% @popularity_metrics.each do |metric| %>
+                          <% popularity_metrics.each do |metric| %>
                             <tr
                                 class="gems-stats-table__row"
-                                data-tooltip='<%= JSON.generate @project.decorated.tooltip_data(metric) %>'
+                                data-tooltip='<%= JSON.generate project.decorated.tooltip_data(metric) %>'
                             >
                                 <td class="gems-stats-table__cell gems-stats-table__cell_title">
                                     <%= Ossert.t(metric) %>
@@ -195,11 +195,11 @@
                                     </svg>
                                 </td>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                                  <% value = @project.decorated.community_last_year[metric] %>
+                                  <% value = project.decorated.community_last_year[metric] %>
                                   <span class="mark-text mark-text_<%= value.try(:[], :mark) %>"> <%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                                  <% value = @project.decorated.community_total[metric] %>
+                                  <% value = project.decorated.community_total[metric] %>
                                     <span class="mark-text mark-text_<%= value.try(:[], :mark) %>"><%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
                             </tr>
@@ -213,10 +213,10 @@
                         <h3 class="gem-stats__header">Maintenance</h3>
                         <div
                             class="gem-stats__chart gem-stats-chart"
-                            data-columns='<%=@project.decorated.fast_preview_graph_data[:maintenance].to_json%>'
+                            data-columns='<%=project.decorated.fast_preview_graph_data[:maintenance].to_json%>'
                         ></div>
-                        <svg class="icon icon_type_mark-<%= @analysis_gr[:maintenance].downcase %> gem-stats__mark">
-                            <use xlink:href="#icon_type_mark-<%= @analysis_gr[:maintenance].downcase %>"></use>
+                        <svg class="icon icon_type_mark-<%= analysis_gr[:maintenance].downcase %> gem-stats__mark">
+                            <use xlink:href="#icon_type_mark-<%= analysis_gr[:maintenance].downcase %>"></use>
                         </svg>
                     </header>
                     <p class="gem-stats__description">
@@ -231,10 +231,10 @@
                         </tr>
                         </thead>
                         <tbody class="gems-stats-table__body">
-                          <% @maintenance_metrics.each do |metric|  %>
+                          <% maintenance_metrics.each do |metric|  %>
                             <tr
                                 class="gems-stats-table__row"
-                                data-tooltip='<%= JSON.generate @project.decorated.tooltip_data(metric) %>'
+                                data-tooltip='<%= JSON.generate project.decorated.tooltip_data(metric) %>'
                             >
                                 <td class="gems-stats-table__cell gems-stats-table__cell_title">
                                     <%= Ossert.t(metric) %>
@@ -242,12 +242,12 @@
                                         <use xlink:href="#icon_type_info"></use>
                                     </svg>
                                 </td>
-                                  <% value = @project.decorated.agility_last_year[metric] %>
+                                  <% value = project.decorated.agility_last_year[metric] %>
 
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
                                   <span class="mark-text mark-text_<%= value.try :[], :mark %>"> <%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
-                                  <% value = @project.decorated.agility_total[metric] %>
+                                  <% value = project.decorated.agility_total[metric] %>
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
                                     <span class="mark-text mark-text_<%= value.try :[], :mark %>"><%= value.try(:[], :text) || 'N/A' %></span>
                                 </td>
@@ -262,10 +262,10 @@
                         <h3 class="gem-stats__header">Maturity</h3>
                         <div
                             class="gem-stats__chart gem-stats-chart"
-                            data-columns='<%=@project.decorated.fast_preview_graph_data[:maturity].to_json%>'
+                            data-columns='<%=project.decorated.fast_preview_graph_data[:maturity].to_json%>'
                         ></div>
-                        <svg class="icon icon_type_mark-<%= @analysis_gr[:maturity].downcase %> gem-stats__mark">
-                          <use xlink:href="#icon_type_mark-<%= @analysis_gr[:maturity].downcase %>"></use>
+                        <svg class="icon icon_type_mark-<%= analysis_gr[:maturity].downcase %> gem-stats__mark">
+                          <use xlink:href="#icon_type_mark-<%= analysis_gr[:maturity].downcase %>"></use>
                         </svg>
                     </header>
                     <p class="gem-stats__description">
@@ -281,12 +281,12 @@
                         </thead>
                         <tbody class="gems-stats-table__body">
 
-                          <% @maturity_metrics.each do |metric|  %>
+                          <% maturity_metrics.each do |metric|  %>
                             <% section = Ossert::Stats.guess_section_by_metric(metric) %>
                             <% next if section.to_s =~ /not_found/ %>
                             <tr
                                 class="gems-stats-table__row"
-                                data-tooltip='<%= JSON.generate @project.decorated.tooltip_data(metric) %>'
+                                data-tooltip='<%= JSON.generate project.decorated.tooltip_data(metric) %>'
                             >
                                 <td class="gems-stats-table__cell gems-stats-table__cell_title">
                                     <%= Ossert.t(metric) %>
@@ -294,8 +294,8 @@
                                         <use xlink:href="#icon_type_info"></use>
                                     </svg>
                                 </td>
-                                <% section_last_year = @project.decorated.send("#{section}_last_year")[metric] %>
-                                <% section_total = @project.decorated.send("#{section}_total")[metric] %>
+                                <% section_last_year = project.decorated.send("#{section}_last_year")[metric] %>
+                                <% section_total = project.decorated.send("#{section}_total")[metric] %>
 
                                 <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
                                   <span class="mark-text mark-text_<%= section_last_year.try(:[], :mark) %>"> <%=section_last_year.try(:[], :text) || 'N/A' %></span>

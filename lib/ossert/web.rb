@@ -3,10 +3,67 @@ require "ossert"
 require "sinatra"
 require "slim"
 require "sass"
-
+require 'sinatra/redis-cache'
 
 module Ossert
   module Web
+    class Warmup
+      class << self
+        attr_reader :popularity_metrics, :maintenance_metrics, :maturity_metrics, :show_template, :not_found_template
+
+        def perform
+          @popularity_metrics = (::Settings['stats']['community']['quarter']['metrics'] +
+                                ::Settings['stats']['community']['total']['metrics']).uniq
+
+          @maintenance_metrics = (::Settings['stats']['agility']['quarter']['metrics'] +
+                                  ::Settings['stats']['agility']['total']['metrics']).uniq
+
+          @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
+                              ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
+
+          @show_template = Tilt.new('views/show.erb'.freeze)
+          @not_found_template = Tilt.new('views/not_found.erb'.freeze)
+
+          ::Ossert::Classifiers.train
+        end
+      end
+    end
+
+    class Renderer
+      attr_reader :params, :project, :analysis_gr,
+                  :popularity_metrics,
+                  :maintenance_metrics,
+                  :maturity_metrics,
+                  :name
+
+      def self.show(params)
+        new(params).show
+      end
+
+      def initialize(params)
+        @params = params
+      end
+
+      def show
+        @project = Ossert::Project.load_by_name(params[:name])
+        unless @project
+          return Warmup.not_found_template.render(self)
+        end
+
+        @analysis_gr = @project.grade_by_growing_classifier
+
+        @popularity_metrics = Warmup.popularity_metrics
+        @maintenance_metrics = Warmup.maintenance_metrics
+        @maturity_metrics = Warmup.maturity_metrics
+
+        require 'weakref'
+        Warmup.show_template.render(WeakRef.new(self))
+      ensure
+        @project = nil
+        GC.start
+      end
+    end
+
     class SassHandler < Sinatra::Base
       set :views, File.dirname(__FILE__) + '/assets/sass'
 
@@ -30,6 +87,8 @@ module Ossert
       set :public_dir, File.dirname(__FILE__) + '/../../public'
       enable :sessions
 
+      helpers ::Sinatra::RedisCache
+
       get '/' do
         @warn = session[:warn]
         session[:warn] = nil
@@ -47,7 +106,7 @@ module Ossert
         @projects = params[:projects].split(',').map do |name|
           project = Ossert::Project.load_by_name(name)
           unless project
-            @name = name
+            session[:name] = name
             return erb(:not_found)
           end
           project.decorated
@@ -147,7 +206,6 @@ module Ossert
       get '/history/:name' do
         @project = Ossert::Project.load_by_name(params[:name])
         unless @project
-          @name = name
           return erb(:not_found)
         end
 
@@ -160,31 +218,14 @@ module Ossert
         slim :history
       end
 
+      # FIXME: Missing favicon
+      get '/favicon.ico' do
+        ''
+      end
+
       get '/:name' do
-        begin
-          @project = Ossert::Project.load_by_name(params[:name])
-          unless @project
-            @name = params[:name]
-            return erb(:not_found)
-          end
-
-          @analysis_gr = @project.grade_by_growing_classifier
-
-          @popularity_metrics = (::Settings['stats']['community']['quarter']['metrics'] +
-                                 ::Settings['stats']['community']['total']['metrics']).uniq
-
-          @maintenance_metrics = (::Settings['stats']['agility']['quarter']['metrics'] +
-                                  ::Settings['stats']['agility']['total']['metrics']).uniq
-
-          @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
-                               ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
-
-          @decorated_project = @project.decorated
-
-          erb :show
-        rescue
-          session[:warn] = "Sorry, could not load <big>\"#{params[:name]}\"</big> project now. We'll fix that soon..."
-          redirect to('/')
+        cache_do(params[:name], 2 * 3600) do
+          Renderer.show(params)
         end
       end
     end

@@ -30,9 +30,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "sinatra"
   spec.add_runtime_dependency "puma"
   spec.add_runtime_dependency "puma_worker_killer"
+  spec.add_runtime_dependency "sinatra-redis-cache"
+  spec.add_runtime_dependency "erubis"
   spec.add_runtime_dependency "slim"
   spec.add_runtime_dependency "sass"
-  spec.add_runtime_dependency "thin"
   spec.add_runtime_dependency "rake"
 
   spec.add_development_dependency "pry"
