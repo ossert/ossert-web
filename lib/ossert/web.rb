@@ -4,63 +4,75 @@ require "sinatra"
 require "slim"
 require "sass"
 require 'sinatra/redis-cache'
+require 'weakref'
 
 module Ossert
   module Web
     class Warmup
-      class << self
-        attr_reader :popularity_metrics, :maintenance_metrics, :maturity_metrics, :show_template, :not_found_template
+      attr_reader :popularity_metrics, :maintenance_metrics, :maturity_metrics,
+                  :show_template, :not_found_template,
+                  :cache
 
-        def perform
-          @popularity_metrics = (::Settings['stats']['community']['quarter']['metrics'] +
-                                ::Settings['stats']['community']['total']['metrics']).uniq
+      def self.perform
+        warmup = new
+        warmup.perform
+        warmup
+      end
 
-          @maintenance_metrics = (::Settings['stats']['agility']['quarter']['metrics'] +
-                                  ::Settings['stats']['agility']['total']['metrics']).uniq
+      def perform
+        @popularity_metrics = (::Settings['stats']['community']['quarter']['metrics'] +
+                              ::Settings['stats']['community']['total']['metrics']).uniq
 
-          @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
-                              ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
+        @maintenance_metrics = (::Settings['stats']['agility']['quarter']['metrics'] +
+                                ::Settings['stats']['agility']['total']['metrics']).uniq
 
-          @show_template = Tilt.new('views/show.erb'.freeze)
-          @not_found_template = Tilt.new('views/not_found.erb'.freeze)
+        @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
+                            ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
 
-          ::Ossert::Classifiers.train
-        end
+        @show_template = Tilt.new('views/show.erb'.freeze)
+        @not_found_template = Tilt.new('views/not_found.erb'.freeze)
+
+        @cache = Sinatra::RedisCache::Cache.new
+
+        ::Ossert::Classifiers.train
       end
     end
 
     class Renderer
-      attr_reader :params, :project, :analysis_gr,
+      attr_reader :warmup,
+                  :params, :project, :analysis_gr,
                   :popularity_metrics,
                   :maintenance_metrics,
-                  :maturity_metrics,
-                  :name
+                  :maturity_metrics
 
-      def self.show(params)
-        new(params).show
+      def initialize(warmup)
+        @warmup = warmup
       end
 
-      def initialize(params)
+      def show(params)
         @params = params
-      end
 
-      def show
-        @project = Ossert::Project.load_by_name(params[:name])
-        unless @project
-          return Warmup.not_found_template.render(self)
+        unless Ossert::Project.exist?(params[:name])
+          return warmup.not_found_template.render(self)
         end
 
-        @analysis_gr = @project.grade_by_growing_classifier
+        cache(params[:name], 2.hours) do
+          @project = Ossert::Project.load_by_name(params[:name])
 
-        @popularity_metrics = Warmup.popularity_metrics
-        @maintenance_metrics = Warmup.maintenance_metrics
-        @maturity_metrics = Warmup.maturity_metrics
+          @analysis_gr = project.grade_by_growing_classifier
 
-        require 'weakref'
-        Warmup.show_template.render(WeakRef.new(self))
+          @popularity_metrics = warmup.popularity_metrics
+          @maintenance_metrics = warmup.maintenance_metrics
+          @maturity_metrics = warmup.maturity_metrics
+
+          warmup.show_template.render(WeakRef.new(self))
+        end
       ensure
-        @project = nil
         GC.start
+      end
+
+      def cache(key, expire_in, &block)
+        warmup.cache.do(key, expire_in, block)
       end
     end
 
@@ -87,7 +99,7 @@ module Ossert
       set :public_dir, File.dirname(__FILE__) + '/../../public'
       enable :sessions
 
-      helpers ::Sinatra::RedisCache
+      set :warmup, Warmup.perform
 
       get '/' do
         @warn = session[:warn]
@@ -223,9 +235,7 @@ module Ossert
       end
 
       get '/:name' do
-        cache_do(params[:name], 2 * 3600) do
-          Renderer.show(params)
-        end
+        Renderer.new(WeakRef.new(settings.warmup)).show(WeakRef.new(params))
       end
     end
   end

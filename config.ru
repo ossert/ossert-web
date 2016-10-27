@@ -6,5 +6,4 @@ require './config/redis_cache'
 
 Bundler.require
 
-Ossert::Web::Warmup.perform
 run Ossert::Web::App
