@@ -84,5 +84,3 @@ function createText(paper, chartWidth) {
 
   return text;
 }
-
-
