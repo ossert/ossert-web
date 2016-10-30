@@ -3,7 +3,13 @@
         <div class="layout__content-section">
             <div class="gem">
                 <div class="gem-header" id="sticky-project-header">
-                  <h1 class="gem-header__heading"><%= project.name %></h1>
+                    <div class="gem-header__container">
+                      <h1 class="gem-header__heading"><%= project.name %></h1>
+                      <div class="gem-header__refresh-container">
+                        <p class="gem-header__refresh-date">Updated at: <%= project.updated_at.strftime('%d/%m/%Y %H:%M') %></p>
+                        <a class="gem-header__refresh-button link" href="/suggest/<%= project.name %>">&#8635; Request Update</a>
+                      </div>
+                    </div>
                     <div class="gem-header__fixed gem-header__fixed_hidden">
                         <div class="gem-header__fixed-container width-container">
                             <h1 class="gem-header__fixed-heading"><%= project.name %></h1>
@@ -33,49 +39,51 @@
                     <% if project.meta["current_version"] %>
                         <li class="gem__meta-item">
                             <h6 class="gem__meta-item-header">Current version:</h6>
-                            <div class="gem__meta-item-value"><%= project.meta["current_version"] %></div>
+                            <div class="gem__meta-item-value">
+                                <span class="gem__text"><%= project.meta["current_version"] %></span>
+                            </div>
                         </li>
                     <% end %>
                     <% if project.meta["authors"] %>
                         <li class="gem__meta-item">
-                          <h6 class="gem__meta-item-header">Authors:</h6>
-                          <div class="gem__meta-item-value"><%= project.meta["authors"] %></div>
+                            <h6 class="gem__meta-item-header">Authors:</h6>
+                            <div class="gem__meta-item-value gem__meta-item-value_authors">
+                                <span class="gem__text"><%= project.meta["authors"] %></span>
+                            </div>
                         </li>
                     <% end %>
                     <% if project.meta["top_10_contributors"].present? %>
                         <li class="gem__meta-item">
-                          <h6 class="gem__meta-item-header">Top Contributors:</h6>
-                          <div class="gem__meta-item-value">
-                            <% project.meta["top_10_contributors"].each do |contributor| %>
+                            <h6 class="gem__meta-item-header">Top Contributors:</h6>
+                            <div class="gem__meta-item-value">
+                                <% project.meta["top_10_contributors"].each do |contributor| %>
                                 <% name = contributor.split('/').last %>
                                 <a class="gem__link link" href="<%= contributor %>" rel="nofollow" target="_blank"> <%= name %> </a>
-                            <% end %>
-                          </div>
+                                <% end %>
+                            </div>
                         </li>
                     <% end %>
+                    <li class="gem__meta-item">
+                        <h6 class="gem__meta-item-header">Links: </h6>
+                        <div class="gem__meta-item-value">
+                          <% if project.meta["homepage_url"] %>
+                              <a class="gem__link link" href="<%= project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
+                          <% end %>
+                          <% if project.meta["docs_url"] %>
+                              <a class="gem__link link" href="<%= project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
+                          <% end %>
+                          <% if project.meta["wiki_url"] %>
+                              <a class="gem__link link" href="<%= project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
+                          <% end %>
+                          <% if project.meta["source_url"] %>
+                              <a class="gem__link link" href="<%= project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
+                          <% end %>
+                          <% if project.meta["issue_tracker_url"] %>
+                              <a class="gem__link link" href="<%= project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
+                          <% end %>
+                        </div>
+                    </li>
                 </ul>
-              <div class="gem__links">
-                  <p class="gems-stats-table__cell_title"> Links: </p>
-                      <% if project.meta["homepage_url"] %>
-                        <a class="gem__link link" href="<%= project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
-                      <% end %>
-                      <% if project.meta["docs_url"] %>
-                        <a class="gem__link link" href="<%= project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
-                      <% end %>
-                      <% if project.meta["wiki_url"] %>
-                        <a class="gem__link link" href="<%= project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
-                      <% end %>
-                      <% if project.meta["source_url"] %>
-                        <a class="gem__link link" href="<%= project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
-                      <% end %>
-                      <% if project.meta["issue_tracker_url"] %>
-                        <a class="gem__link link" href="<%= project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
-                      <% end %>
-                  </div>
-                  <div class="gem__links">
-                      <a class="gem__link link" href="/suggest/<%= project.name %>">&#8635; Request Update</a>
-                      <span>Updated at: <%= project.updated_at.strftime('%d/%m/%Y %H:%M') %></span>
-                  </div>
             </div>
         </div>
         <aside class="layout__sidebar-section">

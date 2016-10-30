@@ -7,6 +7,7 @@ module.exports = {
   fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
 
   textColorPrimary: '#333',
+  textColorMuted: '#7b858e',
   textLinkColor: '#4a90e2',
 
   // COLORS

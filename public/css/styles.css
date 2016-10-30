@@ -205,15 +205,62 @@ html {
     font-weight: 600;
     color: #333;
 }
-.gem__links {
-    margin: 24px 0 0;
+.gem__meta {
+    margin: 24px 0;
+    padding: 0;
+    list-style: none;
+}
+.gem__meta-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 12px;
+}
+@media (max-width: 768px) {
+    .gem__meta-item {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+}
+.gem__meta-item-header {
+    min-width: 150px;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    margin: 0 24px 0 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #7b858e;
+    white-space: nowrap;
+}
+@media (max-width: 768px) {
+    .gem__meta-item-header {
+        margin-bottom: 6px;
+    }
+}
+.gem__meta-item-value {
+    display: block;
+}
+.gem__meta-item-value_authors {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.gem__text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
 }
 .gem__link {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     font-size: 16px;
-    line-height: 1.4;
+    line-height: 24px;
     font-weight: 600;
     text-decoration: none;
-    margin-right: 24px;
+    margin-right: 12px;
+    vertical-align: inherit;
 }
 .gem__link:last-child {
     margin-right: 0;
@@ -222,12 +269,65 @@ html {
 .gem-header {
   margin: 0;
 }
+.gem-header__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+@media (max-width: 768px) {
+  .gem-header__container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+.gem-header__refresh-container {
+  text-align: right;
+}
+@media (max-width: 768px) {
+  .gem-header__refresh-container {
+    text-align: left;
+    margin: 24px 0;
+  }
+}
+.gem-header__refresh-button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .gem-header__refresh-button {
+    display: inline-block;
+  }
+}
+.gem-header__refresh-date {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #7b858e;
+}
+@media (max-width: 768px) {
+  .gem-header__refresh-date {
+    display: inline-block;
+  }
+}
 .gem-header__heading {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   font-size: 66px;
   line-height: 72px;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .gem-header__fixed {
   position: fixed;
@@ -783,7 +883,7 @@ html {
 }
 .help-tooltip__table-cell_values-column {
   text-align: right;
-  width: 88px;
+  white-space: nowrap;
 }
 .help-tooltip__table-cell_values-column-penultimate {
   padding-right: 0;
