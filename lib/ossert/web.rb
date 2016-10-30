@@ -9,9 +9,7 @@ require 'weakref'
 module Ossert
   module Web
     class Warmup
-      attr_reader :popularity_metrics, :maintenance_metrics, :maturity_metrics,
-                  :show_template, :not_found_template,
-                  :cache
+      attr_reader :popularity_metrics, :maintenance_metrics, :maturity_metrics, :cache
 
       def self.perform
         warmup = new
@@ -29,50 +27,13 @@ module Ossert
         @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
                             ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
 
-        @show_template = Tilt.new('views/show.erb'.freeze)
-        @not_found_template = Tilt.new('views/not_found.erb'.freeze)
-
         @cache = Sinatra::RedisCache::Cache.new
 
         ::Ossert::Classifiers.train
       end
-    end
-
-    class Renderer
-      attr_reader :warmup,
-                  :params, :project, :analysis_gr,
-                  :popularity_metrics,
-                  :maintenance_metrics,
-                  :maturity_metrics
-
-      def initialize(warmup)
-        @warmup = warmup
-      end
-
-      def show(params)
-        @params = params
-
-        unless Ossert::Project.exist?(params[:name])
-          return warmup.not_found_template.render(self)
-        end
-
-        cache(params[:name], 2.hours) do
-          @project = Ossert::Project.load_by_name(params[:name])
-
-          @analysis_gr = project.grade_by_growing_classifier
-
-          @popularity_metrics = warmup.popularity_metrics
-          @maintenance_metrics = warmup.maintenance_metrics
-          @maturity_metrics = warmup.maturity_metrics
-
-          warmup.show_template.render(WeakRef.new(self))
-        end
-      ensure
-        GC.start
-      end
 
       def cache(key, expire_in, &block)
-        warmup.cache.do(key, expire_in, block)
+        @cache.do(key, expire_in, block)
       end
     end
 
@@ -216,9 +177,7 @@ module Ossert
 
       get '/history/:name' do
         @project = Ossert::Project.load_by_name(params[:name])
-        unless @project
-          return erb(:not_found)
-        end
+        return erb(:not_found) unless @project
 
         @quarters_start_date, @quarters_end_date = @project.prepare_time_bounds!
         @quarters_start_date = @quarters_start_date.to_time
@@ -235,7 +194,21 @@ module Ossert
       end
 
       get '/:name' do
-        Renderer.new(WeakRef.new(settings.warmup)).show(WeakRef.new(params))
+        warmup = settings.warmup
+
+        return erb(:not_found) unless Ossert::Project.exist?(params[:name])
+
+        warmup.cache(params[:name], 2.hours) do
+          project = Ossert::Project.load_by_name(params[:name])
+
+          erb :show, locals: {
+            project: project,
+            analysis_gr: project.grade_by_growing_classifier,
+            popularity_metrics: warmup.popularity_metrics,
+            maintenance_metrics: warmup.maintenance_metrics,
+            maturity_metrics: warmup.maturity_metrics
+          }
+        end
       end
     end
   end
