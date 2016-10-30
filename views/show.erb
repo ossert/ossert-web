@@ -90,24 +90,24 @@
             <ul class="gem-main-stats">
                 <li class="gem-main-stats__item">
                     <a href="#popularity" class="gem-main-stats__item-link">
-                        <svg class="icon icon_type_mark-<%= analysis_gr[:popularity].downcase %> gem-main-stats__item-mark">
-                            <use xlink:href="#icon_type_mark-<%= analysis_gr[:popularity].downcase %>"></use>
+                        <svg class="icon icon_type_mark-<%= analysis[:popularity] %> gem-main-stats__item-mark">
+                            <use xlink:href="#icon_type_mark-<%= analysis[:popularity] %>"></use>
                         </svg>
                         Popularity
                     </a>
                 </li>
                 <li class="gem-main-stats__item">
                     <a href="#maintenance" class="gem-main-stats__item-link">
-                        <svg class="icon icon_type_mark-<%= analysis_gr[:maintenance].downcase %> gem-main-stats__item-mark">
-                            <use xlink:href="#icon_type_mark-<%= analysis_gr[:maintenance].downcase %>"></use>
+                        <svg class="icon icon_type_mark-<%= analysis[:maintenance] %> gem-main-stats__item-mark">
+                            <use xlink:href="#icon_type_mark-<%= analysis[:maintenance] %>"></use>
                         </svg>
                         Maintenance
                     </a>
                 </li>
                 <li class="gem-main-stats__item">
                     <a href="#maturity" class="gem-main-stats__item-link">
-                        <svg class="icon icon_type_mark-<%= analysis_gr[:maturity].downcase %> gem-main-stats__item-mark">
-                            <use xlink:href="#icon_type_mark-<%= analysis_gr[:maturity].downcase %>"></use>
+                        <svg class="icon icon_type_mark-<%= analysis[:maturity] %> gem-main-stats__item-mark">
+                            <use xlink:href="#icon_type_mark-<%= analysis[:maturity] %>"></use>
                         </svg>
                         Maturity
                     </a>
@@ -122,10 +122,10 @@
                     <h3 class="gem-stats__header">Popularity</h3>
                     <div
                         class="gem-stats__chart gem-stats-chart"
-                        data-columns='<%=project.decorated.fast_preview_graph_data[:popularity].to_json%>'
+                        data-columns='<%= fast_preview_graph[:popularity] %>'
                     ></div>
-                    <svg class="icon icon_type_mark-<%= analysis_gr[:popularity].downcase %> gem-stats__mark">
-                      <use xlink:href="#icon_type_mark-<%= analysis_gr[:popularity].downcase %>"></use>
+                    <svg class="icon icon_type_mark-<%= analysis[:popularity] %> gem-stats__mark">
+                      <use xlink:href="#icon_type_mark-<%= analysis[:popularity] %>"></use>
                     </svg>
                 </header>
                 <p class="gem-stats__description">
@@ -143,21 +143,19 @@
                       <% popularity_metrics.each do |metric| %>
                         <tr
                             class="gems-stats-table__row"
-                            data-tooltip='<%= JSON.generate project.decorated.tooltip_data(metric) %>'
+                            data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
                             <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                                <%= Ossert.t(metric) %>
+                                <%= metric_lookup[metric][:translation] %>
                                 <svg class="icon gems-stats-table__info-icon">
                                     <use xlink:href="#icon_type_info"></use>
                                 </svg>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                              <% value = project.decorated.community_last_year[metric] %>
-                              <span class="mark-text mark-text_<%= value.try(:[], :mark) %>"> <%= value.try(:[], :text) || 'N/A' %></span>
+                              <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                              <% value = project.decorated.community_total[metric] %>
-                                <span class="mark-text mark-text_<%= value.try(:[], :mark) %>"><%= value.try(:[], :text) || 'N/A' %></span>
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
                             </td>
                         </tr>
                       <% end %>
@@ -170,10 +168,10 @@
                     <h3 class="gem-stats__header">Maintenance</h3>
                     <div
                         class="gem-stats__chart gem-stats-chart"
-                        data-columns='<%=project.decorated.fast_preview_graph_data[:maintenance].to_json%>'
+                        data-columns='<%= fast_preview_graph[:maintenance]%>'
                     ></div>
-                    <svg class="icon icon_type_mark-<%= analysis_gr[:maintenance].downcase %> gem-stats__mark">
-                        <use xlink:href="#icon_type_mark-<%= analysis_gr[:maintenance].downcase %>"></use>
+                    <svg class="icon icon_type_mark-<%= analysis[:maintenance] %> gem-stats__mark">
+                        <use xlink:href="#icon_type_mark-<%= analysis[:maintenance] %>"></use>
                     </svg>
                 </header>
                 <p class="gem-stats__description">
@@ -191,22 +189,20 @@
                       <% maintenance_metrics.each do |metric|  %>
                         <tr
                             class="gems-stats-table__row"
-                            data-tooltip='<%= JSON.generate project.decorated.tooltip_data(metric) %>'
+                            data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
                             <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                                <%= Ossert.t(metric) %>
+                                <%= metric_lookup[metric][:translation] %>
                                 <svg class="icon gems-stats-table__info-icon">
                                     <use xlink:href="#icon_type_info"></use>
                                 </svg>
                             </td>
-                              <% value = project.decorated.agility_last_year[metric] %>
 
                             <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                              <span class="mark-text mark-text_<%= value.try :[], :mark %>"> <%= value.try(:[], :text) || 'N/A' %></span>
+                              <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
                             </td>
-                              <% value = project.decorated.agility_total[metric] %>
                             <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                                <span class="mark-text mark-text_<%= value.try :[], :mark %>"><%= value.try(:[], :text) || 'N/A' %></span>
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
                             </td>
                         </tr>
                       <% end %>
@@ -219,10 +215,10 @@
                     <h3 class="gem-stats__header">Maturity</h3>
                     <div
                         class="gem-stats__chart gem-stats-chart"
-                        data-columns='<%=project.decorated.fast_preview_graph_data[:maturity].to_json%>'
+                        data-columns='<%= fast_preview_graph[:maturity] %>'
                     ></div>
-                    <svg class="icon icon_type_mark-<%= analysis_gr[:maturity].downcase %> gem-stats__mark">
-                      <use xlink:href="#icon_type_mark-<%= analysis_gr[:maturity].downcase %>"></use>
+                    <svg class="icon icon_type_mark-<%= analysis[:maturity] %> gem-stats__mark">
+                      <use xlink:href="#icon_type_mark-<%= analysis[:maturity] %>"></use>
                     </svg>
                 </header>
                 <p class="gem-stats__description">
@@ -239,26 +235,22 @@
                     <tbody class="gems-stats-table__body">
 
                       <% maturity_metrics.each do |metric|  %>
-                        <% section = Ossert::Stats.guess_section_by_metric(metric) %>
-                        <% next if section.to_s =~ /not_found/ %>
+                        <% next unless metric_lookup[metric] %>
                         <tr
                             class="gems-stats-table__row"
-                            data-tooltip='<%= JSON.generate project.decorated.tooltip_data(metric) %>'
+                            data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
                             <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                                <%= Ossert.t(metric) %>
+                                <%=  metric_lookup[metric][:translation]  %>
                                 <svg class="icon gems-stats-table__info-icon">
                                     <use xlink:href="#icon_type_info"></use>
                                 </svg>
                             </td>
-                            <% section_last_year = project.decorated.send("#{section}_last_year")[metric] %>
-                            <% section_total = project.decorated.send("#{section}_total")[metric] %>
-
                             <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                              <span class="mark-text mark-text_<%= section_last_year.try(:[], :mark) %>"> <%=section_last_year.try(:[], :text) || 'N/A' %></span>
+                              <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                                <span class="mark-text mark-text_<%= section_total.try(:[], :mark) %>"><%= section_total.try(:[], :text) || 'N/A' %></span>
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
                             </td>
                         </tr>
                       <% end %>

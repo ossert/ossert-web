@@ -29,11 +29,12 @@ module Ossert
 
         @cache = Sinatra::RedisCache::Cache.new
 
+        ::Ossert.init
         ::Ossert::Classifiers.train
       end
 
       def cache(key, expire_in, &block)
-        @cache.do(key, expire_in, block)
+        @cache.do(key, expire_in, -> { yield self })
       end
     end
 
@@ -58,6 +59,7 @@ module Ossert
     class App < Sinatra::Base
       set :views, File.dirname(__FILE__) + '/../../views'
       set :public_dir, File.dirname(__FILE__) + '/../../public'
+      set :cache_ttl, 2.hours
       enable :sessions
 
       set :warmup, Warmup.perform
@@ -196,19 +198,32 @@ module Ossert
       end
 
       get '/:name' do
-        warmup = settings.warmup
         return erb(:not_found) unless Ossert::Project.exist?(params[:name])
+        settings.warmup.cache(params[:name], settings.cache_ttl) do |warmup|
+          begin
+            project = Ossert::Project.load_by_name(params[:name])
 
-        warmup.cache(params[:name], 2.hours) do
-          project = Ossert::Project.load_by_name(params[:name])
+            locals = {
+              project: project,
+              metric_lookup: {},
+              popularity_metrics: warmup.popularity_metrics,
+              maintenance_metrics: warmup.maintenance_metrics,
+              maturity_metrics: warmup.maturity_metrics
+            }
+            Ossert::Presenters::Project.with_presenter(project) do |project_decorated|
+              (locals[:popularity_metrics] + locals[:maintenance_metrics] + locals[:maturity_metrics]).each do |metric|
+                locals[:metric_lookup][metric] = project_decorated.metric_preview(metric)
+              end
+              locals[:fast_preview_graph] = project_decorated.fast_preview_graph
+              locals[:analysis] = project_decorated.grade
+            end
 
-          erb :show, locals: {
-            project: project,
-            analysis_gr: project.grade_by_growing_classifier,
-            popularity_metrics: warmup.popularity_metrics,
-            maintenance_metrics: warmup.maintenance_metrics,
-            maturity_metrics: warmup.maturity_metrics
-          }
+            erb :show, locals: locals
+          ensure
+            project = nil
+            locals = nil
+            GC.start
+          end
         end
       end
     end
