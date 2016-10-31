@@ -8,16 +8,60 @@
     color: $textColorPrimary;
   }
 
-  &__links {
-    margin: calc($layoutFactor * 2px) 0 0;
+  &__meta {
+    margin: calc($layoutFactor * 2px) 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__meta-item {
+    display: flex;
+    margin-bottom: calc($layoutFactor * 1px);
+
+    @media (--tablet) {
+      flex-direction: column;
+    }
+  }
+
+  &__meta-item-header {
+    min-width: 150px;
+    flex-shrink: 0;
+    margin: 0 calc($layoutFactor * 2px) 0 0;
+    font-family: $fontFamily;
+    font-size: 16px;
+    line-height: 24px;
+    color: $textColorMuted;
+    white-space: nowrap;
+
+    @media (--tablet) {
+      margin-bottom: calc($layoutFactor / 2px);
+    }
+  }
+
+  &__meta-item-value {
+    display: block;
+
+    &_authors {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  &__text {
+    font-family: $fontFamily;
+    font-size: 16px;
+    line-height: 24px;
   }
 
   &__link {
+    font-family: $fontFamily;
     font-size: 16px;
-    line-height: 1.4;
+    line-height: 24px;
     font-weight: 600;
     text-decoration: none;
-    margin-right: calc($layoutFactor * 2px);
+    margin-right: calc($layoutFactor * 1px);
+    vertical-align: inherit;
 
     &:last-child {
       margin-right: 0;

@@ -1,12 +1,56 @@
 .gem-header {
   margin: 0;
 
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    @media (--tablet) {
+      flex-direction: column;
+    }
+  }
+
+  &__refresh-container {
+    text-align: right;
+
+    @media (--tablet) {
+      text-align: left;
+      margin: calc($layoutFactor * 2px) 0;
+    }
+  }
+
+  &__refresh-button {
+    font-family: $fontFamily;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+
+    @media (--tablet) {
+      display: inline-block;
+    }
+  }
+
+  &__refresh-date {
+    margin: 0;
+    font-family: $fontFamily;
+    font-size: 14px;
+    line-height: 20px;
+    color: $textColorMuted;
+
+    @media (--tablet) {
+      display: inline-block;
+    }
+  }
+
   &__heading {
     margin: 0;
     font-family: $fontFamily;
     font-size: 66px;
     line-height: 72px;
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__fixed {
