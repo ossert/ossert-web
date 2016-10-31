@@ -197,7 +197,6 @@ module Ossert
 
       get '/:name' do
         warmup = settings.warmup
-
         return erb(:not_found) unless Ossert::Project.exist?(params[:name])
 
         warmup.cache(params[:name], 2.hours) do

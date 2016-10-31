@@ -36,7 +36,7 @@
                   <%= project.meta["description"] %>
                 </p>
                 <ul class="gem__meta">
-                    <% if project.meta["current_version"] %>
+                    <% if project.meta["current_version"].present? %>
                         <li class="gem__meta-item">
                             <h6 class="gem__meta-item-header">Current version:</h6>
                             <div class="gem__meta-item-value">
@@ -44,7 +44,7 @@
                             </div>
                         </li>
                     <% end %>
-                    <% if project.meta["authors"] %>
+                    <% if project.meta["authors"].present? %>
                         <li class="gem__meta-item">
                             <h6 class="gem__meta-item-header">Authors:</h6>
                             <div class="gem__meta-item-value gem__meta-item-value_authors">
@@ -66,19 +66,19 @@
                     <li class="gem__meta-item">
                         <h6 class="gem__meta-item-header">Links: </h6>
                         <div class="gem__meta-item-value">
-                          <% if project.meta["homepage_url"] %>
+                          <% if project.meta["homepage_url"].present? %>
                               <a class="gem__link link" href="<%= project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
                           <% end %>
-                          <% if project.meta["docs_url"] %>
+                          <% if project.meta["docs_url"].present? %>
                               <a class="gem__link link" href="<%= project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
                           <% end %>
-                          <% if project.meta["wiki_url"] %>
+                          <% if project.meta["wiki_url"].present? %>
                               <a class="gem__link link" href="<%= project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
                           <% end %>
-                          <% if project.meta["source_url"] %>
+                          <% if project.meta["source_url"].present? %>
                               <a class="gem__link link" href="<%= project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
                           <% end %>
-                          <% if project.meta["issue_tracker_url"] %>
+                          <% if project.meta["issue_tracker_url"].present? %>
                               <a class="gem__link link" href="<%= project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
                           <% end %>
                         </div>
