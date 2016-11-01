@@ -1,4 +1,5 @@
 require 'ossert'
+Ossert.init
 
 SIDEKIQ_REDIS_CONFIGURATION = {
   url: ENV.fetch('REDIS_URL'),
