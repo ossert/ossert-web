@@ -1,6 +1,7 @@
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 48a1548e3e6c5a56d2a12a0b09ad4e8ed3598275
+  revision: 5646ce7106c1dd7b3d34dc49059a25fe8e2fdadd
+  branch: feat/retry-gh
   specs:
     ossert (0.1.0)
       activesupport
