@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 5646ce7106c1dd7b3d34dc49059a25fe8e2fdadd
-  branch: feat/retry-gh
+  revision: 07084a2229d2af49203f425ad6f5293e852d8b2f
   specs:
     ossert (0.1.0)
       activesupport
@@ -105,7 +104,7 @@ GEM
     rspec-support (3.5.0)
     sass (3.4.22)
     sequel (4.40.0)
-    sidekiq (4.2.3)
+    sidekiq (4.2.4)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)

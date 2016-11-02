@@ -1,4 +1,5 @@
 require 'ossert'
+require 'ossert/workers'
 
 SIDEKIQ_REDIS_CONFIGURATION = {
   url: ENV.fetch('REDIS_URL'),
@@ -8,10 +9,8 @@ SIDEKIQ_REDIS_CONFIGURATION = {
 
 Sidekiq.configure_server do |config|
   config.redis = SIDEKIQ_REDIS_CONFIGURATION
-  Ossert.init
 end
 
 Sidekiq.configure_client do |config|
   config.redis = SIDEKIQ_REDIS_CONFIGURATION
-  Ossert.init
 end
