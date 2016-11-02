@@ -79,7 +79,7 @@ module Ossert
         @quarters_start_date = [1.year.ago, fixed_start_date].max.to_time
         @quarters_end_date = [Time.now.utc, fixed_end_date].min.to_time
 
-        @projects = params[:projects].split(',').map do |name|
+        @projects = (params[:projects].to_s.split(',') || []).map do |name|
           project = Ossert::Project.load_by_name(name)
           unless project
             session[:name] = name
@@ -87,6 +87,8 @@ module Ossert
           end
           project.decorated
         end
+
+        return "No projects loaded" unless @projects.present?
 
         @metric_type = Ossert::Stats.guess_section_by_metric(params[:metric])
         raise "Metric '#{params[:metric]}' Not Found" if @metric_type == :not_found
@@ -123,7 +125,7 @@ module Ossert
         fixed_start_date = params.fetch('from', 20.years.ago).to_datetime
         fixed_end_date = params.fetch('to', Time.now.utc).to_datetime
 
-        @projects = params[:projects].split(',').map do |name|
+        @projects = (params[:projects].to_s.split(',') || []).map do |name|
           project = Ossert::Project.load_by_name(name)
           return "Project '#{name}' Not Found" unless project
 
@@ -134,6 +136,8 @@ module Ossert
 
           project.decorated
         end
+
+        return "No projects loaded" unless @projects.present?
 
         @quarters_start_date = [@quarters_start_date, fixed_start_date].max.to_time
         @quarters_end_date = [@quarters_end_date, fixed_end_date].min.to_time
@@ -148,7 +152,7 @@ module Ossert
         fixed_start_date = params.fetch('from', 20.years.ago).to_datetime
         fixed_end_date = params.fetch('to', Time.now.utc).to_datetime
 
-        @projects = params[:projects].split(',').map do |name|
+        @projects = (params[:projects].to_s.split(',') || []).map do |name|
           project = Ossert::Project.load_by_name(name)
           unless project
             @name = name
@@ -162,6 +166,8 @@ module Ossert
 
           project.decorated
         end
+
+        return "No projects loaded" unless @projects.present?
 
         @quarters_start_date = [@quarters_start_date, fixed_start_date].max.to_time
         @quarters_end_date = [@quarters_end_date, fixed_end_date].min.to_time
@@ -193,6 +199,11 @@ module Ossert
 
       # FIXME: Missing favicon
       get '/favicon.ico' do
+        ''
+      end
+
+      # FIXME: Missing robots.txt
+      get '/robots.txt' do
         ''
       end
 
