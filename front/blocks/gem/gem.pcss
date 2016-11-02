@@ -1,4 +1,17 @@
 .gem {
+  &__github-warning {
+    margin: calc($layoutFactor * 2px) 0;
+    padding: calc($layoutFactor / 2px) calc($layoutFactor * 1px);
+    border: 1px solid color($indicatorRateC lightness(+20%));
+    border-radius: 4px;
+    font-family: $fontFamily;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: color($textColorPrimary lightness(+8%));
+    background-color: color($indicatorRateC lightness(+30%));
+  }
+
   &__description {
     margin: calc($layoutFactor * 2px) 0 0;
     font-family: $fontFamily;

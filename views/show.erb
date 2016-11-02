@@ -32,6 +32,11 @@
                         </div>
                     </div>
                 </div>
+                <% if project.without_github_data? %>
+                  <p class="gem__github-warning">
+                    Warning: no data found on GitHub for the project
+                  </p>
+                <% end %>
                 <p class="gem__description">
                   <%= project.meta["description"] %>
                 </p>
