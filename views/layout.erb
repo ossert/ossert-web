@@ -60,7 +60,10 @@
     </header>
     <%= yield %>
     <footer class="footer">
-      &copy; Copyright 2015-2016 Sergey Dolganov
+      <div class="width-container footer__content">
+        <a href="https://github.com/ossert/"" target="_blank" rel="noopener noreferrer" class="footer__contribute">Participate on Github</a>
+        &copy; Copyright 2015-2016 Sergey Dolganov
+      </div>
     </footer>
     <script src="/js/main.js"></script>
     <% if settings.environment == :development %>

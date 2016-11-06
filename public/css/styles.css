@@ -197,6 +197,29 @@ html {
   color: #fff;
 }
 
+.footer__contribute {
+  float: right;
+
+  color: #fff;
+
+  -webkit-transition: color 0.1s ease-out;
+
+  transition: color 0.1s ease-out;
+}
+
+.footer__contribute:hover {
+  color: rgb(255, 255, 255);
+}
+
+.footer__contribute:focus {
+  color: rgb(191, 191, 191);
+  outline: none;
+}
+
+.footer__contribute:active {
+  color: rgb(230, 230, 230);
+}
+
 .gem__github-warning {
     margin: 24px 0;
     padding: 6px 12px;
