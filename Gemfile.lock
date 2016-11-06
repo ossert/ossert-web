@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 76772bb7daab18b862795e64e7a772b7b70d485c
+  revision: 654088b9d6bce1f59ae959f54673bb65cf0cf6dc
   specs:
     ossert (0.1.0)
       activesupport
@@ -104,7 +104,7 @@ GEM
     rspec-support (3.5.0)
     sass (3.4.22)
     sequel (4.40.0)
-    sidekiq (4.2.4)
+    sidekiq (4.2.5)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)

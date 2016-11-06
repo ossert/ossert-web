@@ -62,12 +62,11 @@ module Ossert
       enable :sessions
 
       set :warmup, Warmup.perform
-      set :header_search, true
 
       get '/' do
         @warn = session[:warn]
         session[:warn] = nil
-        settings.header_search = false
+        @hide_header_search = true
 
         erb :index
       end

@@ -46,7 +46,7 @@
       <div class="width-container header__content">
         <a href="/" class="logo header__logo">Ossert.</a>
         <span class="header__description">Open-Source Maturity & Maintenance Certification</span>
-        <% if settings.header_search %>
+        <% unless @hide_header_search %>
           <form action="#" class="header__search search">
             <input type="text" class="search__input" placeholder="Type package name..." name="package">
             <button class="search__submit">

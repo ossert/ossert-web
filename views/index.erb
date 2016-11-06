@@ -14,7 +14,7 @@
       </button>
     </form>
     <p> Random ready analyzes: </p>
-    <% Ossert::Project.random.each do |project| %>
+    <% Ossert::Project.random_top.each do |project| %>
         <p><a class="gem__link link" href="/<%= project.name %>"> <%= project.github_name %></a> </p>
     <% end %>
   </div>
