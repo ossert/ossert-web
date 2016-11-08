@@ -37,9 +37,11 @@
                     Warning: no data found on GitHub for the project
                   </p>
                 <% end %>
-                <p class="gem__description">
-                  <%= project.meta["description"] %>
-                </p>
+                <div class="gem__description-container">
+                  <p class="gem__description">
+                    <%= project.meta["description"] %>
+                  </p>
+                </div>
                 <ul class="gem__meta">
                     <% if project.meta["current_version"].present? %>
                         <li class="gem__meta-item">

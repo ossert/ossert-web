@@ -6,6 +6,7 @@ import { draw } from './blocks/gem-stats-chart';
 import { smoothAnchorScrolling } from './blocks/link';
 import { isMobileView } from './blocks/utils';
 import searchForm from './blocks/search';
+import { gemDescriptionCollapser } from './blocks/gem';
 
 $(() => {
   if ($('#sticky-project-header').length) {
@@ -20,6 +21,7 @@ $(() => {
   }
 
   searchForm('.search');
+  gemDescriptionCollapser();
   $('.gem-stats-chart').each(function onEachChart() {
     draw(this, $(this).data('columns'));
   });
