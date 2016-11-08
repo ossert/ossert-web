@@ -12,3 +12,4 @@ npm-debug.log*
 .env
 perf.rake
 .envrc
+/db

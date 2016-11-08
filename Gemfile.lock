@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 654088b9d6bce1f59ae959f54673bb65cf0cf6dc
+  revision: cb3ecb19fb9c432323e040f6be1c422e5c943f45
   specs:
     ossert (0.1.0)
       activesupport
@@ -53,6 +53,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    builder (3.2.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
@@ -120,6 +121,8 @@ GEM
       rake (~> 10.0)
       redis (~> 3.0)
       sinatra (~> 1.3)
+    sitemap_generator (5.2.0)
+      builder (~> 3.0)
     slim (3.0.7)
       temple (~> 0.7.6)
       tilt (>= 1.3.3, < 2.1)
@@ -143,6 +146,7 @@ DEPENDENCIES
   rake (~> 10.0)
   rspec (~> 3.0)
   sawyer!
+  sitemap_generator
 
 BUNDLED WITH
    1.12.5

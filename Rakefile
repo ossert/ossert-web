@@ -9,12 +9,5 @@ require 'sinatra/redis-cache'
 
 require "./config/redis_cache"
 
+Dir.glob('lib/ossert/web/tasks/*.rake').each { |r| import r }
 task :default => :spec
-
-task :clear_redis_cache do
-  Sinatra::RedisCache::Cache.new.flush
-end
-
-Rake::Task["ossert:cache:reset"].enhance do
-  Rake::Task[:clear_redis_cache].invoke
-end
