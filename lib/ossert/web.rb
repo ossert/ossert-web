@@ -127,7 +127,10 @@ module Ossert
 
         @projects = (params[:projects].to_s.split(',') || []).map do |name|
           project = Ossert::Project.load_by_name(name)
-          return "Project '#{name}' Not Found" unless project
+          unless project
+            session[:name] = name
+            return erb(:not_found)
+          end
 
           @quarters_start_date, @quarters_end_date = project.prepare_time_bounds!(
             extended_start: @quarters_start_date,
@@ -155,7 +158,7 @@ module Ossert
         @projects = (params[:projects].to_s.split(',') || []).map do |name|
           project = Ossert::Project.load_by_name(name)
           unless project
-            @name = name
+            session[:name] = name
             return erb(:not_found)
           end
 
