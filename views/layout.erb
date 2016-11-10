@@ -43,12 +43,18 @@
       </defs>
     </svg>
     <header class="header" id="header">
-      <div class="width-container header__content">
-        <a href="/" class="logo header__logo">
-          Ossert
-        </a>
-        <span class="header__description">Open-Source Maturity & Maintenance Certification</span>
-        <% unless @hide_header_search %>
+      <div class="width-container header__content<%= @hide_header_search ? ' header__content_center' : '' %>">
+        <% if @hide_header_search %>
+          <span class="header__description header__description_left">Open-Source Maturity</span>
+          <a href="/" class="logo header__logo">
+            <img src="/assets/blocks/logo/logo.svg" alt="Ossert logo" />
+          </a>
+          <span class="header__description header__description_right">Maintenance Certification</span>
+        <% else %>
+          <a href="/" class="logo header__logo">
+            <img src="/assets/blocks/logo/logo.svg" alt="Ossert logo" />
+          </a>
+          <span class="header__description header__description_right">Open-Source Maturity & Maintenance Certification</span>
           <form action="#" class="header__search search">
             <input type="text" class="search__input" placeholder="Type package name..." name="package">
             <button class="search__submit">

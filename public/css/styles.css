@@ -806,12 +806,9 @@ html {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  height: 72px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 @media (max-width: 768px) {
   .header__content {
@@ -825,21 +822,23 @@ html {
     height: auto;
   }
 }
+.header__content_center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 .header__logo {
-  display: inline-block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 48px;
-  line-height: 48px;
-  font-weight: 600;
-  text-decoration: none;
-  color: #fff;
+  display: block;
+  width: 84px;
+  height: 84px;
+  margin: 12px 0;
 }
 .header__description {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
   color: #fff;
-  margin-left: 6px;
 }
 @media (max-width: 768px) {
   .header__description {
@@ -847,6 +846,12 @@ html {
     text-align: center;
     margin: 12px 0 0;
   }
+}
+.header__description_left {
+  margin-right: 24px;
+}
+.header__description_right {
+  margin-left: 24px;
 }
 .header__search {
   margin: auto 0 auto auto;
@@ -858,6 +863,7 @@ html {
     margin: 12px 0 0;
   }
 }
+
 
 .help-tooltip {
   position: relative;
