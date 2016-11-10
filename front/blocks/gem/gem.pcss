@@ -12,13 +12,68 @@
     background-color: color($indicatorRateC lightness(+30%));
   }
 
+  &__description-container {
+    position: relative;
+  }
+
   &__description {
+    position: relative;
     margin: calc($layoutFactor * 2px) 0 0;
     font-family: $fontFamily;
     font-size: 16px;
     line-height: 24px;
-    font-weight: 600;
     color: $textColorPrimary;
+
+    &_has-collapser {
+      overflow: hidden;
+      padding-bottom: calc($layoutFactor * 3px);
+      border-bottom: 1px solid $layoutBorderColor;
+
+      &::after {
+        z-index: 1;
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: calc($layoutFactor * 4px);
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 1) 100%);
+      }
+    }
+
+    &_collapsed {
+      max-height: 120px;
+    }
+  }
+
+  &__description-toggler {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 2;
+    display: block;
+    width: 140px;
+    border: 1px solid $layoutBorderColor;
+    border-bottom: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-left: -70px;
+    padding: 10px calc($layoutFactor * 3px);
+    font-family: $fontFamily;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    background-color: #fff;
+    user-select: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease-out;
+
+    @mixin link-states $textLinkColor;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   &__meta {
