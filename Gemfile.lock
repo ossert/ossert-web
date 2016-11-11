@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: c2cef3edefe23d948f5caf2c18a8f33d9f4ba7dd
+  revision: 1db545550793e2b9b99cacd7e52ced5d00ecd67c
   specs:
-    ossert (0.1.0)
+    ossert (0.1.1)
       activesupport
       graphr
       multi_json
