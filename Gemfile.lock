@@ -38,7 +38,7 @@ PATH
       erubis
       puma
       puma_worker_killer
-      rake
+      rake (~> 10.0)
       sass
       sinatra
       sinatra-redis-cache
@@ -143,7 +143,6 @@ DEPENDENCIES
   ossert!
   ossert-web!
   pry
-  rake (~> 10.0)
   rspec (~> 3.0)
   sawyer!
   sitemap_generator
