@@ -200,11 +200,6 @@ module Ossert
         slim :history
       end
 
-      # FIXME: Missing favicon
-      get '/favicon.ico' do
-        ''
-      end
-
       # FIXME: Missing robots.txt
       get '/robots.txt' do
         ''

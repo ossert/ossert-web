@@ -4,10 +4,7 @@
   &__content {
     display: flex;
     justify-content: flex-start;
-    align-items: flex-end;
-    height: calc($layoutFactor * 6px);
-    padding-top: calc($layoutFactor * 1px);
-    padding-bottom: calc($layoutFactor * 1px);
+    align-items: center;
 
     @media (--tablet) {
       flex-direction: column;
@@ -16,28 +13,37 @@
     }
   }
 
+  &__content_center {
+    justify-content: center;
+  }
+
   &__logo {
-    display: inline-block;
-    font-family: $fontFamily;
-    font-size: calc($layoutFactor * 4px);
-    line-height: calc($layoutFactor * 4px);
-    font-weight: 600;
-    text-decoration: none;
-    color: #fff;
+    display: block;
+    width: calc($layoutFactor * 7px);
+    height: calc($layoutFactor * 7px);
+    margin: calc($layoutFactor * 1px) 0;
   }
 
   &__description {
     font-family: $fontFamily;
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 600;
     color: #fff;
-    margin-left: calc($layoutFactor / 2px);
 
     @media (--tablet) {
       width: 100%;
       text-align: center;
       margin: calc($layoutFactor * 1px) 0 0;
     }
+  }
+
+  &__description_left {
+    margin-right: calc($layoutFactor * 2px);
+  }
+
+  &__description_right {
+    margin-left: calc($layoutFactor * 2px);
   }
 
   &__search {
@@ -51,3 +57,4 @@
     @mixin columns 5;
   }
 }
+

@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png?v=QE5m5ojYOq">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png?v=QE5m5ojYOq" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png?v=QE5m5ojYOq" sizes="16x16">
+    <link rel="manifest" href="/images/favicons/manifest.json?v=QE5m5ojYOq">
+    <link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg?v=QE5m5ojYOq" color="#f21f27">
+    <link rel="shortcut icon" href="/images/favicons/favicon.ico?v=QE5m5ojYOq">
+    <meta name="apple-mobile-web-app-title" content="Ossert">
+    <meta name="application-name" content="Ossert">
+    <meta name="msapplication-config" content="/images/favicons/browserconfig.xml?v=QE5m5ojYOq">
+    <meta name="theme-color" content="#2c3e50">
     <title>Ossert</title>
     <link rel="stylesheet" href="/css/styles.css">
   </head>
@@ -43,12 +53,18 @@
       </defs>
     </svg>
     <header class="header" id="header">
-      <div class="width-container header__content">
-        <a href="/" class="logo header__logo">
-          Ossert
-        </a>
-        <span class="header__description">Open-Source Maturity & Maintenance Certification</span>
-        <% unless @hide_header_search %>
+      <div class="width-container header__content<%= @hide_header_search ? ' header__content_center' : '' %>">
+        <% if @hide_header_search %>
+          <span class="header__description header__description_left">Open-Source Maturity</span>
+          <a href="/" class="logo header__logo">
+            <img src="/assets/blocks/logo/logo.svg" alt="Ossert logo" />
+          </a>
+          <span class="header__description header__description_right">Maintenance Certification</span>
+        <% else %>
+          <a href="/" class="logo header__logo">
+            <img src="/assets/blocks/logo/logo.svg" alt="Ossert logo" />
+          </a>
+          <span class="header__description header__description_right">Open-Source Maturity & Maintenance Certification</span>
           <form action="#" class="header__search search">
             <input type="text" class="search__input" placeholder="Type package name..." name="package">
             <button class="search__submit">
