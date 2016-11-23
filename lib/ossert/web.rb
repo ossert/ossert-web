@@ -4,6 +4,7 @@ require "sinatra"
 require "slim"
 require "sass"
 require 'sinatra/redis-cache'
+require 'ostruct'
 
 module Ossert
   module Web

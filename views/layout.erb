@@ -14,6 +14,12 @@
     <meta name="application-name" content="Ossert">
     <meta name="msapplication-config" content="/images/favicons/browserconfig.xml?v=QE5m5ojYOq">
     <meta name="theme-color" content="#2c3e50">
+    <% project ||= OpenStruct.new(name: "Ossert.") %>
+    <meta property="og:title" content="<%= project.name %> maintenance & maturity" />
+    <meta property="og:description" content="<%= project.name %> maintenance & maturity analysis" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://ossert.evilmartians.io" />
+    <meta property="og:image" content="http://ossert.evilmartians.io/images/preview.png" />
     <title>Ossert</title>
     <link rel="stylesheet" href="/css/styles.css">
   </head>
