@@ -101,7 +101,7 @@
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
       ga('create', 'UA-86559627-1', 'auto');
-      ga('send', 'pageview');
+      ga('send', 'pageview', '<%= request.path_info %>');
     </script>
     <% end %>
   </body>
