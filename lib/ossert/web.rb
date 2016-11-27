@@ -1,5 +1,6 @@
 require "ossert/web/version"
 require "ossert"
+require "ossert/web/projects_search"
 require "sinatra"
 require "slim"
 require "sass"
@@ -100,9 +101,9 @@ module Ossert
       end
 
       get '/search/:name' do
-        project = Ossert::Project.load_by_name(params[:name])
-        return erb(:not_found) unless project
-        redirect to(params[:name])
+        found_names = ProjectsSearch.by_name(params[:name])
+        return erb(:not_found) unless found_names.present?
+        erb :search_results, locals: {found_names: found_names}
       end
 
       get '/suggest/:name' do

@@ -1,0 +1,12 @@
+<div class="page-index">
+  <p class="page-index__description">
+    Search for `<%= params[:name] %>`
+    <ul>
+      <% found_names.each do |name| %>
+        <li><a href="/<%= name %>" target='_blank'> <%= name %> </a></li>
+      <% end %>
+    </ul>
+
+    You can try <a href="/suggest/<%= params[:name] || session[:name] %>"> suggest </a> it.
+  </p>
+</div>
