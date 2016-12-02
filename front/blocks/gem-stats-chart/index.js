@@ -1,21 +1,31 @@
-import Raphael from 'raphael';
+import Snap from 'snapsvg-cjs';
 
 const TEXT_HEIGHT = 20;
 const MAX_VALUE_HEIGHT_PORTION = 0.85;
 
-export function draw(chartNode, columnsData) {
+export function draw(chartNode, chartData) {
   const chartWidth = chartNode.clientWidth;
   const chartHeight = chartNode.clientHeight;
-  const columnWidth = Math.ceil(chartWidth / columnsData.length);
+  const columnWidth = Math.ceil(chartWidth / chartData.length);
   const columnHeight = chartHeight - TEXT_HEIGHT;
-  const columnMaxValue = getMaxColumnValue(columnsData);
+  const columnMaxValue = getMaxColumnValue(chartData);
 
-  const paper = Raphael(chartNode, chartWidth, chartHeight);
-  const text = createText(paper, chartWidth);
+  const paper = Snap(chartWidth, chartHeight);
 
-  columnsData.forEach((columnData, i) => {
+  // TEXT
+  const text = paper.text(chartWidth / 2, (TEXT_HEIGHT / 2));
+  text.node.classList.add('gem-stats-chart__column-text');
+  text.attr({
+    textAnchor: 'middle',
+    alignmentBaseline: 'middle',
+    opacity: 0
+  });
+
+  // BARS
+
+  chartData.forEach((columnData, i) => {
     const offset = i * columnWidth;
-    const set = paper.set();
+    const group = paper.group();
     const rectBack = paper.rect(i * columnWidth, TEXT_HEIGHT, columnWidth, columnHeight);
     const pathCommands = [
       `M ${offset} ${chartHeight}`,
@@ -26,8 +36,9 @@ export function draw(chartNode, columnsData) {
     ];
     const path = paper.path(pathCommands.join(' '));
 
-    set.push(rectBack, path);
-    set.attr({ opacity: 0.4 });
+    group.node.classList.add('gem-stats-chart__column');
+    group.add(rectBack, path);
+    group.attr({ opacity: 0.4 });
 
     // rect back
     rectBack.node.classList.add('gem-stats-chart__column-back');
@@ -35,23 +46,25 @@ export function draw(chartNode, columnsData) {
     rectBack.attr({ stroke: 'none' });
 
     // path
-    path.node.classList.add('gem-stats-chart__column');
-    path.node.classList.add(`gem-stats-chart__column_${columnData.type}`);
+    path.node.classList.add('gem-stats-chart__column-bar');
+    path.node.classList.add(`gem-stats-chart__column-bar_${columnData.type}`);
     path.node.style.fill = 'currentColor';
     path.attr({ stroke: 'none' });
 
-    set.hover(
+    group.hover(
       () => {
         text.attr('text', columnData.title);
         text.attr('opacity', 1);
-        set.attr('opacity', 1);
+        group.attr('opacity', 1);
       },
       () => {
         text.attr('opacity', 0);
-        set.attr('opacity', 0.4);
+        group.attr('opacity', 0.4);
       }
     );
   });
+
+  chartNode.appendChild(paper.node);
 
   function relativeHeight(columnValue) {
     return chartHeight - Math.floor((columnValue / columnMaxValue) * columnHeight * MAX_VALUE_HEIGHT_PORTION);
@@ -60,7 +73,7 @@ export function draw(chartNode, columnsData) {
 
 function getMaxColumnValue(columnsData) {
   return columnsData.reduce((prevMax, column) => {
-    const curMax = Math.max.apply(Math, column.values);
+    const curMax = Math.max.apply(null, column.values);
 
     if (prevMax < curMax) {
       return curMax;
@@ -68,19 +81,4 @@ function getMaxColumnValue(columnsData) {
 
     return prevMax;
   }, 0);
-}
-
-function createText(paper, chartWidth) {
-  const text = paper.text(chartWidth / 2, (TEXT_HEIGHT / 2) - 2);
-
-  text.node.classList.add('gem-stats-chart__column-text');
-  text.node.style.font = null;
-  text.node.attributes.removeNamedItem('font-family');
-  text.node.attributes.removeNamedItem('font-size');
-  text.attr({
-    textAnchor: 'middle',
-    opacity: 0
-  });
-
-  return text;
 }

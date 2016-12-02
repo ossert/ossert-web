@@ -133,7 +133,7 @@
                     <h3 class="gem-stats__header">Maintenance</h3>
                     <div
                         class="gem-stats__chart gem-stats-chart"
-                        data-columns='<%= fast_preview_graph[:maintenance]%>'
+                        data-chart='<%= fast_preview_graph[:maintenance]%>'
                     ></div>
                     <svg class="icon icon_type_mark-<%= analysis[:maintenance] %> gem-stats__mark">
                         <use xlink:href="#icon_type_mark-<%= analysis[:maintenance] %>"></use>
@@ -145,9 +145,9 @@
                 <table class="gems-stats-table gem-stats__table">
                     <thead class="gems-stats-table__header">
                     <tr class="gems-stats-table__header-row">
-                        <th class="gems-stats-table__header-cell">Metric</th>
-                        <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This Year</th>
-                        <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
+                      <th class="gems-stats-table__header-cell">Metric</th>
+                      <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This Year</th>
+                      <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
                     </tr>
                     </thead>
                     <tbody class="gems-stats-table__body">
@@ -156,19 +156,19 @@
                             class="gems-stats-table__row"
                             data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
-                            <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                                <%= metric_lookup[metric][:translation] %>
-                                <svg class="icon gems-stats-table__info-icon">
-                                    <use xlink:href="#icon_type_info"></use>
-                                </svg>
-                            </td>
+                          <td class="gems-stats-table__cell gems-stats-table__cell_title">
+                            <%= metric_lookup[metric][:translation] %>
+                            <svg class="icon gems-stats-table__info-icon">
+                                <use xlink:href="#icon_type_info"></use>
+                            </svg>
+                          </td>
 
-                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                              <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
-                            </td>
-                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
-                            </td>
+                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
+                            <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
+                          </td>
+                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
+                              <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
+                          </td>
                         </tr>
                       <% end %>
                     </tbody>
@@ -180,7 +180,7 @@
                     <h3 class="gem-stats__header">Popularity</h3>
                     <div
                         class="gem-stats__chart gem-stats-chart"
-                        data-columns='<%= fast_preview_graph[:popularity] %>'
+                        data-chart='<%= fast_preview_graph[:popularity] %>'
                     ></div>
                     <svg class="icon icon_type_mark-<%= analysis[:popularity] %> gem-stats__mark">
                       <use xlink:href="#icon_type_mark-<%= analysis[:popularity] %>"></use>
@@ -193,7 +193,7 @@
                     <thead class="gems-stats-table__header">
                         <tr class="gems-stats-table__header-row">
                             <th class="gems-stats-table__header-cell">Metric</th>
-                            <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column gems-stats-table__header-cell_values-column-penultimate">This year</th>
+                            <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This year</th>
                             <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
                         </tr>
                     </thead>
@@ -203,18 +203,18 @@
                             class="gems-stats-table__row"
                             data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
-                            <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                                <%= metric_lookup[metric][:translation] %>
-                                <svg class="icon gems-stats-table__info-icon">
-                                    <use xlink:href="#icon_type_info"></use>
-                                </svg>
-                            </td>
-                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
-                              <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
-                            </td>
-                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
-                            </td>
+                          <td class="gems-stats-table__cell gems-stats-table__cell_title">
+                              <%= metric_lookup[metric][:translation] %>
+                              <svg class="icon gems-stats-table__info-icon">
+                                  <use xlink:href="#icon_type_info"></use>
+                              </svg>
+                          </td>
+                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
+                            <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
+                          </td>
+                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
+                              <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
+                          </td>
                         </tr>
                       <% end %>
                     </tbody>
@@ -226,7 +226,7 @@
                     <h3 class="gem-stats__header">Maturity</h3>
                     <div
                         class="gem-stats__chart gem-stats-chart"
-                        data-columns='<%= fast_preview_graph[:maturity] %>'
+                        data-chart='<%= fast_preview_graph[:maturity] %>'
                     ></div>
                     <svg class="icon icon_type_mark-<%= analysis[:maturity] %> gem-stats__mark">
                       <use xlink:href="#icon_type_mark-<%= analysis[:maturity] %>"></use>
@@ -239,7 +239,7 @@
                     <thead class="gems-stats-table__header">
                     <tr class="gems-stats-table__header-row">
                         <th class="gems-stats-table__header-cell">Metric</th>
-                        <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column gems-stats-table__header-cell_values-column-penultimate">This year</th>
+                        <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This year</th>
                         <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
                     </tr>
                     </thead>
@@ -257,7 +257,7 @@
                                     <use xlink:href="#icon_type_info"></use>
                                 </svg>
                             </td>
-                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column gems-stats-table__cell_values-column-penultimate">
+                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
                               <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
