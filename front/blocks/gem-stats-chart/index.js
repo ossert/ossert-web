@@ -32,7 +32,7 @@ export function draw(chartNode, chartData) {
       `L ${offset} ${relativeHeight(columnData.values[0])}`,
       `L ${offset + columnWidth} ${relativeHeight(columnData.values[1])}`,
       `L ${offset + columnWidth} ${chartHeight}`,
-      `L ${offset} + ${chartHeight}`
+      `L ${offset} ${chartHeight}`
     ];
     const path = paper.path(pathCommands.join(' '));
 
