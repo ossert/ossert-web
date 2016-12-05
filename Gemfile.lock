@@ -36,6 +36,7 @@ PATH
   specs:
     ossert-web (0.1.0)
       erubis
+      faraday
       puma
       puma_worker_killer
       rake (~> 10.0)
@@ -148,4 +149,4 @@ DEPENDENCIES
   sitemap_generator
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

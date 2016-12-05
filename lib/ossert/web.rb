@@ -101,9 +101,9 @@ module Ossert
       end
 
       get '/search/:name' do
-        found_names = ProjectsSearch.by_name(params[:name])
-        return erb(:not_found) unless found_names.present?
-        erb :search_results, locals: {found_names: found_names}
+        search_results = ProjectsSearch.by_name(params[:name])
+        return erb(:not_found) unless search_results.found_any?
+        erb :search_results, locals: { search_results: search_results }
       end
 
       get '/suggest/:name' do
