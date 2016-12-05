@@ -1,12 +1,33 @@
 <div class="page-index">
   <p class="page-index__description">
     Search for `<%= params[:name] %>`
-    <ul>
-      <% found_names.each do |name| %>
-        <li><a href="/<%= name %>" target='_blank'> <%= name %> </a></li>
-      <% end %>
-    </ul>
+    <% if search_results.exact_match %>
+      <p> Exact match: </p>
+      <a href="/<%= search_results.exact_match %>" target="_blank"> <%= search_results.exact_match %> </a>
+    <% end %>
 
-    You can try <a href="/suggest/<%= params[:name] || session[:name] %>"> suggest </a> it.
+    <% if search_results.project_names.present? %>
+      <p> Found projects: </p>
+      <ul>
+        <% search_results.project_names.each do |project_name| %>
+          <li><a href="/<%= project_name %>" target="_blank"> <%= project_name %> </a></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p> Nothing found </p>
+    <% end %>
+
+    <% if search_results.suggestions.present? %>
+      <p> You may try suggest projects: </p>
+      <ul>
+        <% search_results.suggestions.each do |project_name| %>
+          <li><a href="/suggest/<%= project_name %>"><%= project_name %></a></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% unless search_results.suggestion_match %>
+      <p> Still not found what you are looking for? You may <a href="/suggest/<%= params[:name] %>">suggest</a> it </p>
+    <% end %>
   </p>
 </div>
