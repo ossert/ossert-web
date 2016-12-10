@@ -704,47 +704,40 @@ html {
     color: rgb(242, 242, 242);
 }
 
-.gems-list {
+.gem-table-chart {
+  width: 100%;
+  height: 70px;
+}
+
+.gem-table-chart-stats {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.gem-table-chart-stats__item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 20px;
 }
-@media (max-width: 768px) {
-  .gems-list {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-  }
+.gem-table-chart-stats__item + .gem-table-chart-stats__item {
+  margin-top: 2px;
 }
-.gems-list__item {
-  width: 25%;
-  padding-right: 24px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 600;
-}
-@media (max-width: 768px) {
-  .gems-list__item {
-    width: 100%;
-  }
-}
-.gems-list__link {
+.gem-table-chart-stats__color-dot {
   display: block;
-  max-width: 100%;
-  text-decoration: none;
-  padding: 6px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.gem-table-chart-stats__value {
+  margin-left: auto;
 }
 
 .gems-stats-table {
@@ -753,31 +746,6 @@ html {
 }
 .gems-stats-table__header {
   border-bottom: 1px solid #d1d1d1;
-}
-.gems-stats-table__header-cell {
-  padding: 12px 12px;
-  font-size: 14px;
-  line-height: 19px;
-  font-weight: 700;
-  text-align: left;
-  color: #333;
-}
-.gems-stats-table__header-cell_values-column {
-  text-align: right;
-  width: 188px;
-}
-@media (max-width: 992px) {
-  .gems-stats-table__header-cell_values-column {
-    width: 88px;
-  }
-}
-@media (max-width: 768px) {
-  .gems-stats-table__header-cell_values-column {
-    width: auto;
-  }
-}
-.gems-stats-table__header-cell_values-column:not(:last-child) {
-  padding-right: 0;
 }
 .gems-stats-table__row {
   border-bottom: 1px solid #efefef;
@@ -800,29 +768,38 @@ html {
   -webkit-transition: background-color 0.15s ease-out;
   transition: background-color 0.15s ease-out;
 }
-.gems-stats-table__cell_title {
+.gems-stats-table__cell_header {
+  font-weight: 700;
+}
+.gems-stats-table__cell_row-title {
   font-weight: 600;
 }
-.gems-stats-table__cell_values-column {
+.gems-stats-table__cell_row-value {
   text-align: right;
   width: 188px;
 }
 @media (max-width: 992px) {
-  .gems-stats-table__cell_values-column {
+  .gems-stats-table__cell_row-value {
     width: 88px;
   }
 }
 @media (max-width: 768px) {
-  .gems-stats-table__cell_values-column {
+  .gems-stats-table__cell_row-value {
     width: auto;
   }
 }
-.gems-stats-table__cell_values-column_no-vertical-paddings {
+.gems-stats-table__cell_row-value-small {
+  text-align: right;
+  width: 88px;
+}
+.gems-stats-table__cell_row-value:not(:last-child),
+    .gems-stats-table__cell_row-value-small:not(:last-child),
+    .gems-stats-table__cell  {
+  padding-right: 0;
+}
+.gems-stats-table__cell_no-vpadding {
   padding-top: 0;
   padding-bottom: 0;
-}
-.gems-stats-table__cell_values-column:not(:last-child) {
-  padding-right: 0;
 }
 .gems-stats-table__info-icon.gems-stats-table__info-icon {
   margin: -2px 0 0 5px;
@@ -839,10 +816,6 @@ html {
   .gems-stats-table__info-icon.gems-stats-table__info-icon {
     width: auto;
   }
-}
-.gems-stats-table__row-chart {
-  width: 100%;
-  height: 70px;
 }
 
 .header {
@@ -909,7 +882,7 @@ html {
 @media (max-width: 768px) {
   .header__search {
     width: 100%;
-    margin: 12px 0 12px;
+    margin: 12px 0 0;
   }
 }
 
@@ -1164,6 +1137,7 @@ html {
 
 .link {
   display: inline-block;
+  vertical-align: middle;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 
   color: #4a90e2;
@@ -1239,81 +1213,6 @@ html {
 .page-index__search {
   max-width: 100%;
   width: 788px;
-}
-
-.page-search-results {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-bottom: auto;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.page-search-results__container {
-  margin-bottom: 24px;
-}
-.page-search-results__header {
-  margin: 36px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-weight: normal;
-}
-.page-search-results__header-gem {
-  color: #333;
-  font-weight: bold;
-}
-.page-search-results__lists {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.page-search-results__list {
-  margin-bottom: 36px;
-}
-.page-search-results__subheader {
-  margin: 0 0 24px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 600;
-  color: #2c3e50;
-  text-align: center;
-}
-.page-search-results__subheader_inline {
-  display: inline-block;
-  margin-bottom: 0;
-  vertical-align: middle;
-  text-align: left;
-}
-.page-search-results__exact-match {
-  margin-bottom: 48px;
-}
-.page-search-results__exact-gem {
-  margin-left: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 600;
-  text-decoration: none;
-  vertical-align: middle;
-}
-.page-search-results__suggestion {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  color: #7b858e;
 }
 
 .search {

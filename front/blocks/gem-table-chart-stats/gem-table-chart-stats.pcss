@@ -1,0 +1,28 @@
+.gem-table-chart-stats {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 20px;
+  }
+
+  &__item + &__item {
+    margin-top: 2px;
+  }
+
+  &__color-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  &__value {
+    margin-left: auto;
+  }
+}

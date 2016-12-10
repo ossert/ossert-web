@@ -4,11 +4,13 @@
             <div class="gem">
                 <div class="gem-header" id="sticky-project-header">
                     <div class="gem-header__container">
-                      <h1 class="gem-header__heading"><%= project.name %></h1>
-                      <div class="gem-header__refresh-container">
-                        <p class="gem-header__refresh-date">Updated at: <%= project.updated_at.strftime('%d/%m/%Y %H:%M') %></p>
-                        <a class="gem-header__refresh-button link" href="/suggest/<%= project.name %>">&#8635; Request Update</a>
-                      </div>
+                        <h1 class="gem-header__heading"><%= project.name %></h1>
+                        <div class="gem-header__refresh-container">
+                            <p class="gem-header__refresh-date">Updated
+                                at: <%= project.updated_at.strftime('%d/%m/%Y %H:%M') %></p>
+                            <a class="gem-header__refresh-button link" href="/suggest/<%= project.name %>">&#8635;
+                                Request Update</a>
+                        </div>
                     </div>
                     <div class="gem-header__fixed gem-header__fixed_hidden">
                         <div class="gem-header__fixed-container width-container">
@@ -38,9 +40,9 @@
                   </p>
                 <% end %>
                 <div class="gem__description-container">
-                  <p class="gem__description">
-                    <%= project.meta["description"] %>
-                  </p>
+                    <p class="gem__description">
+                        <%= project.meta["description"] %>
+                    </p>
                 </div>
                 <ul class="gem__meta">
                     <% if project.meta["current_version"].present? %>
@@ -64,8 +66,8 @@
                             <h6 class="gem__meta-item-header">Top Contributors:</h6>
                             <div class="gem__meta-item-value">
                                 <% project.meta["top_10_contributors"].each do |contributor| %>
-                                <% name = contributor.split('/').last %>
-                                <a class="gem__link link" href="<%= contributor %>" rel="nofollow" target="_blank"> <%= name %> </a>
+                                    <% name = contributor.split('/').last %>
+                                    <a class="gem__link link" href="<%= contributor %>" rel="nofollow" target="_blank"> <%= name %> </a>
                                 <% end %>
                             </div>
                         </li>
@@ -73,25 +75,27 @@
                     <li class="gem__meta-item">
                         <h6 class="gem__meta-item-header">Links: </h6>
                         <div class="gem__meta-item-value">
-                          <a class="gem__link link" href="https://rubygems.org/gems/<%= project.name %>" rel="nofollow" target="_blank">Rubygems</a>
-                          <% if project.meta["homepage_url"].present? %>
-                              <a class="gem__link link" href="<%= project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
-                          <% end %>
-                          <% if project.meta["docs_url"].present? %>
-                              <a class="gem__link link" href="<%= project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
-                          <% end %>
-                          <% if project.meta["wiki_url"].present? %>
-                              <a class="gem__link link" href="<%= project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
-                          <% end %>
-                          <% if project.meta["source_url"].present? %>
-                              <a class="gem__link link" href="<%= project.meta["source_url"] %>" rel="nofollow" target="_blank">Source Code</a>
-                          <% end %>
-                          <% if project.meta["issue_tracker_url"].present? %>
-                              <a class="gem__link link" href="<%= project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug Tracker</a>
-                          <% end %>
-                          <% unless project.without_github_data? %>
-                              <a class="gem__link link" href="https://github.com/<%= project.github_alias %>" rel="nofollow" target="_blank">GitHub</a>
-                          <% end %>
+                            <a class="gem__link link" href="https://rubygems.org/gems/<%= project.name %>" rel="nofollow" target="_blank">Rubygems</a>
+                            <% if project.meta["homepage_url"].present? %>
+                                <a class="gem__link link" href="<%= project.meta["homepage_url"] %>" rel="nofollow" target="_blank">Website</a>
+                            <% end %>
+                            <% if project.meta["docs_url"].present? %>
+                                <a class="gem__link link" href="<%= project.meta["docs_url"] %>" rel="nofollow" target="_blank">RDoc</a>
+                            <% end %>
+                            <% if project.meta["wiki_url"].present? %>
+                                <a class="gem__link link" href="<%= project.meta["wiki_url"] %>" rel="nofollow" target="_blank">Wiki</a>
+                            <% end %>
+                            <% if project.meta["source_url"].present? %>
+                                <a class="gem__link link" href="<%= project.meta["source_url"] %>" rel="nofollow" target="_blank">Source
+                                    Code</a>
+                            <% end %>
+                            <% if project.meta["issue_tracker_url"].present? %>
+                                <a class="gem__link link" href="<%= project.meta["issue_tracker_url"] %>" rel="nofollow" target="_blank">Bug
+                                    Tracker</a>
+                            <% end %>
+                            <% unless project.without_github_data? %>
+                                <a class="gem__link link" href="https://github.com/<%= project.github_alias %>" rel="nofollow" target="_blank">GitHub</a>
+                            <% end %>
                         </div>
                     </li>
                 </ul>
@@ -132,8 +136,8 @@
                 <header class="gem-stats__header-container">
                     <h3 class="gem-stats__header">Maintenance</h3>
                     <div
-                        class="gem-stats__chart gem-stats-chart"
-                        data-chart='<%= fast_preview_graph[:maintenance]%>'
+                    class="gem-stats__chart gem-stats-chart"
+                    data-chart='<%= fast_preview_graph[:maintenance] %>'
                     ></div>
                     <svg class="icon icon_type_mark-<%= analysis[:maintenance] %> gem-stats__mark">
                         <use xlink:href="#icon_type_mark-<%= analysis[:maintenance] %>"></use>
@@ -142,35 +146,42 @@
                 <p class="gem-stats__description">
                   <%= Ossert.t(:maintenance_description) %>
                 </p>
-                <table class="gems-stats-table gem-stats__table">
+                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="29">
                     <thead class="gems-stats-table__header">
-                    <tr class="gems-stats-table__header-row">
-                      <th class="gems-stats-table__header-cell">Metric</th>
-                      <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This Year</th>
-                      <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
-                    </tr>
+                        <tr class="gems-stats-table__header-row">
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header">Metric</th>
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value"></th>
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value-small js-gems-stats-table__period-title">This
+                                Year
+                            </th>
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value-small">Total</th>
+                        </tr>
                     </thead>
                     <tbody class="gems-stats-table__body">
-                      <% maintenance_metrics.each do |metric|  %>
+                    <% maintenance_metrics.each do |metric| %>
                         <tr
                             class="gems-stats-table__row"
                             data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
-                          <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                            <%= metric_lookup[metric][:translation] %>
-                            <svg class="icon gems-stats-table__info-icon">
-                                <use xlink:href="#icon_type_info"></use>
-                            </svg>
-                          </td>
-
-                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                            <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
-                          </td>
-                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                              <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
-                          </td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_title">
+                                <%= metric_lookup[metric][:translation] %>
+                                <svg class="icon gems-stats-table__info-icon">
+                                    <use xlink:href="#icon_type_info"></use>
+                                </svg>
+                            </td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value gems-stats-table__cell_no-vpadding">
+                                <div
+                                    class="gem-table-chart js-gems-stats-table__row-chart"
+                                    data-year-values="[{&#34;value&#34;:207,&#34;grade&#34;:&#34;c&#34;}]"
+                                    data-chart="[[{&#34;value&#34;:142,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:26,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:139,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:28,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:45,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:39,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:22,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:22,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:96,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:14,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:57,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:77,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:21,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:118,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:132,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:122,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:124,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:88,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:115,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:26,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:141,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:45,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:109,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:40,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:72,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:30,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:52,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:91,&#34;grade&#34;:&#34;c&#34;}]]"
+                                ></div>
+                            </td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
+                            </td>
                         </tr>
-                      <% end %>
+                    <% end %>
                     </tbody>
                 </table>
             </section>
@@ -179,44 +190,52 @@
                 <header class="gem-stats__header-container">
                     <h3 class="gem-stats__header">Popularity</h3>
                     <div
-                        class="gem-stats__chart gem-stats-chart"
-                        data-chart='<%= fast_preview_graph[:popularity] %>'
+                    class="gem-stats__chart gem-stats-chart"
+                    data-chart='<%= fast_preview_graph[:popularity] %>'
                     ></div>
                     <svg class="icon icon_type_mark-<%= analysis[:popularity] %> gem-stats__mark">
-                      <use xlink:href="#icon_type_mark-<%= analysis[:popularity] %>"></use>
+                        <use xlink:href="#icon_type_mark-<%= analysis[:popularity] %>"></use>
                     </svg>
                 </header>
                 <p class="gem-stats__description">
                   <%= Ossert.t(:popularity_description) %>
                 </p>
-                <table class="gems-stats-table gem-stats__table">
+                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="33">
                     <thead class="gems-stats-table__header">
                         <tr class="gems-stats-table__header-row">
-                            <th class="gems-stats-table__header-cell">Metric</th>
-                            <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This year</th>
-                            <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header">Metric</th>
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value"></th>
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value-small js-gems-stats-table__period-title">This
+                                Year
+                            </th>
+                            <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value-small">Total</th>
                         </tr>
                     </thead>
                     <tbody class="gems-stats-table__body">
-                      <% popularity_metrics.each do |metric| %>
+                    <% popularity_metrics.each do |metric| %>
                         <tr
                             class="gems-stats-table__row"
                             data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
-                          <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                              <%= metric_lookup[metric][:translation] %>
-                              <svg class="icon gems-stats-table__info-icon">
-                                  <use xlink:href="#icon_type_info"></use>
-                              </svg>
-                          </td>
-                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                            <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
-                          </td>
-                          <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                              <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
-                          </td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_title">
+                                <%= metric_lookup[metric][:translation] %>
+                                <svg class="icon gems-stats-table__info-icon">
+                                    <use xlink:href="#icon_type_info"></use>
+                                </svg>
+                            </td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value gems-stats-table__cell_no-vpadding">
+                                <div
+                                    class="gem-table-chart js-gems-stats-table__row-chart"
+                                    data-year-values="[{&#34;value&#34;:157,&#34;grade&#34;:&#34;d&#34;}, {&#34;value&#34;:354,&#34;grade&#34;:&#34;a&#34;}]"
+                                    data-chart="[[{&#34;value&#34;:118,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:82,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:47,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:75,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:75,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:87,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:101,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:61,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:83,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:108,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:106,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:32,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:91,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:126,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:40,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:52,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:117,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:38,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:118,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:64,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:48,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:54,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:48,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:94,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:114,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:133,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:31,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:32,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:89,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:13,&#34;grade&#34;:&#34;e&#34;}],[{&#34;value&#34;:80,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:28,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:121,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:50,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:70,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:38,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:52,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:17,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:110,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:95,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:64,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:92,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:38,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:68,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:77,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:78,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:85,&#34;grade&#34;:&#34;b&#34;}]]"
+                                ></div>
+                            </td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
+                            </td>
                         </tr>
-                      <% end %>
+                    <% end %>
                     </tbody>
                 </table>
             </section>
@@ -225,46 +244,53 @@
                 <header class="gem-stats__header-container">
                     <h3 class="gem-stats__header">Maturity</h3>
                     <div
-                        class="gem-stats__chart gem-stats-chart"
-                        data-chart='<%= fast_preview_graph[:maturity] %>'
+                    class="gem-stats__chart gem-stats-chart"
+                    data-chart='<%= fast_preview_graph[:maturity] %>'
                     ></div>
                     <svg class="icon icon_type_mark-<%= analysis[:maturity] %> gem-stats__mark">
-                      <use xlink:href="#icon_type_mark-<%= analysis[:maturity] %>"></use>
+                        <use xlink:href="#icon_type_mark-<%= analysis[:maturity] %>"></use>
                     </svg>
                 </header>
                 <p class="gem-stats__description">
                   <%= Ossert.t(:maturity_description) %>
                 </p>
-                <table class="gems-stats-table gem-stats__table">
+                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="30">
                     <thead class="gems-stats-table__header">
                     <tr class="gems-stats-table__header-row">
-                        <th class="gems-stats-table__header-cell">Metric</th>
-                        <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">This year</th>
-                        <th class="gems-stats-table__header-cell gems-stats-table__header-cell_values-column">Total</th>
+                        <th class="gems-stats-table__cell gems-stats-table__cell_header">Metric</th>
+                        <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value"></th>
+                        <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value-small js-gems-stats-table__period-title">This
+                            Year
+                        </th>
+                        <th class="gems-stats-table__cell gems-stats-table__cell_header gems-stats-table__cell_row-value-small">Total</th>
                     </tr>
                     </thead>
                     <tbody class="gems-stats-table__body">
-
-                      <% maturity_metrics.each do |metric|  %>
+                    <% maturity_metrics.each do |metric| %>
                         <% next unless metric_lookup[metric] %>
                         <tr
                             class="gems-stats-table__row"
                             data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
                             <td class="gems-stats-table__cell gems-stats-table__cell_title">
-                                <%=  metric_lookup[metric][:translation]  %>
+                                <%= metric_lookup[metric][:translation] %>
                                 <svg class="icon gems-stats-table__info-icon">
                                     <use xlink:href="#icon_type_info"></use>
                                 </svg>
                             </td>
-                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
-                              <span class="mark-text mark-text_<%= metric_lookup[metric][:last_year_mark] %>"> <%= metric_lookup[metric][:last_year_val] %></span>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value gems-stats-table__cell_no-vpadding">
+                                <div
+                                class="gem-table-chart js-gems-stats-table__row-chart"
+                                data-year-values="[{&#34;value&#34;:340,&#34;grade&#34;:&#34;a&#34;}]"
+                                data-chart="[[{&#34;value&#34;:120,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:19,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:55,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:11,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:62,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:73,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:57,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:82,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:18,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:138,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:139,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:107,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:128,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:36,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:143,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:56,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:30,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:21,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:150,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:68,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:22,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:128,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:95,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:33,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:43,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:69,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:98,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:138,&#34;grade&#34;:&#34;a&#34;}]]"
+                                ></div>
                             </td>
-                            <td class="gems-stats-table__cell gems-stats-table__cell_values-column">
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
+                            <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
                                 <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
                             </td>
                         </tr>
-                      <% end %>
+                    <% end %>
                     </tbody>
                 </table>
             </section>
