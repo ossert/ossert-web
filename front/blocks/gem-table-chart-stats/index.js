@@ -5,7 +5,7 @@ export function renderGemTableChartStats(node, yearValues, values) {
   values = values && values.filter(value => value).length ? values : yearValues;
 
   const preparedValues = values.map((line, index) => ({
-    value: line && line.value,
+    title: line && line.title,
     grade: line && line.grade,
     GRADE: line && line.grade.toUpperCase(),
     color: GemTableChart.LINE_COLORS[index]
