@@ -735,6 +735,8 @@ html {
   width: 10px;
   height: 10px;
   border-radius: 50%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
 }
 .gem-table-chart-stats__value {
   margin-left: auto;
@@ -790,7 +792,7 @@ html {
 }
 .gems-stats-table__cell_row-value-small {
   text-align: right;
-  width: 88px;
+  width: 138px;
 }
 .gems-stats-table__cell_row-value:not(:last-child),
     .gems-stats-table__cell_row-value-small:not(:last-child),
