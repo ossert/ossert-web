@@ -219,6 +219,7 @@ module Ossert
             locals = {
               project: project,
               metric_lookup: {},
+              metric_history: {},
               popularity_metrics: warmup.popularity_metrics,
               maintenance_metrics: warmup.maintenance_metrics,
               maturity_metrics: warmup.maturity_metrics
@@ -226,6 +227,7 @@ module Ossert
             Ossert::Presenters::Project.with_presenter(project) do |project_decorated|
               (locals[:popularity_metrics] + locals[:maintenance_metrics] + locals[:maturity_metrics]).each do |metric|
                 locals[:metric_lookup][metric] = project_decorated.metric_preview(metric)
+                locals[:metric_history][metric] = MultiJson.dump(project_decorated.metric_history(metric))
               end
               locals[:fast_preview_graph] = project_decorated.fast_preview_graph
               locals[:analysis] = project_decorated.grade
