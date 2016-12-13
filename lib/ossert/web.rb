@@ -62,6 +62,7 @@ module Ossert
       set :views, File.dirname(__FILE__) + '/../../views'
       set :public_dir, File.dirname(__FILE__) + '/../../public'
       set :cache_ttl, 2.hours
+      set :logging, true
       enable :sessions
 
       set :warmup, Warmup.perform
@@ -101,8 +102,10 @@ module Ossert
       end
 
       get '/search/:name' do
-        search_results = ProjectsSearch.by_name(params[:name])
-        return erb(:not_found) unless search_results.found_any?
+        search_results = ProjectsSearch.new(params[:name]) do |search|
+          search.on_error = ->(error){ logger.error "Search error: #{error.message}" }
+        end
+
         erb :search_results, locals: { search_results: search_results }
       end
 
