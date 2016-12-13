@@ -7,7 +7,8 @@ GIT
 
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 84e455dbff69c41264bb57b4d24a32b67594d6cc
+  revision: 0519a243fa6c16306043728b54fb3497df1972b1
+  branch: feat/metric-charts
   specs:
     ossert (0.1.2)
       activesupport

@@ -172,13 +172,13 @@
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value gems-stats-table__cell_no-vpadding">
                                 <div
                                     class="gem-table-chart js-gems-stats-table__row-chart"
-                                    data-year-values="[{&#34;value&#34;:207,&#34;grade&#34;:&#34;c&#34;}]"
-                                    data-chart="[[{&#34;value&#34;:142,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:26,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:139,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:28,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:45,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:39,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:22,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:22,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:96,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:14,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:57,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:77,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:21,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:118,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:132,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:122,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:124,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:88,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:115,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:26,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:141,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:45,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:109,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:40,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:72,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:30,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:52,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:91,&#34;grade&#34;:&#34;c&#34;}]]"
+                                    data-year-values="[{&#34;value&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
+                                    data-chart='[<%= metric_history[metric] %>]'
                                 ></div>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
-                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_text] %></span>
                             </td>
                         </tr>
                     <% end %>
@@ -226,13 +226,13 @@
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value gems-stats-table__cell_no-vpadding">
                                 <div
                                     class="gem-table-chart js-gems-stats-table__row-chart"
-                                    data-year-values="[{&#34;value&#34;:157,&#34;grade&#34;:&#34;d&#34;}, {&#34;value&#34;:354,&#34;grade&#34;:&#34;a&#34;}]"
-                                    data-chart="[[{&#34;value&#34;:118,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:82,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:47,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:75,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:75,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:87,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:101,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:61,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:83,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:108,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:106,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:32,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:91,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:126,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:40,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:52,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:117,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:38,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:118,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:64,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:48,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:54,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:48,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:94,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:114,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:133,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:31,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:32,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:89,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:13,&#34;grade&#34;:&#34;e&#34;}],[{&#34;value&#34;:80,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:28,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:121,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:50,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:70,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:38,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:52,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:17,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:110,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:95,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:64,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:92,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:44,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:38,&#34;grade&#34;:&#34;e&#34;},{&#34;value&#34;:68,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:77,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:112,&#34;grade&#34;:&#34;a&#34;},{&#34;value&#34;:78,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:85,&#34;grade&#34;:&#34;b&#34;}]]"
+                                    data-year-values="[{&#34;value&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
+                                    data-chart='[<%= metric_history[metric] %>]'
                                 ></div>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
-                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_text] %></span>
                             </td>
                         </tr>
                     <% end %>
@@ -280,14 +280,14 @@
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value gems-stats-table__cell_no-vpadding">
                                 <div
-                                class="gem-table-chart js-gems-stats-table__row-chart"
-                                data-year-values="[{&#34;value&#34;:&#34;year values&#34;,&#34;grade&#34;:&#34;b&#34;}]"
-                                data-chart="[[{&#34;value&#34;:&#34;some value 1&#34;,&#34;grade&#34;:&#34;b&#34;},{&#34;value&#34;:&#34;some value 2&#34;,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:&#34;some value 3&#34;,&#34;grade&#34;:&#34;d&#34;},{&#34;value&#34;:&#34;some value 4&#34;,&#34;grade&#34;:&#34;c&#34;},{&#34;value&#34;:&#34;some value 5&#34;,&#34;grade&#34;:&#34;c&#34;}]]"
+                                    class="gem-table-chart js-gems-stats-table__row-chart"
+                                    data-year-values="[{&#34;value&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
+                                    data-chart='[<%= metric_history[metric] %>]'
                                 ></div>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
-                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_val] %></span>
+                                <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_text] %></span>
                             </td>
                         </tr>
                     <% end %>
