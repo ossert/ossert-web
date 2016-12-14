@@ -790,6 +790,11 @@ html {
     width: auto;
   }
 }
+.gems-stats-table__cell_row-chart {
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 288px;
+}
 .gems-stats-table__cell_row-value-small {
   text-align: right;
   width: 138px;
@@ -798,10 +803,6 @@ html {
     .gems-stats-table__cell_row-value-small:not(:last-child),
     .gems-stats-table__cell  {
   padding-right: 0;
-}
-.gems-stats-table__cell_no-vpadding {
-  padding-top: 0;
-  padding-bottom: 0;
 }
 .gems-stats-table__info-icon.gems-stats-table__info-icon {
   margin: -2px 0 0 5px;
@@ -1100,7 +1101,7 @@ html {
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
-  width: 788px;
+  width: 888px;
 }
 @media (max-width: 992px) {
   .layout__content-section {

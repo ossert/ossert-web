@@ -54,6 +54,13 @@
       }
     }
 
+    &_row-chart {
+      padding-top: 0;
+      padding-bottom: 0;
+
+      @mixin columns 3;
+    }
+
     &_row-value-small {
       text-align: right;
 
@@ -63,11 +70,6 @@
     &_row-value:not(:last-child),
     &_row-value-small:not(:last-child), {
       padding-right: 0;
-    }
-
-    &_no-vpadding {
-      padding-top: 0;
-      padding-bottom: 0;
     }
   }
 
