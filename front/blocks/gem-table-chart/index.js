@@ -11,13 +11,13 @@ export function renderTableCharts({ titleNode, chartsNodes, statsCellNodes, maxQ
 
   const emitter = new NanoEvents();
   const tableCharts = [];
-  const parsedYearValues = chartsNodes.map(chart => JSON.parse(chart.dataset.yearValues).map(preparePointData));
+  const parsedYearValues = chartsNodes.map(chart => JSON.parse(chart.dataset.yearValues));
 
   chartsNodes.forEach(chartNode => {
     const chart = new GemTableChart(emitter, {
       width: chartNode.clientWidth,
       height: chartNode.clientHeight,
-      data: JSON.parse(chartNode.dataset.chart).map(lineData => lineData.map(preparePointData)),
+      data: JSON.parse(chartNode.dataset.chart),
       segmentsCount: maxQuarters
     });
     tableCharts.push(chart.attachTo(chartNode));
@@ -45,14 +45,4 @@ export function renderTableCharts({ titleNode, chartsNodes, statsCellNodes, maxQ
   function setYearValues() {
     statsCellNodes.forEach((statsCell, i) => renderGemTableChartStats(statsCell, parsedYearValues[i]));
   }
-}
-
-const GRADE_VALUES = { a: 5, b: 4, c: 3, d: 2, e: 1 };
-
-function preparePointData(pointData) {
-  if (typeof pointData.value === 'number') {
-    return { ...pointData, title: pointData.value };
-  }
-
-  return { ...pointData, title: pointData.value, value: GRADE_VALUES[pointData.grade] };
 }
