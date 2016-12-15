@@ -31,7 +31,7 @@
     <% end %>
 
     <p>
-      <% if !search_results.local.exact_match || !search_results.suggestions.exact_match %>
+      <% if !(search_results.local.exact_match || search_results.suggestions.exact_match) %>
         <% if search_results.found_any? %>
           Not found what you are looking for?
         <% else %>
