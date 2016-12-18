@@ -34,7 +34,7 @@
                 </div>
                 <% if project.without_github_data? %>
                   <p class="gem__github-warning">
-                    Warning: no data found on GitHub for the project
+                    <%= Ossert.t(:no_github_data) %>
                   </p>
                 <% end %>
                 <div class="gem__description-container">
@@ -140,7 +140,7 @@
                     </svg>
                 </header>
                 <p class="gem-stats__description">
-                    Maintenance is metric calculated from project activity for the last year and total from all time. This way we can see if project's development is dynamic and core team is responsive or project is unstable and non-trusted.
+                  <%= Ossert.t(:maintenance_description) %>
                 </p>
                 <table class="gems-stats-table gem-stats__table">
                     <thead class="gems-stats-table__header">
@@ -187,7 +187,7 @@
                     </svg>
                 </header>
                 <p class="gem-stats__description">
-                    Popularity is metric calculated from user activity for the last year and total from all time. This way we can see if projects popularity rises or is already in decline.
+                  <%= Ossert.t(:popularity_description) %>
                 </p>
                 <table class="gems-stats-table gem-stats__table">
                     <thead class="gems-stats-table__header">
@@ -233,7 +233,7 @@
                     </svg>
                 </header>
                 <p class="gem-stats__description">
-                    Maturity is metric calculated from both project and users activity for the last year and total from all time. This way we can see if project reached high growth level or just on its seedling stage.
+                  <%= Ossert.t(:maturity_description) %>
                 </p>
                 <table class="gems-stats-table gem-stats__table">
                     <thead class="gems-stats-table__header">
