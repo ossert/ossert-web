@@ -220,15 +220,41 @@ module Ossert
               project: project,
               metric_lookup: {},
               metric_history: {},
+              popularity_history_size: 0,
+              maintenance_history_size: 0,
+              maturity_history_size: 0,
               popularity_metrics: warmup.popularity_metrics,
               maintenance_metrics: warmup.maintenance_metrics,
               maturity_metrics: warmup.maturity_metrics
             }
             Ossert::Presenters::Project.with_presenter(project) do |project_decorated|
-              (locals[:popularity_metrics] + locals[:maintenance_metrics] + locals[:maturity_metrics]).each do |metric|
+              (locals[:popularity_metrics]).each do |metric|
                 locals[:metric_lookup][metric] = project_decorated.metric_preview(metric)
-                locals[:metric_history][metric] = MultiJson.dump(project_decorated.metric_history(metric))
+                locals[:metric_history][metric] = project_decorated.metric_history(metric).take(21).drop(1)
+                locals[:popularity_history_size] = [
+                  locals[:metric_history][metric].size,
+                  locals[:popularity_history_size]
+                ].max
               end
+
+              (locals[:maintenance_metrics]).each do |metric|
+                locals[:metric_lookup][metric] = project_decorated.metric_preview(metric)
+                locals[:metric_history][metric] = project_decorated.metric_history(metric).take(21).drop(1)
+                locals[:maintenance_history_size] = [
+                  locals[:metric_history][metric].size,
+                  locals[:maintenance_history_size]
+                ].max
+              end
+
+              (locals[:maturity_metrics]).each do |metric|
+                locals[:metric_lookup][metric] = project_decorated.metric_preview(metric)
+                locals[:metric_history][metric] = project_decorated.metric_history(metric).take(21).drop(1)
+                locals[:maturity_history_size] = [
+                  locals[:metric_history][metric].size,
+                  locals[:maturity_history_size]
+                ].max
+              end
+
               locals[:fast_preview_graph] = project_decorated.fast_preview_graph
               locals[:analysis] = project_decorated.grade
             end

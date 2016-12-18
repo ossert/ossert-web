@@ -146,7 +146,7 @@
                 <p class="gem-stats__description">
                   <%= Ossert.t(:maintenance_description) %>
                 </p>
-                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="29">
+                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="<%= maintenance_history_size %>">
                     <thead class="gems-stats-table__header">
                         <tr class="gems-stats-table__header-row">
                             <th class="gems-stats-table__cell gems-stats-table__cell_header">Metric</th>
@@ -172,8 +172,8 @@
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-chart">
                                 <div
                                     class="gem-table-chart js-gems-stats-table__row-chart"
-                                    data-year-values="[{&#34;value&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
-                                    data-chart='[<%= metric_history[metric] %>]'
+                                    data-year-values="[{&#34;title&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
+                                    data-chart='[<%= MultiJson.dump metric_history[metric] %>]'
                                 ></div>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
@@ -200,7 +200,7 @@
                 <p class="gem-stats__description">
                   <%= Ossert.t(:popularity_description) %>
                 </p>
-                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="33">
+                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="<%= popularity_history_size %>">
                     <thead class="gems-stats-table__header">
                         <tr class="gems-stats-table__header-row">
                             <th class="gems-stats-table__cell gems-stats-table__cell_header">Metric</th>
@@ -226,8 +226,8 @@
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-chart">
                                 <div
                                     class="gem-table-chart js-gems-stats-table__row-chart"
-                                    data-year-values="[{&#34;value&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
-                                    data-chart='[<%= metric_history[metric] %>]'
+                                    data-year-values="[{&#34;title&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
+                                    data-chart='[<%= MultiJson.dump metric_history[metric] %>]'
                                 ></div>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
@@ -254,7 +254,7 @@
                 <p class="gem-stats__description">
                   <%= Ossert.t(:maturity_description) %>
                 </p>
-                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="5">
+                <table class="gem-stats__table gems-stats-table js-gems-stats-table" data-max-quarters="<%= maturity_history_size %>">
                     <thead class="gems-stats-table__header">
                     <tr class="gems-stats-table__header-row">
                         <th class="gems-stats-table__cell gems-stats-table__cell_header">Metric</th>
@@ -281,8 +281,8 @@
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-chart">
                                 <div
                                     class="gem-table-chart js-gems-stats-table__row-chart"
-                                    data-year-values="[{&#34;value&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
-                                    data-chart='[<%= metric_history[metric] %>]'
+                                    data-year-values="[{&#34;title&#34;:&#34;<%= metric_lookup[metric][:last_year_text] %>&#34;,&#34;grade&#34;:&#34;<%= metric_lookup[metric][:last_year_mark] %>&#34;}]"
+                                    data-chart='[<%= MultiJson.dump metric_history[metric] %>]'
                                 ></div>
                             </td>
                             <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
