@@ -706,6 +706,49 @@ html {
     transition: opacity 0.2s ease-out;
 }
 
+.gems-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 768px) {
+  .gems-list {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+  }
+}
+.gems-list__item {
+  width: 25%;
+  padding-right: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .gems-list__item {
+    width: 100%;
+  }
+}
+.gems-list__link {
+  display: block;
+  max-width: 100%;
+  text-decoration: none;
+  padding: 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .gems-stats-table {
   width: 100%;
   border-collapse: collapse;
@@ -860,7 +903,7 @@ html {
 @media (max-width: 768px) {
   .header__search {
     width: 100%;
-    margin: 12px 0 0;
+    margin: 12px 0 12px;
   }
 }
 
@@ -1115,7 +1158,6 @@ html {
 
 .link {
   display: inline-block;
-  vertical-align: middle;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 
   color: #4a90e2;
@@ -1191,6 +1233,81 @@ html {
 .page-index__search {
   max-width: 100%;
   width: 788px;
+}
+
+.page-search-results {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: auto;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.page-search-results__container {
+  margin-bottom: 24px;
+}
+.page-search-results__header {
+  margin: 36px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-weight: normal;
+}
+.page-search-results__header-gem {
+  color: #333;
+  font-weight: bold;
+}
+.page-search-results__lists {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.page-search-results__list {
+  margin-bottom: 36px;
+}
+.page-search-results__subheader {
+  margin: 0 0 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+}
+.page-search-results__subheader_inline {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+  text-align: left;
+}
+.page-search-results__exact-match {
+  margin-bottom: 48px;
+}
+.page-search-results__exact-gem {
+  margin-left: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.page-search-results__suggestion {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #7b858e;
 }
 
 .search {
