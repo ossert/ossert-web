@@ -25,8 +25,8 @@ module Ossert
         @maintenance_metrics = (::Settings['stats']['agility']['quarter']['metrics'] +
                                 ::Settings['stats']['agility']['total']['metrics']).uniq
 
-        @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
-                            ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
+        @maturity_metrics = (::Settings['classifiers_growth']['metrics']['maturity']['last_year'].keys +
+                            ::Settings['classifiers_growth']['metrics']['maturity']['total'].keys).uniq
 
         @cache = Sinatra::RedisCache::Cache.new
 
