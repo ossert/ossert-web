@@ -8,6 +8,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'capistrano_colors'
+  gem 'capistrano-rbenv'
   gem 'capistrano-friday'
 end
 
