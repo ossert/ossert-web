@@ -1,9 +1,7 @@
 <main class="layout__content width-container">
   <div class="page-index">
     <p class="page-index__description">
-      <%= @warn || 'Welcome to Ossert!'%>
-      <br>
-      You can search for a finished analyzes of a project via its name on Rubygems
+      <%= Ossert.t(:intro) % {text: @warn || Ossert.t(:welcome)} %>
     </p>
     <form action="#" class="page-index__search search search_big">
       <input type="text" class="search__input" placeholder="Type package name..." name="package">
@@ -13,7 +11,7 @@
         </svg>
       </button>
     </form>
-    <p> Random ready analyzes: </p>
+    <p> <%= Ossert.t(:random_projects) %> </p>
     <% Ossert::Project.random_top.each do |project| %>
         <p><a class="gem__link link" href="/<%= project.name %>"> <%= project.github_name %></a> </p>
     <% end %>

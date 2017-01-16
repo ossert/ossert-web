@@ -1,7 +1,5 @@
 <div class="page-index">
   <p class="page-index__description">
-    Sorry, but gem <big> "<%= params[:name] || session[:name] %>" </big> was not analyzed yet.
-    <br>
-    You can try <a href="/suggest/<%= params[:name] || session[:name] %>"> suggest </a> it.
+    <%= Ossert.t(:not_found) % {name: params[:name] || session[:name]} %>
   </p>
 </div>

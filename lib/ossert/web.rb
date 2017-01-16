@@ -1,5 +1,6 @@
 require "ossert/web/version"
 require "ossert"
+require "ossert/web/projects_search"
 require "sinatra"
 require "slim"
 require "sass"
@@ -24,8 +25,8 @@ module Ossert
         @maintenance_metrics = (::Settings['stats']['agility']['quarter']['metrics'] +
                                 ::Settings['stats']['agility']['total']['metrics']).uniq
 
-        @maturity_metrics = (::Settings['classifiers']['growth']['metrics']['maturity']['last_year'].keys +
-                            ::Settings['classifiers']['growth']['metrics']['maturity']['total'].keys).uniq
+        @maturity_metrics = (::Settings['classifiers_growth']['metrics']['maturity']['last_year'].keys +
+                            ::Settings['classifiers_growth']['metrics']['maturity']['total'].keys).uniq
 
         @cache = Sinatra::RedisCache::Cache.new
 
@@ -61,6 +62,7 @@ module Ossert
       set :views, File.dirname(__FILE__) + '/../../views'
       set :public_dir, File.dirname(__FILE__) + '/../../public'
       set :cache_ttl, 2.hours
+      set :logging, true
       enable :sessions
 
       set :warmup, Warmup.perform
@@ -100,9 +102,11 @@ module Ossert
       end
 
       get '/search/:name' do
-        project = Ossert::Project.load_by_name(params[:name])
-        return erb(:not_found) unless project
-        redirect to(params[:name])
+        search_results = ProjectsSearch.new(params[:name]) do |search|
+          search.on_error = ->(error){ logger.error "Search error: #{error.message}" }
+        end
+
+        erb :search_results, locals: { search_results: search_results }
       end
 
       get '/suggest/:name' do

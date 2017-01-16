@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "slim"
   spec.add_runtime_dependency "sass"
   spec.add_runtime_dependency "rake", "~> 10.0"
+  spec.add_runtime_dependency "faraday"
 
   spec.add_development_dependency "pry"
   spec.add_development_dependency "sitemap_generator"
