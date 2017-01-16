@@ -9,6 +9,7 @@ group :development do
   gem 'capistrano-ext'
   gem 'capistrano_colors'
   gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
   gem 'capistrano-friday'
 end
 
