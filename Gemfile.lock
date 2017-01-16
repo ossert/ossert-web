@@ -84,6 +84,7 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.3)
     capistrano_colors (0.5.5)
+    chronic (0.10.2)
     coderay (1.1.1)
     colorize (0.8.1)
     concurrent-ruby (1.0.4)
@@ -172,6 +173,8 @@ GEM
     tilt (2.0.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    whenever (0.9.7)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -192,6 +195,7 @@ DEPENDENCIES
   rspec (~> 3.0)
   sawyer!
   sitemap_generator
+  whenever
 
 BUNDLED WITH
    1.13.7
