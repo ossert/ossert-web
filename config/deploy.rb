@@ -34,3 +34,8 @@ set :scm, :git
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.3'
+
+before 'deploy:started',  'sidekiq:quiet'
+before 'deploy:starting', 'friday:check'
+after  'deploy:restart',  'sidekiq:restart'
+after  'deploy:start',    'sidekiq:start'
