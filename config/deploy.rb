@@ -30,8 +30,6 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'public/system'
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
-set :scm, :git
-
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.3'
 
