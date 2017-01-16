@@ -62,12 +62,18 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
+    capistrano-bundler (1.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
     capistrano-friday (0.1.0)
       capistrano (~> 3.0)
       colorize
     capistrano-harrow (0.5.3)
+    capistrano-rbenv (2.1.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
     capistrano_colors (0.5.5)
     coderay (1.1.1)
     colorize (0.8.1)
@@ -162,8 +168,10 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.12)
   capistrano
+  capistrano-bundler
   capistrano-ext
   capistrano-friday
+  capistrano-rbenv
   capistrano_colors
   decisiontree!
   ossert!
