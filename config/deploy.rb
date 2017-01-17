@@ -30,6 +30,8 @@ set :keep_releases, 5
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.3'
 
+set :whenever_roles, [:app]
+
 before 'deploy:started',  'sidekiq:quiet'
 before 'deploy:starting', 'friday:check'
 after  'deploy:restart',  'sidekiq:restart'
