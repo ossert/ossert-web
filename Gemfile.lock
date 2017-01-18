@@ -45,6 +45,7 @@ PATH
     ossert-web (0.1.0)
       erubis
       faraday
+      pry
       puma
       puma_worker_killer
       rake (~> 10.0)
@@ -191,7 +192,6 @@ DEPENDENCIES
   kmeans-clusterer!
   ossert!
   ossert-web!
-  pry
   rspec (~> 3.0)
   sawyer!
   sitemap_generator
