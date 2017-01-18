@@ -30,7 +30,7 @@ set :keep_releases, 5
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.3'
 
-set :whenever_command, 'bundle exec whenever'
+set :whenever_command, '$HOME/.rbenv/bin/rbenv exec bundle exec whenever'
 set :whenever_roles, [:app]
 
 before 'deploy:started',  'sidekiq:quiet'
