@@ -2,7 +2,7 @@ namespace :sidekiq do
   desc 'Sidekiq should stop accepting new tasks.'
   task :quiet do
     on roles(:app) do
-      execute "#{fetch(:rbenv_path)}/bin/rbenv exec bundle exec sidekiqctl quiet #{current_path}/tmp/pids/sidekiq.pid || true"
+      execute "cd #{current_path} && #{fetch(:rbenv_path)}/bin/rbenv exec bundle exec sidekiqctl quiet #{current_path}/tmp/pids/sidekiq.pid || true"
     end
   end
 
