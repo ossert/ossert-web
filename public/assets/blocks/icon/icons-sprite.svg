@@ -30,5 +30,8 @@
 		<symbol id="icon_type_to-top" viewBox="0 0 24 24">
 			<path d="M3.984 12l8.016-8.016 8.016 8.016-1.453 1.406-5.578-5.578v12.188h-1.969v-12.188l-5.625 5.578z" />
 		</symbol>
+		<symbol id="icon_type_toggle" viewBox="0 0 72 72">
+			<path d="M35.9,27.9L19.5,44.4L16,40.9l20-20l20,20l-3.6,3.5"/>
+		</symbol>
 	</defs>
 </svg>

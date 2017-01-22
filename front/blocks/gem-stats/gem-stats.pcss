@@ -1,6 +1,6 @@
 .gem-stats {
   & + & {
-    margin-top: calc($layoutFactor * 2px);
+    margin-top: calc($layoutFactor * 1px);
   }
 
   &__header-container {
@@ -8,6 +8,7 @@
     justify-content: flex-start;
     align-items: flex-end;
     flex-wrap: wrap;
+    cursor: pointer;
   }
 
   &__header {
@@ -33,11 +34,32 @@
 
   &__mark {
     font-size: 36px;
-    margin-left: calc($layoutFactor * 2px);
+    margin-left: calc($layoutFactor * 1px);
 
     @media (--phone) {
       margin-left: calc($layoutFactor * 1px);
       margin-right: calc($layoutFactor * 1px);
+    }
+  }
+
+  &__toggler {
+    width: calc($layoutFactor / 2 + 24px);
+    height: calc($layoutFactor / 2 + 24px);
+    margin-left: calc($layoutFactor * 2px);
+    border-radius: 50%;
+    background-color: $layoutBorderColor;
+    font-size: 36px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.1s ease-out, transform 0.1s ease-out;
+
+    &:hover,
+    &:focus {
+      background-color: color($layoutBorderColor lightness(-10%));
+    }
+
+    &:active {
+      background-color: color($layoutBorderColor lightness(-15%));
     }
   }
 
