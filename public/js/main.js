@@ -72,6 +72,10 @@
 	
 	var _gem = __webpack_require__(26);
 	
+	var _toggleable = __webpack_require__(27);
+	
+	var _toggleable2 = _interopRequireDefault(_toggleable);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	if (process.env.NODE_ENV === 'development') {
@@ -96,9 +100,9 @@
 	    (0, _gemStatsChart.draw)(this, (0, _jquery2.default)(this).data('chart'));
 	  });
 	
-	  var stickyHeaderTitle = document.querySelector('#sticky-header-title');
-	
-	  (0, _utils.arrayFromNodes)(document.querySelectorAll('.js-gems-stats-table')).forEach(function (table) {
+	  (0, _toggleable2.default)(function (toggleable) {
+	    var stickyHeaderTitle = document.querySelector('#sticky-header-title');
+	    var table = toggleable.querySelector('.js-gems-stats-table');
 	    var tablePeriodTitle = table.querySelector('.js-gems-stats-table__period-title');
 	    var tableStatsType = _utils.DOM.closest(table, '.gem-stats');
 	
@@ -10757,22 +10761,24 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var $body = (0, _jquery2.default)(document.body);
 	var $statsTables = (0, _jquery2.default)('.gems-stats-table');
 	var $helpTooltip = (0, _jquery2.default)('.help-tooltip');
 	var $helpTooltipContent = $helpTooltip.find('.help-tooltip__content');
 	var $helpTooltipArrow = $helpTooltip.find('.help-tooltip__arrow');
-	var $mutualParent = $helpTooltip.parents('.layout__content-row');
-	var mutualParentOffset = $mutualParent.offset();
-	var mutualParentHeight = $mutualParent.height();
+	var $sidebar = $helpTooltip.parents('.layout__sidebar-section');
+	var $mutualParent = $sidebar.parents('.layout__content-row');
 	
 	function init() {
 	  $statsTables.on('mouseenter', '.gems-stats-table__row', function onRowMouseOver() {
 	    var $this = (0, _jquery2.default)(this);
+	    var mutualParentOffset = $mutualParent.offset();
+	    var mutualParentHeight = $mutualParent.height();
 	
 	    $helpTooltipContent.html((0, _helpTooltip2.default)($this.data('tooltip')));
 	
 	    var rowOffset = $this.offset();
-	    var helpTooltipHeight = $helpTooltip.outerHeight();
+	    var helpTooltipHeight = getHeight($helpTooltip.clone().css({ width: $sidebar.width() }));
 	    var relativeRowOffsetTop = rowOffset.top - mutualParentOffset.top;
 	    var arrowOffset = mutualParentHeight - helpTooltipHeight - relativeRowOffsetTop;
 	
@@ -10791,6 +10797,19 @@
 	  $statsTables.on('mouseleave', '.gems-stats-table__row', function () {
 	    return $helpTooltip.addClass('help-tooltip_hidden');
 	  });
+	}
+	
+	function getHeight($tooltip) {
+	  var $cloned = $tooltip.css({
+	    display: 'block',
+	    visibility: 'hidden',
+	    position: 'absolute',
+	    top: 0
+	  }).appendTo($body);
+	
+	  var height = $cloned.outerHeight();
+	  $cloned.remove();
+	  return height;
 	}
 
 /***/ },
@@ -37636,6 +37655,46 @@
 	
 	    $description.toggleClass('gem__description_collapsed', !collapsed);
 	    $togglerButton.text(collapsed ? 'Collapse' : 'See full');
+	  });
+	}
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = init;
+	
+	var _utils = __webpack_require__(23);
+	
+	var _raf = __webpack_require__(4);
+	
+	var _raf2 = _interopRequireDefault(_raf);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function init(callback) {
+	  (0, _utils.arrayFromNodes)(document.querySelectorAll('[data-toggleable]')).forEach(function (node) {
+	    var callbackIsCalled = false;
+	
+	    node.querySelector('[data-toggleable-toggler').addEventListener('click', function () {
+	      node.classList.toggle('toggleable_closed');
+	
+	      if (!node.classList.contains('toggleable_closed') && !callbackIsCalled) {
+	        callbackIsCalled = true;
+	        (0, _raf2.default)(function () {
+	          return callback(node);
+	        });
+	      }
+	    });
+	
+	    if (!node.classList.contains('toggleable_closed')) {
+	      callback(node);
+	    }
 	  });
 	}
 

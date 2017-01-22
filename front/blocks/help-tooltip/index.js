@@ -1,22 +1,24 @@
 import $ from 'jquery';
 import tooltipTpl from './help-tooltip.mustache';
 
+const $body = $(document.body);
 const $statsTables = $('.gems-stats-table');
 const $helpTooltip = $('.help-tooltip');
 const $helpTooltipContent = $helpTooltip.find('.help-tooltip__content');
 const $helpTooltipArrow = $helpTooltip.find('.help-tooltip__arrow');
-const $mutualParent = $helpTooltip.parents('.layout__content-row');
-const mutualParentOffset = $mutualParent.offset();
-const mutualParentHeight = $mutualParent.height();
+const $sidebar = $helpTooltip.parents('.layout__sidebar-section');
+const $mutualParent = $sidebar.parents('.layout__content-row');
 
 export function init() {
   $statsTables.on('mouseenter', '.gems-stats-table__row', function onRowMouseOver() {
     const $this = $(this);
+    const mutualParentOffset = $mutualParent.offset();
+    const mutualParentHeight = $mutualParent.height();
 
     $helpTooltipContent.html(tooltipTpl($this.data('tooltip')));
 
     const rowOffset = $this.offset();
-    const helpTooltipHeight = $helpTooltip.outerHeight();
+    const helpTooltipHeight = getHeight($helpTooltip.clone().css({ width: $sidebar.width() }));
     let relativeRowOffsetTop = rowOffset.top - mutualParentOffset.top;
     let arrowOffset = mutualParentHeight - helpTooltipHeight - relativeRowOffsetTop;
 
@@ -33,4 +35,19 @@ export function init() {
   });
 
   $statsTables.on('mouseleave', '.gems-stats-table__row', () => $helpTooltip.addClass('help-tooltip_hidden'));
+}
+
+function getHeight($tooltip) {
+  const $cloned = $tooltip
+    .css({
+      display: 'block',
+      visibility: 'hidden',
+      position: 'absolute',
+      top: 0
+    })
+    .appendTo($body);
+
+  const height = $cloned.outerHeight();
+  $cloned.remove();
+  return height;
 }

@@ -8,6 +8,7 @@ import { smoothAnchorScrolling } from './blocks/link';
 import { isMobileView, arrayFromNodes, DOM } from './blocks/utils';
 import searchForm from './blocks/search';
 import { gemDescriptionCollapser } from './blocks/gem';
+import initToggleable from './blocks/toggleable';
 
 
 if (process.env.NODE_ENV === 'development') {
@@ -32,9 +33,9 @@ $(() => {
     drawTableMainChart(this, $(this).data('chart'));
   });
 
-  const stickyHeaderTitle = document.querySelector('#sticky-header-title');
-
-  arrayFromNodes(document.querySelectorAll('.js-gems-stats-table')).forEach(table => {
+  initToggleable((toggleable) => {
+    const stickyHeaderTitle = document.querySelector('#sticky-header-title');
+    const table = toggleable.querySelector('.js-gems-stats-table');
     const tablePeriodTitle = table.querySelector('.js-gems-stats-table__period-title');
     const tableStatsType = DOM.closest(table, '.gem-stats');
 

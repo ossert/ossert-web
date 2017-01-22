@@ -623,7 +623,7 @@ html {
 }
 
 .gem-stats + .gem-stats {
-    margin-top: 24px;
+    margin-top: 12px;
 }
 .gem-stats__header-container {
     display: -webkit-box;
@@ -637,6 +637,7 @@ html {
             align-items: flex-end;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    cursor: pointer;
 }
 .gem-stats__header {
     margin: 0;
@@ -662,13 +663,34 @@ html {
 }
 .gem-stats__mark {
     font-size: 36px;
-    margin-left: 24px;
+    margin-left: 12px;
 }
 @media (max-width: 480px) {
     .gem-stats__mark {
         margin-left: 12px;
         margin-right: 12px;
     }
+}
+.gem-stats__toggler {
+    width: 30px;
+    height: 30px;
+    margin-left: 24px;
+    border-radius: 50%;
+    background-color: #d1d1d1;
+    font-size: 36px;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease-out, -webkit-transform 0.1s ease-out;
+    transition: background-color 0.1s ease-out, -webkit-transform 0.1s ease-out;
+    transition: background-color 0.1s ease-out, transform 0.1s ease-out;
+    transition: background-color 0.1s ease-out, transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
+}
+.gem-stats__toggler:hover,
+    .gem-stats__toggler:focus {
+    background-color: rgb(184, 184, 184);
+}
+.gem-stats__toggler:active {
+    background-color: rgb(171, 171, 171);
 }
 .gem-stats__description {
     margin: 24px 0 0;
@@ -958,8 +980,7 @@ html {
 .help-tooltip_hidden {
   -webkit-transform: translate3d(-30px, 0, 0);
           transform: translate3d(-30px, 0, 0);
-  opacity: 0;
-  visibility: hidden;
+  display: none;
 }
 .help-tooltip__arrow {
   position: absolute;
@@ -1134,7 +1155,7 @@ html {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  margin-top: 48px;
+  margin-top: 24px;
 }
 @media (max-width: 768px) {
   .layout__content-row {
@@ -1441,6 +1462,14 @@ html {
     padding-left: 24px;
     padding-right: 24px;
   }
+}
+
+.toggleable_closed .toggleable__icon {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+.toggleable_closed .toggleable__content {
+    display: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
