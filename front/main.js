@@ -5,9 +5,10 @@ import { init as helpTooltipInit } from './blocks/help-tooltip';
 import { draw as drawTableMainChart } from './blocks/gem-stats-chart';
 import { renderTableCharts } from './blocks/gem-table-chart';
 import { smoothAnchorScrolling } from './blocks/link';
-import { isMobileView, arrayFromNodes } from './blocks/utils';
+import { isMobileView, arrayFromNodes, DOM } from './blocks/utils';
 import searchForm from './blocks/search';
 import { gemDescriptionCollapser } from './blocks/gem';
+
 
 if (process.env.NODE_ENV === 'development') {
   window.$ = $;
@@ -31,12 +32,24 @@ $(() => {
     drawTableMainChart(this, $(this).data('chart'));
   });
 
+  const stickyHeaderTitle = document.querySelector('#sticky-header-title');
+
   arrayFromNodes(document.querySelectorAll('.js-gems-stats-table')).forEach(table => {
+    const tablePeriodTitle = table.querySelector('.js-gems-stats-table__period-title');
+    const tableStatsType = DOM.closest(table, '.gem-stats');
+
     renderTableCharts({
-      titleNode: table.querySelector('.js-gems-stats-table__period-title'),
       chartsNodes: table.querySelectorAll('.js-gems-stats-table__row-chart'),
       statsCellNodes: table.querySelectorAll('.js-gems-stats-table__cell-stats'),
-      maxQuarters: JSON.parse(table.dataset.maxQuarters)
+      maxQuarters: JSON.parse(table.dataset.maxQuarters),
+      onShow: (value) => {
+        stickyHeaderTitle.textContent = `${tableStatsType.dataset.title}${value ? ` - ${value}` : ''}`;
+        tablePeriodTitle.textContent = value;
+      },
+      onOut: () => {
+        stickyHeaderTitle.textContent = '';
+        tablePeriodTitle.textContent = 'This year';
+      }
     });
   });
 });

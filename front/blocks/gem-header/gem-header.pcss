@@ -87,11 +87,16 @@
     font-weight: 600;
   }
 
+  &__fixed-table-current-interval {
+    margin: 0 auto;
+    font-weight: bold;
+  }
+
   &__fixed-items {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 0 0 0 auto;
+    margin: 0;
     padding: 0;
     list-style: none;
 
@@ -114,6 +119,7 @@
 
   &__top-link {
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     width: calc($layoutFactor / 2 + 24px);

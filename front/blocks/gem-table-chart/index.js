@@ -5,7 +5,7 @@ import { arrayFromNodes } from '../utils';
 
 export default GemTableChart;
 
-export function renderTableCharts({ titleNode, chartsNodes, statsCellNodes, maxQuarters }) {
+export function renderTableCharts({ chartsNodes, statsCellNodes, maxQuarters, onShow, onOut }) {
   chartsNodes = arrayFromNodes(chartsNodes);
   statsCellNodes = arrayFromNodes(statsCellNodes);
 
@@ -26,21 +26,14 @@ export function renderTableCharts({ titleNode, chartsNodes, statsCellNodes, maxQ
   setYearValues();
 
   emitter.on('show', (graphId, index) => {
-    setTitle(tableCharts[0].getTitleAt(index) || 'This year');
+    onShow(tableCharts[0].getTitleAt(index));
     tableCharts.forEach((chart, i) => renderGemTableChartStats(
       statsCellNodes[i],
       parsedYearValues[i],
       chart.getValuesAt(index)
     ));
   });
-  emitter.on('out', () => {
-    setYearValues();
-    setTitle('This year');
-  });
-
-  function setTitle(value) {
-    titleNode.textContent = value;
-  }
+  emitter.on('out', onOut);
 
   function setYearValues() {
     statsCellNodes.forEach((statsCell, i) => renderGemTableChartStats(statsCell, parsedYearValues[i]));

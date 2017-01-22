@@ -9,3 +9,17 @@ export function isMobileView() {
 export function arrayFromNodes(nodes) {
   return Array.prototype.slice.call(nodes);
 }
+
+export const DOM = {
+  closest: (elem, selector) => {
+    while (elem) {
+      if (elem.matches(selector)) {
+        return elem;
+      }
+
+      elem = elem.parentElement;
+    }
+
+    return null;
+  }
+};
