@@ -30,7 +30,7 @@ module Ossert
 
         @cache = Sinatra::RedisCache::Cache.new
 
-        return unless ENV.fetch('RACK_ENV', false)
+        return if ENV.fetch('RACK_ENV', 'test') == 'test'
         ::Ossert.init
         ::Ossert::Classifiers.train
       end
