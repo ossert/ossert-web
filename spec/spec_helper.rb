@@ -3,15 +3,12 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 ENV['TEST'] = '1'
 
 require 'sequel'
-# require 'ossert'
-require 'ossert/web'
+require 'ossert'
 
 require 'multi_json'
 require 'rspec'
 require 'webmock/rspec'
 require 'base64'
-
-require 'capybara/rspec'
 
 require 'vcr'
 VCR.configure do |c|
@@ -102,12 +99,22 @@ RSpec.configure do |config|
   end
 end
 
+require 'ossert/web'
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+require 'capybara-screenshot/rspec'
+
+Capybara.javascript_driver = :poltergeist
+Capybara.app = Ossert::Web::App
+
 def init_projects
-  @a_project = 'multi_json'
-  @b_project = 'rake'
-  @c_project = 'scientist'
-  @d_project = 'dry-web'
-  @e_project = 'reifier'
+  @projects = [
+    @a_project = 'multi_json',
+    @b_project = 'rake',
+    @c_project = 'scientist',
+    @d_project = 'dry-web',
+    @e_project = 'reifier'
+  ]
 end
 
 def env_token_for(source)

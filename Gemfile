@@ -20,6 +20,7 @@ group :test, :development do
   gem 'webmock'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'capybara-screenshot'
 end
 
 # Specify your gem's dependencies in ossert-web.gemspec
