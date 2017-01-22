@@ -15,5 +15,12 @@ group :development do
   gem 'capistrano-friday'
 end
 
+group :test, :development do
+  gem 'vcr'
+  gem 'webmock'
+  gem 'capybara'
+  gem 'poltergeist'
+end
+
 # Specify your gem's dependencies in ossert-web.gemspec
 gemspec
