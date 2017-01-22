@@ -96,12 +96,24 @@
 	    (0, _gemStatsChart.draw)(this, (0, _jquery2.default)(this).data('chart'));
 	  });
 	
+	  var stickyHeaderTitle = document.querySelector('#sticky-header-title');
+	
 	  (0, _utils.arrayFromNodes)(document.querySelectorAll('.js-gems-stats-table')).forEach(function (table) {
+	    var tablePeriodTitle = table.querySelector('.js-gems-stats-table__period-title');
+	    var tableStatsType = _utils.DOM.closest(table, '.gem-stats');
+	
 	    (0, _gemTableChart.renderTableCharts)({
-	      titleNode: table.querySelector('.js-gems-stats-table__period-title'),
 	      chartsNodes: table.querySelectorAll('.js-gems-stats-table__row-chart'),
 	      statsCellNodes: table.querySelectorAll('.js-gems-stats-table__cell-stats'),
-	      maxQuarters: JSON.parse(table.dataset.maxQuarters)
+	      maxQuarters: JSON.parse(table.dataset.maxQuarters),
+	      onShow: function onShow(value) {
+	        stickyHeaderTitle.textContent = '' + tableStatsType.dataset.title + (value ? ' - ' + value : '');
+	        tablePeriodTitle.textContent = value;
+	      },
+	      onOut: function onOut() {
+	        stickyHeaderTitle.textContent = '';
+	        tablePeriodTitle.textContent = 'This year';
+	      }
 	    });
 	  });
 	});
@@ -19856,10 +19868,11 @@
 	
 	exports.default = _gemTableChart2.default;
 	function renderTableCharts(_ref) {
-	  var titleNode = _ref.titleNode,
-	      chartsNodes = _ref.chartsNodes,
+	  var chartsNodes = _ref.chartsNodes,
 	      statsCellNodes = _ref.statsCellNodes,
-	      maxQuarters = _ref.maxQuarters;
+	      maxQuarters = _ref.maxQuarters,
+	      onShow = _ref.onShow,
+	      onOut = _ref.onOut;
 	
 	  chartsNodes = (0, _utils.arrayFromNodes)(chartsNodes);
 	  statsCellNodes = (0, _utils.arrayFromNodes)(statsCellNodes);
@@ -19883,19 +19896,12 @@
 	  setYearValues();
 	
 	  emitter.on('show', function (graphId, index) {
-	    setTitle(tableCharts[0].getTitleAt(index) || 'This year');
+	    onShow(tableCharts[0].getTitleAt(index));
 	    tableCharts.forEach(function (chart, i) {
 	      return (0, _gemTableChartStats.renderGemTableChartStats)(statsCellNodes[i], parsedYearValues[i], chart.getValuesAt(index));
 	    });
 	  });
-	  emitter.on('out', function () {
-	    setYearValues();
-	    setTitle('This year');
-	  });
-	
-	  function setTitle(value) {
-	    titleNode.textContent = value;
-	  }
+	  emitter.on('out', onOut);
 	
 	  function setYearValues() {
 	    statsCellNodes.forEach(function (statsCell, i) {
@@ -37497,6 +37503,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.DOM = undefined;
 	exports.isMobileView = isMobileView;
 	exports.arrayFromNodes = arrayFromNodes;
 	
@@ -37515,6 +37522,20 @@
 	function arrayFromNodes(nodes) {
 	  return Array.prototype.slice.call(nodes);
 	}
+	
+	var DOM = exports.DOM = {
+	  closest: function closest(elem, selector) {
+	    while (elem) {
+	      if (elem.matches(selector)) {
+	        return elem;
+	      }
+	
+	      elem = elem.parentElement;
+	    }
+	
+	    return null;
+	  }
+	};
 
 /***/ },
 /* 24 */
