@@ -168,6 +168,7 @@
                     <% maintenance_metrics.each do |metric| %>
                         <tr
                         class="gems-stats-table__row"
+                        id="<%= metric %>"
                         data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                         >
                           <td class="gems-stats-table__cell gems-stats-table__cell_title">
@@ -183,8 +184,8 @@
                             data-chart='[<%= MultiJson.dump metric_history[metric] %>]'
                             ></div>
                           </td>
-                          <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
-                          <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
+                          <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats current-mark"></td>
+                          <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small total-mark">
                             <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_text] %></span>
                           </td>
                         </tr>
@@ -227,6 +228,7 @@
                         <% popularity_metrics.each do |metric| %>
                             <tr
                                 class="gems-stats-table__row"
+                                id="<%= metric %>"
                                 data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                             >
                                 <td class="gems-stats-table__cell gems-stats-table__cell_title">
@@ -242,8 +244,8 @@
                                         data-chart='[<%= MultiJson.dump metric_history[metric] %>]'
                                     ></div>
                                 </td>
-                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
-                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
+                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats current-mark"></td>
+                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small total-mark">
                                     <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_text] %></span>
                                 </td>
                             </tr>
@@ -287,6 +289,7 @@
                             <% next unless metric_lookup[metric] %>
                             <tr
                                 class="gems-stats-table__row"
+                                id="<%= metric %>"
                                 data-tooltip='<%= metric_lookup[metric][:tooltip] %>'
                             >
                                 <td class="gems-stats-table__cell gems-stats-table__cell_title">
@@ -302,8 +305,8 @@
                                         data-chart='[<%= MultiJson.dump metric_history[metric] %>]'
                                     ></div>
                                 </td>
-                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats"></td>
-                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small">
+                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small js-gems-stats-table__cell-stats current-mark"></td>
+                                <td class="gems-stats-table__cell gems-stats-table__cell_row-value-small total-mark">
                                     <span class="mark-text mark-text_<%= metric_lookup[metric][:total_mark] %>"><%= metric_lookup[metric][:total_text] %></span>
                                 </td>
                             </tr>
