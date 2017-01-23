@@ -1,3 +1,5 @@
+import './blocks/polyfills';
+
 import $ from 'jquery';
 import rafThrottle from 'raf-throttle';
 import { onScroll } from './blocks/gem-header';
@@ -5,11 +7,10 @@ import { init as helpTooltipInit } from './blocks/help-tooltip';
 import { draw as drawTableMainChart } from './blocks/gem-stats-chart';
 import { renderTableCharts } from './blocks/gem-table-chart';
 import { smoothAnchorScrolling } from './blocks/link';
-import { isMobileView, arrayFromNodes, DOM } from './blocks/utils';
+import { isMobileView, DOM } from './blocks/utils';
 import searchForm from './blocks/search';
 import { gemDescriptionCollapser } from './blocks/gem';
 import initToggleable from './blocks/toggleable';
-
 
 if (process.env.NODE_ENV === 'development') {
   window.$ = $;
