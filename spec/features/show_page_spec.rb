@@ -17,6 +17,7 @@ RSpec.describe 'Show page', type: :feature do
   end
 
   context 'when browse Maintenance section' do
+    before { find('#maintenance').find('.gem-stats__toggler').click }
     context 'Maintenance Total life_period' do
       it { is_expected.to match_valid_value("2+ years B") }
     end
@@ -58,13 +59,14 @@ RSpec.describe 'Show page', type: :feature do
     end
 
     it do
-      find('#maintenance').find('.gem-stats__toggler').click
+      # save_screenshot('./tmp/screen1.png', :full => true)
       find('#maintenance').assert_selector('.gems-stats-table__cell_title', :count => 25)
       expect(find('#maintenance').find('.gem-stats__mark').find('use')['xlink:href']).to eq('#icon_type_mark-b')
     end
   end
 
   context 'when browse Popularity section' do
+    before { find('#popularity').find('.gem-stats__toggler').click }
     context 'Popularity Total users_creating_issues_count' do
       it { is_expected.to match_valid_value("62 B") }
     end
@@ -126,13 +128,13 @@ RSpec.describe 'Show page', type: :feature do
     end
 
     it do
-      find('#popularity').find('.gem-stats__toggler').click
       find('#popularity').assert_selector('.gems-stats-table__cell_title', :count => 14)
       expect(find('#popularity').find('.gem-stats__mark').find('use')['xlink:href']).to eq('#icon_type_mark-a')
     end
   end
 
   context 'when browse Maturity section' do
+    before { find('#maturity').find('.gem-stats__toggler').click }
     context 'Maturity Total life_period' do
       it { is_expected.to match_valid_value("2+ years B") }
     end
@@ -226,7 +228,6 @@ RSpec.describe 'Show page', type: :feature do
     end
 
     it do
-      find('#maturity').find('.gem-stats__toggler').click
       find('#maturity').assert_selector('.gems-stats-table__cell_title', :count => 30)
       expect(find('#popularity').find('.gem-stats__mark').find('use')['xlink:href']).to eq('#icon_type_mark-a')
     end

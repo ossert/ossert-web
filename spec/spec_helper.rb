@@ -12,6 +12,7 @@ require 'base64'
 
 require 'vcr'
 VCR.configure do |c|
+  c.ignore_hosts '127.0.0.1', 'localhost'
   c.configure_rspec_metadata!
 
   c.filter_sensitive_data('<<GITHUB_TOKEN>>') do
@@ -100,12 +101,17 @@ RSpec.configure do |config|
   end
 end
 
+WebMock.disable_net_connect!(allow_localhost: true)
+
 require 'ossert/web'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 
-Capybara.javascript_driver = :poltergeist
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, window_size: [1600, 900])
+end
+Capybara.default_driver = :poltergeist
 Capybara.app = Ossert::Web::App
 
 def init_projects
