@@ -89,6 +89,7 @@ RSpec.configure do |config|
       end
     end
     threads.each(&:join)
+    Ossert::Classifiers.train
   end
   config.before(:all) do
     init_projects
