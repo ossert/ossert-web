@@ -1,5 +1,7 @@
 set :output, "/home/ossert/ossert/current/log/cron_log.log"
 
+job_type :rake, "cd :path && /usr/bin/envdir /home/ossert/ossert/shared/envdir bundle exec rake :task --silent :output"
+
 every 10.minutes do
   rake "ossert:cache:reset"
 end
