@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: a314e2808a74bb28fb23099802503d094e1e78a0
+  revision: 84e455dbff69c41264bb57b4d24a32b67594d6cc
   specs:
     ossert (0.1.2)
       activesupport
