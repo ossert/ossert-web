@@ -120,7 +120,7 @@ RSpec.describe 'Show page', type: :feature do
     end
 
     context 'Popularity Total questions_count' do
-      it { is_expected.to match_valid_value("5249 A") }
+      it { is_expected.to match_valid_value("5269 A") }
     end
 
     context 'Popularity Total questions_resolved_percent' do
@@ -128,7 +128,7 @@ RSpec.describe 'Show page', type: :feature do
     end
 
     it do
-      find('#popularity').assert_selector('.gems-stats-table__cell_title', :count => 14)
+      find('#popularity').assert_selector('.gems-stats-table__cell_title', :count => 20)
       expect(find('#popularity').find('.gem-stats__mark').find('use')['xlink:href']).to eq('#icon_type_mark-a')
     end
   end
@@ -220,7 +220,7 @@ RSpec.describe 'Show page', type: :feature do
     end
 
     context 'Maturity Total questions_count' do
-      it { is_expected.to match_valid_value("5249 A") }
+      it { is_expected.to match_valid_value("5269 A") }
     end
 
     context 'Maturity Total questions_resolved_percent' do
