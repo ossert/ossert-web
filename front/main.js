@@ -3,7 +3,7 @@ import './blocks/polyfills';
 import $ from 'jquery';
 import rafThrottle from 'raf-throttle';
 import { onScroll } from './blocks/gem-header';
-import { init as helpTooltipInit } from './blocks/help-tooltip';
+import { init as helpTooltipInit, setMode as setTooltipMode, MODE } from './blocks/help-tooltip';
 import { draw as drawTableMainChart } from './blocks/gem-stats-chart';
 import { renderTableCharts } from './blocks/gem-table-chart';
 import { smoothAnchorScrolling } from './blocks/link';
@@ -45,10 +45,12 @@ $(() => {
       statsCellNodes: table.querySelectorAll('.js-gems-stats-table__cell-stats'),
       maxQuarters: JSON.parse(table.dataset.maxQuarters),
       onShow: (value) => {
+        setTooltipMode(MODE.QUARTER);
         stickyHeaderTitle.textContent = `${tableStatsType.dataset.title}${value ? ` - ${value}` : ''}`;
         tablePeriodTitle.textContent = value;
       },
       onOut: () => {
+        setTooltipMode(MODE.YEAR);
         stickyHeaderTitle.textContent = '';
         tablePeriodTitle.textContent = 'This year';
       }
