@@ -7,8 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/ossert/ossert.git
-  revision: 43991676ec5695bfc880b5fd850809c8fb26c02f
-  branch: feat/metric-charts
+  revision: d8eab10f7b9290516d22152c5b2e5707e682d634
   specs:
     ossert (0.1.2)
       activesupport
@@ -169,7 +168,7 @@ GEM
     rspec-support (3.5.0)
     safe_yaml (1.0.4)
     sass (3.4.23)
-    sequel (4.42.1)
+    sequel (4.43.0)
     sidekiq (4.2.9)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)

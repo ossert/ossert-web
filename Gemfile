@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'decisiontree', github: 'sclinede/decisiontree'
 gem 'sawyer', github: 'sclinede/sawyer'
 gem 'kmeans-clusterer', github: 'gbuesing/kmeans-clusterer'
-gem "ossert", github: 'ossert/ossert', branch: 'feat/metric-charts'
+gem "ossert", github: 'ossert/ossert'
 gem 'whenever'
 
 group :development do
