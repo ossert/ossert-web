@@ -182,7 +182,9 @@ export default class GemTableChart {
   }
 
   _getRelativeHeight(value) {
-    return this.graphsHeight - Math.floor(value / this.maxValue * this.graphsHeight) + GemTableChart.VERTICAL_OFFSET;
+    const offset = this.maxValue <= 0 ? 0 : Math.floor(value / this.maxValue * this.graphsHeight);
+
+    return this.graphsHeight - offset + GemTableChart.VERTICAL_OFFSET;
   }
 
   _setLineVisibility(value, values) {
