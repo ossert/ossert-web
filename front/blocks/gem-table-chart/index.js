@@ -33,7 +33,10 @@ export function renderTableCharts({ chartsNodes, statsCellNodes, maxQuarters, on
       chart.getValuesAt(index)
     ));
   });
-  emitter.on('out', onOut);
+  emitter.on('out', () => {
+    setYearValues();
+    onOut();
+  });
 
   function setYearValues() {
     statsCellNodes.forEach((statsCell, i) => renderGemTableChartStats(statsCell, parsedYearValues[i]));

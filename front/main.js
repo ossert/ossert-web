@@ -44,16 +44,20 @@ $(() => {
       chartsNodes: table.querySelectorAll('.js-gems-stats-table__row-chart'),
       statsCellNodes: table.querySelectorAll('.js-gems-stats-table__cell-stats'),
       maxQuarters: JSON.parse(table.dataset.maxQuarters),
-      onShow: (value) => {
-        setTooltipMode(MODE.QUARTER);
-        stickyHeaderTitle.textContent = `${tableStatsType.dataset.title}${value ? ` - ${value}` : ''}`;
-        tablePeriodTitle.textContent = value;
-      },
-      onOut: () => {
-        setTooltipMode(MODE.YEAR);
-        stickyHeaderTitle.textContent = '';
-        tablePeriodTitle.textContent = 'This year';
-      }
+      onShow: value => (value ? setQuarterMode(value) : setYearMode()),
+      onOut: setYearMode
     });
+
+    function setQuarterMode(value) {
+      setTooltipMode(MODE.QUARTER);
+      stickyHeaderTitle.textContent = `${tableStatsType.dataset.title}${value ? ` - ${value}` : ''}`;
+      tablePeriodTitle.textContent = value;
+    }
+
+    function setYearMode() {
+      setTooltipMode(MODE.YEAR);
+      stickyHeaderTitle.textContent = '';
+      tablePeriodTitle.textContent = 'This year';
+    }
   });
 });
