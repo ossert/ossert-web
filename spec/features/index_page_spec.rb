@@ -17,7 +17,7 @@ RSpec.describe 'Index page', type: :feature do
     expect(page).to have_css('.gem__link')
 
     all('a.gem__link').each do |link|
-      expect(@projects).to include(link[:href][1..-1])
+      expect(@projects).to include(link[:href][/\/\w+\z/][1..-1])
     end
   end
 end

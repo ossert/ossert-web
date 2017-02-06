@@ -1,0 +1,10 @@
+<ul class="gem-table-chart-stats">
+    {{#values}}
+         <li class="gem-table-chart-stats__item">
+           {{#isMultiple}}
+             <span class="gem-table-chart-stats__color-dot" style="background-color: {{color}};"></span>
+           {{/isMultiple}}
+           <span class="gem-table-chart-stats__value mark-text mark-text_{{grade}}">{{title}}</span>
+         </li>
+    {{/values}}
+</ul>

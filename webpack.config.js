@@ -21,5 +21,5 @@ module.exports = {
     ]
   },
   plugins: plugins,
-  devtool: isProd ? 'source-map' : 'cheap-inline-module-source-map'
+  devtool: 'source-map'
 };

@@ -470,6 +470,10 @@ html {
   line-height: 1.3;
   font-weight: 600;
 }
+.gem-header__fixed-table-current-interval {
+  margin: 0 auto;
+  font-weight: bold;
+}
 .gem-header__fixed-items {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -480,7 +484,7 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 0 0 auto;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -503,6 +507,8 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -617,7 +623,7 @@ html {
 }
 
 .gem-stats + .gem-stats {
-    margin-top: 24px;
+    margin-top: 12px;
 }
 .gem-stats__header-container {
     display: -webkit-box;
@@ -631,6 +637,7 @@ html {
             align-items: flex-end;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    cursor: pointer;
 }
 .gem-stats__header {
     margin: 0;
@@ -656,13 +663,34 @@ html {
 }
 .gem-stats__mark {
     font-size: 36px;
-    margin-left: 24px;
+    margin-left: 12px;
 }
 @media (max-width: 480px) {
     .gem-stats__mark {
         margin-left: 12px;
         margin-right: 12px;
     }
+}
+.gem-stats__toggler {
+    width: 30px;
+    height: 30px;
+    margin-left: 24px;
+    border-radius: 50%;
+    background-color: #d1d1d1;
+    font-size: 36px;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: background-color 0.1s ease-out, -webkit-transform 0.1s ease-out;
+    transition: background-color 0.1s ease-out, -webkit-transform 0.1s ease-out;
+    transition: background-color 0.1s ease-out, transform 0.1s ease-out;
+    transition: background-color 0.1s ease-out, transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
+}
+.gem-stats__toggler:hover,
+    .gem-stats__toggler:focus {
+    background-color: rgb(184, 184, 184);
+}
+.gem-stats__toggler:active {
+    background-color: rgb(171, 171, 171);
 }
 .gem-stats__description {
     margin: 24px 0 0;
@@ -685,25 +713,61 @@ html {
     -webkit-transition: opacity 0.2s ease-out;
     transition: opacity 0.2s ease-out;
 }
-.gem-stats-chart__column_a {
+.gem-stats-chart__column-bar_a {
     color: #0ac53d;
 }
-.gem-stats-chart__column_b {
+.gem-stats-chart__column-bar_b {
     color: #a9bf38;
 }
-.gem-stats-chart__column_c {
+.gem-stats-chart__column-bar_c {
     color: #ecc217;
 }
-.gem-stats-chart__column_d {
+.gem-stats-chart__column-bar_d {
     color: #e09432;
 }
-.gem-stats-chart__column_e {
+.gem-stats-chart__column-bar_e {
     color: #de2020;
 }
 .gem-stats-chart__column-back {
     color: rgb(242, 242, 242);
-    -webkit-transition: opacity 0.2s ease-out;
-    transition: opacity 0.2s ease-out;
+}
+
+.gem-table-chart {
+  width: 100%;
+  height: 70px;
+}
+
+.gem-table-chart-stats {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.gem-table-chart-stats__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 20px;
+}
+.gem-table-chart-stats__item + .gem-table-chart-stats__item {
+  margin-top: 2px;
+}
+.gem-table-chart-stats__color-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+.gem-table-chart-stats__value {
+  margin-left: auto;
 }
 
 .gems-list {
@@ -756,31 +820,6 @@ html {
 .gems-stats-table__header {
   border-bottom: 1px solid #d1d1d1;
 }
-.gems-stats-table__header-cell {
-  padding: 12px 12px;
-  font-size: 14px;
-  line-height: 19px;
-  font-weight: 700;
-  text-align: left;
-  color: #333;
-}
-.gems-stats-table__header-cell_values-column {
-  text-align: right;
-  width: 188px;
-}
-@media (max-width: 992px) {
-  .gems-stats-table__header-cell_values-column {
-    width: 88px;
-  }
-}
-@media (max-width: 768px) {
-  .gems-stats-table__header-cell_values-column {
-    width: auto;
-  }
-}
-.gems-stats-table__header-cell_values-column-penultimate {
-  padding-right: 0;
-}
 .gems-stats-table__row {
   border-bottom: 1px solid #efefef;
 }
@@ -802,24 +841,38 @@ html {
   -webkit-transition: background-color 0.15s ease-out;
   transition: background-color 0.15s ease-out;
 }
-.gems-stats-table__cell_title {
+.gems-stats-table__cell_header {
+  font-weight: 700;
+}
+.gems-stats-table__cell_row-title {
   font-weight: 600;
 }
-.gems-stats-table__cell_values-column {
+.gems-stats-table__cell_row-value {
   text-align: right;
   width: 188px;
 }
 @media (max-width: 992px) {
-  .gems-stats-table__cell_values-column {
+  .gems-stats-table__cell_row-value {
     width: 88px;
   }
 }
 @media (max-width: 768px) {
-  .gems-stats-table__cell_values-column {
+  .gems-stats-table__cell_row-value {
     width: auto;
   }
 }
-.gems-stats-table__cell_values-column-penultimate {
+.gems-stats-table__cell_row-chart {
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 288px;
+}
+.gems-stats-table__cell_row-value-small {
+  text-align: right;
+  width: 138px;
+}
+.gems-stats-table__cell_row-value:not(:last-child),
+    .gems-stats-table__cell_row-value-small:not(:last-child),
+    .gems-stats-table__cell  {
   padding-right: 0;
 }
 .gems-stats-table__info-icon.gems-stats-table__info-icon {
@@ -927,8 +980,7 @@ html {
 .help-tooltip_hidden {
   -webkit-transform: translate3d(-30px, 0, 0);
           transform: translate3d(-30px, 0, 0);
-  opacity: 0;
-  visibility: hidden;
+  display: none;
 }
 .help-tooltip__arrow {
   position: absolute;
@@ -1103,7 +1155,7 @@ html {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  margin-top: 48px;
+  margin-top: 24px;
 }
 @media (max-width: 768px) {
   .layout__content-row {
@@ -1119,7 +1171,7 @@ html {
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
-  width: 788px;
+  width: 888px;
 }
 @media (max-width: 992px) {
   .layout__content-section {
@@ -1390,6 +1442,14 @@ html {
 .search__submit-icon {
   width: 24px;
   height: 24px;
+}
+
+.toggleable_closed .toggleable__icon {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+.toggleable_closed .toggleable__content {
+    display: none;
 }
 
 .width-container {
