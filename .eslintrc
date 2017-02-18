@@ -7,6 +7,9 @@
   "env": {
     "browser": true
   },
+  "globals": {
+    "__DEVELOPMENT__": true
+  },
   "extends": "airbnb-base/legacy",
   "rules": {
     "strict": 0,

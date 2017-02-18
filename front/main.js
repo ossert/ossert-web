@@ -12,7 +12,7 @@ import searchForm from './blocks/search';
 import { gemDescriptionCollapser } from './blocks/gem';
 import initToggleable from './blocks/toggleable';
 
-if (process.env.NODE_ENV === 'development') {
+if (__DEVELOPMENT__) {
   window.$ = $;
 }
 
