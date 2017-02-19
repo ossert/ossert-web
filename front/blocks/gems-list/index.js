@@ -1,0 +1,1 @@
+import './gems-list.pcss';

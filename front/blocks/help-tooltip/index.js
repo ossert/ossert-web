@@ -1,3 +1,4 @@
+import './help-tooltip.pcss';
 import $ from 'jquery';
 import tooltipTpl from './help-tooltip.mustache';
 

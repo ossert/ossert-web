@@ -1,3 +1,4 @@
+import './search.pcss';
 import $ from 'jquery';
 
 export default (selector) => {
