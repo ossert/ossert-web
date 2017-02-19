@@ -1,3 +1,4 @@
+import './link.pcss';
 import $ from 'jquery';
 import { isWillBeVisible as headerWillBeVisible, getHeight as getHeaderHeight } from '../gem-header';
 

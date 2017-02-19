@@ -1,19 +1,33 @@
 import './blocks/global';
 import './blocks/vendors';
-
+import './blocks/footer';
+import { gemDescriptionCollapser } from './blocks/gem';
+import { onScroll } from './blocks/gem-header';
+import './blocks/gem-main-stats';
+import './blocks/gem-stats';
+import { draw as drawTableMainChart } from './blocks/gem-stats-chart';
+import { renderTableCharts } from './blocks/gem-table-chart';
+import './blocks/gem-table-chart-stats';
+import './blocks/gems-list';
+import './blocks/gems-stats-table';
+import './blocks/header';
+import { init as helpTooltipInit, setMode as setTooltipMode, MODE } from './blocks/help-tooltip';
+import './blocks/icon';
+import './blocks/layout';
+import { smoothAnchorScrolling } from './blocks/link';
+import './blocks/logo';
+import './blocks/mark-text';
+import './blocks/page-index';
+import './blocks/page-search-results';
 import './blocks/polyfills';
+import './blocks/raf';
+import searchForm from './blocks/search';
+import initToggleable from './blocks/toggleable';
+import { isMobileView, DOM } from './blocks/utils';
+import './blocks/width-container';
 
 import $ from 'jquery';
 import rafThrottle from 'raf-throttle';
-import { onScroll } from './blocks/gem-header';
-import { init as helpTooltipInit, setMode as setTooltipMode, MODE } from './blocks/help-tooltip';
-import { draw as drawTableMainChart } from './blocks/gem-stats-chart';
-import { renderTableCharts } from './blocks/gem-table-chart';
-import { smoothAnchorScrolling } from './blocks/link';
-import { isMobileView, DOM } from './blocks/utils';
-import searchForm from './blocks/search';
-import { gemDescriptionCollapser } from './blocks/gem';
-import initToggleable from './blocks/toggleable';
 
 if (__DEVELOPMENT__) {
   window.$ = $;

@@ -1,3 +1,4 @@
+import './gem-table-chart-stats.pcss';
 import template from './gem-table-chart-stats.mustache';
 import GemTableChart from '../gem-table-chart';
 

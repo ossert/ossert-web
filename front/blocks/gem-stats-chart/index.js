@@ -1,3 +1,4 @@
+import './gem-stats-chart.pcss';
 import Snap from 'snapsvg-cjs';
 
 const TEXT_HEIGHT = 20;

@@ -1,3 +1,4 @@
+import './toggleable.pcss';
 import { arrayFromNodes } from '../utils';
 import RAF from 'raf';
 

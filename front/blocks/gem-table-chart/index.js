@@ -1,3 +1,4 @@
+import './gem-table-chart.pcss';
 import GemTableChart from './components/gem-table-chart';
 import NanoEvents from 'nanoevents';
 import { renderGemTableChartStats } from '../gem-table-chart-stats';
