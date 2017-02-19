@@ -43,11 +43,12 @@
     "stylelint-webpack-plugin": "0.6.0",
     "svg-inline-loader": "0.7.1",
     "webpack": "2.2.1",
+    "webpack-livereload-plugin": "0.10.0",
     "webpack-stats-plugin": "0.1.4"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.production.js",
-    "watch": "NODE_ENV=development webpack --config webpack.development.js"
+    "build": "NODE_ENV=production webpack --config front/webpack/production.js",
+    "watch": "NODE_ENV=development webpack --config front/webpack/development.js"
   },
   "keywords": [],
   "author": "Pavel Grinchenko <psdcoder@gmail.com>",
