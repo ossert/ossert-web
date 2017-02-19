@@ -1,3 +1,6 @@
+import './blocks/global';
+import './blocks/vendors';
+
 import './blocks/polyfills';
 
 import $ from 'jquery';
