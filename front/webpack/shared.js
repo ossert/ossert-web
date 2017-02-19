@@ -37,8 +37,29 @@ module.exports.config = {
       },
       {
         test: /\.svg$/,
+        issuer: /\.js$/,
         include: SRC_DIR,
-        loader: 'svg-inline-loader'
+        use: [
+          {
+            loader: 'svg-inline-loader'
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              svgo: {
+                plugins: [
+                  { cleanupIDs: false }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        test: /\.svg$/,
+        issuer: /\.p?css$/,
+        include: SRC_DIR,
+        loaders: ['svg-url-loader', 'image-webpack-loader']
       },
       {
         test: /\.p?css$/,

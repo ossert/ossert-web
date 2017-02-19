@@ -28,6 +28,7 @@
     "eslint-loader": "1.6.1",
     "eslint-plugin-import": "2.2.0",
     "extract-text-webpack-plugin": "2.0.0-rc.3",
+    "image-webpack-loader": "3.2.0",
     "postcss-calc": "5.3.1",
     "postcss-color-function": "3.0.0",
     "postcss-custom-media": "5.0.1",
@@ -42,6 +43,7 @@
     "stylelint-config-standard": "16.0.0",
     "stylelint-webpack-plugin": "0.6.0",
     "svg-inline-loader": "0.7.1",
+    "svg-url-loader": "2.0.2",
     "webpack": "2.2.1",
     "webpack-livereload-plugin": "0.10.0",
     "webpack-stats-plugin": "0.1.4"
