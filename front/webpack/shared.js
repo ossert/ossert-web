@@ -3,13 +3,16 @@ const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 const StatsWriterPlugin = require('webpack-stats-plugin').StatsWriterPlugin;
 
-const SRC_DIR = path.join(__dirname, 'front');
-const DEST_DIR = path.join(__dirname, 'public');
+const CWD = process.cwd();
+const SRC_DIR = path.join(CWD, 'front');
+const DEST_DIR = path.join(CWD, 'public');
 
-module.exports = {
+module.exports.SRC_DIR = SRC_DIR;
+module.exports.DEST_DIR = DEST_DIR;
+
+module.exports.config = {
   context: SRC_DIR,
   entry: {
     main: './main.js',
@@ -17,8 +20,7 @@ module.exports = {
   },
   output: {
     path: DEST_DIR,
-    publicPath: '/',
-    filename: '[name]-[chunkhash].js'
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.json']
@@ -28,13 +30,10 @@ module.exports = {
       {
         test: /\.js$/,
         include: SRC_DIR,
-        loader: 'babel-loader'
-      },
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        include: SRC_DIR,
-        loader: 'eslint-loader'
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: path.join(CWD, 'tmp', 'babel-cache')
+        }
       },
       {
         test: /\.svg$/,
@@ -54,7 +53,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanPlugin(DEST_DIR),
+    new CleanPlugin(DEST_DIR, { root: CWD }),
     new CopyPlugin([
       {
         context: path.join(SRC_DIR, 'static'),
@@ -62,15 +61,16 @@ module.exports = {
         to: DEST_DIR
       }
     ]),
-    new StylelintPlugin({
-      files: ['**/*.pcss']
-    }),
     new StatsWriterPlugin({
       filename: 'stats.json',
       fields: null,
       transform: data => JSON.stringify(Object.keys(data.assetsByChunkName).reduce((result, bundle) => {
-        const jsAssets = data.assetsByChunkName[bundle].filter(filterByExt('js'));
-        const cssAssets = data.assetsByChunkName[bundle].filter(filterByExt('css'));
+        const bundleChunks = Array.isArray(data.assetsByChunkName[bundle])
+          ? data.assetsByChunkName[bundle]
+          : [data.assetsByChunkName[bundle]];
+
+        const jsAssets = bundleChunks.filter(filterByExt('js'));
+        const cssAssets = bundleChunks.filter(filterByExt('css'));
 
         if (jsAssets.length) {
           result.bundles[bundle] = jsAssets[0];
@@ -83,19 +83,11 @@ module.exports = {
         return result;
       }, { bundles: {}, css: null }))
     }),
-    new webpack.DefinePlugin({
-      __DEVELOPMENT__: true
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'shared',
       minChunks: module => module.resource && !module.resource.includes(SRC_DIR)
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true
-    }),
-    new ExtractTextPlugin('styles-[contenthash:20].css')
-  ],
-  devtool: 'source-map'
+    })
+  ]
 };
 
 function filterByExt(ext) {
