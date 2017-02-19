@@ -1,3 +1,5 @@
+import './gem-header.pcss';
+
 import $ from 'jquery';
 const $header = $('#sticky-project-header');
 const $fixed = $header.find('.gem-header__fixed');

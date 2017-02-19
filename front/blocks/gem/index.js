@@ -1,3 +1,4 @@
+import './gem.pcss';
 import $ from 'jquery';
 
 const MAX_HEIGHT = 120;

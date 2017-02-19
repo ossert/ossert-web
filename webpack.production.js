@@ -1,12 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const StatsWriterPlugin = require('webpack-stats-plugin').StatsWriterPlugin;
 
 const SRC_DIR = path.join(__dirname, 'front');
-const PUBLIC_DIR = path.join(__dirname, 'public', 'front');
+const DEST_DIR = path.join(__dirname, 'public');
 
 module.exports = {
   context: SRC_DIR,
@@ -15,7 +16,7 @@ module.exports = {
     shared: 'babel-polyfill'
   },
   output: {
-    path: PUBLIC_DIR,
+    path: DEST_DIR,
     publicPath: '/',
     filename: '[name]-[chunkhash].js'
   },
@@ -41,7 +42,7 @@ module.exports = {
         loader: 'svg-inline-loader'
       },
       {
-        test: /\.pcss$/,
+        test: /\.p?css$/,
         include: SRC_DIR,
         use: ExtractTextPlugin.extract(['css-loader', 'postcss-loader'])
       },
@@ -53,7 +54,14 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanPlugin(PUBLIC_DIR),
+    new CleanPlugin(DEST_DIR),
+    new CopyPlugin([
+      {
+        context: path.join(SRC_DIR, 'static'),
+        from: '**/*',
+        to: DEST_DIR
+      }
+    ]),
     new StylelintPlugin({
       files: ['**/*.pcss']
     }),
