@@ -21,7 +21,7 @@
     <meta property="og:url" content="http://ossert.evilmartians.io" />
     <meta property="og:image" content="http://ossert.evilmartians.io/images/preview.png" />
     <title>Ossert</title>
-    <link rel="stylesheet" href="/styles.css">
+    <%= include_styles %>
   </head>
   <body class="page <%= "page_#{}" %> layout">
     <header class="header" id="header">
@@ -48,11 +48,11 @@
     <footer class="footer">
       <div class="width-container footer__content">
         <a href="https://github.com/ossert/" target="_blank" rel="noopener noreferrer" class="footer__contribute"><%= Ossert.t(:participate) %></a>
-        &copy; Copyright 2015-2016 Sergey Dolganov
+        &copy; Copyright 2015-2017 Sergey Dolganov
       </div>
     </footer>
-    <script src="/shared.js" defer></script>
-    <script src="/main.js" defer></script>
+    <%= include_js('shared') %>
+    <%= include_js('main') %>
     <% if settings.environment == :development %>
     <script src="http://localhost:35729/livereload.js"></script>
     <% end %>

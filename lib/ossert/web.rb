@@ -1,6 +1,7 @@
 require "ossert/web/version"
 require "ossert"
 require "ossert/web/projects_search"
+require "ossert/web/helpers"
 require "sinatra"
 require "slim"
 require "sass"
@@ -66,6 +67,7 @@ module Ossert
       enable :sessions
 
       set :warmup, Warmup.perform
+      helpers Helpers
 
       get '/' do
         @warn = session[:warn]
