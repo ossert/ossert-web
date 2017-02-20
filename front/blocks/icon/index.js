@@ -1,9 +1,13 @@
 import './icon.pcss';
 import iconsSprite from './icons-sprite.svg';
 
-const tmpWrapper = document.createElement('div');
+const tmp = document.createElement('div');
+tmp.innerHTML = iconsSprite;
 
-tmpWrapper.innerHTML = iconsSprite;
-tmpWrapper.firstChild.style = 'position: absolute; width: 0; height: 0; overflow: hidden;';
+const svg = tmp.firstChild;
+svg.style.position = 'absolute';
+svg.style.width = 0;
+svg.style.height = 0;
+svg.style.overflow = 'hidden';
 
-document.body.insertBefore(tmpWrapper.firstChild, document.body.firstChild);
+document.body.insertBefore(svg, document.body.firstChild);
