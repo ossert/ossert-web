@@ -6,6 +6,6 @@ every 1.hour do
   rake "ossert:cache:reset"
 end
 
-every 1.day do
+every 1.week do
   rake "ossert:refresh_data"
 end
