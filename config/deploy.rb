@@ -34,5 +34,6 @@ set :whenever_roles, [:app]
 
 before 'deploy:started',  'sidekiq:quiet'
 before 'deploy:starting', 'friday:check'
+before 'deploy:restart',  'deploy:assets_compile'
 after  'deploy:restart',  'sidekiq:restart'
 after  'deploy:start',    'sidekiq:start'

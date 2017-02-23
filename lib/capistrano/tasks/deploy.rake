@@ -20,5 +20,13 @@ namespace :deploy do
     end
   end
 
+  desc 'Compile assets'
+  task :assets_compile do
+    on roles(:app) do
+      execute 'cd /home/ossert/ossert/current && npm install --quiet'
+      execute 'cd /home/ossert/ossert/current && npm run --silent build'
+    end
+  end
+
   after :publishing, :restart
 end
