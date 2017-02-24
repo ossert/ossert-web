@@ -1,6 +1,12 @@
 {
   "presets": [
-    ["es2015", { "modules": false }]
+    ["env", {
+      "targets": {
+        "browsers": ["Last 2 versions", "> 1%"]
+      },
+      "modules": false,
+      "useBuiltIns": true
+    }]
   ],
   "plugins": [
     "transform-class-properties",
