@@ -1,24 +1,25 @@
 import './link.pcss';
-import $ from 'jquery';
+import { qsa, offset, animate, on } from '../utils/dom';
 import { isWillBeVisible as headerWillBeVisible, getHeight as getHeaderHeight } from '../gem-header';
 
 const CONST_OFFSET = 15;
 
 export function smoothAnchorScrolling() {
-  const $htmlBody = $('html, body');
+  qsa('a[href*="#"]:not([href="#"])').forEach((node) => {
+    on(node, 'click', () => {
+      if (
+        location.pathname.replace(/^\//, '') === node.pathname.replace(/^\//, '')
+        && location.hostname === node.hostname
+      ) {
+        const target = document.querySelector(node.hash);
 
-  $('a[href*="#"]:not([href="#"])').on('click', function onClick() {
-    if (
-      location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '')
-      && location.hostname === this.hostname
-    ) {
-      const $target = $(this.hash);
-      const scrollOffset = $target.offset().top;
-      const offsetHeight = headerWillBeVisible(scrollOffset) ? getHeaderHeight() + CONST_OFFSET : 0;
+        if (target) {
+          const scrollOffset = offset(target).top;
+          const offsetHeight = headerWillBeVisible(scrollOffset) ? getHeaderHeight() + CONST_OFFSET : 0;
 
-      if ($target.length) {
-        $htmlBody.stop().animate({ scrollTop: scrollOffset - offsetHeight }, 500);
+          animate(document.body, { scrollTop: scrollOffset - offsetHeight }, 500);
+        }
       }
-    }
+    });
   });
 }

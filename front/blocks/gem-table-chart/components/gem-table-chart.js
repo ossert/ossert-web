@@ -1,6 +1,6 @@
 import Snap from 'snapsvg-cjs';
 import rafThrottle from 'raf-throttle';
-import { memoize } from 'lodash';
+import memoize from 'lodash/memoize';
 import vars from '../../../postcss/css-vars';
 
 export default class GemTableChart {

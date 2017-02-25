@@ -1,53 +1,58 @@
 import './help-tooltip.pcss';
-import $ from 'jquery';
+import { qs, qsa, closest, offset, css } from '../utils/dom';
 import tooltipTpl from './help-tooltip.mustache';
 
-const $body = $(document.body);
-const $statsTables = $('.gems-stats-table');
-const $helpTooltip = $('.help-tooltip');
-const $helpTooltipContent = $helpTooltip.find('.help-tooltip__content');
-const $helpTooltipArrow = $helpTooltip.find('.help-tooltip__arrow');
-const $sidebar = $helpTooltip.parents('.layout__sidebar-section');
-const $mutualParent = $sidebar.parents('.layout__content-row');
-let $currentRow;
-let currentMode;
+const statsTables = qsa('.gems-stats-table');
+const helpTooltip = qs('.help-tooltip');
+const helpTooltipContent = helpTooltip && helpTooltip.querySelector('.help-tooltip__content');
+const helpTooltipArrow = helpTooltip && helpTooltip.querySelector('.help-tooltip__arrow');
+const sidebar = helpTooltip && closest(helpTooltip, '.layout__sidebar-section');
+const mutualParent = helpTooltip && closest(sidebar, '.layout__content-row');
+let currentRow = null;
+let currentMode = null;
 
 export const MODE = { YEAR: 'year', QUARTER: 'quarter' };
 
 export function init() {
   currentMode = MODE.YEAR;
 
-  $statsTables.on('mouseenter', '.gems-stats-table__row', function onRowMouseOver() {
-    $currentRow = $(this);
-    renderRowTooltip($currentRow, currentMode);
-  });
+  statsTables.forEach(node => {
+    const rows = Array.from(node.querySelectorAll('.gems-stats-table__row'));
 
-  $statsTables.on('mouseleave', '.gems-stats-table__row', () => {
-    $helpTooltip.addClass('help-tooltip_hidden');
-    $currentRow = null;
+    rows.forEach((row) => {
+      row.addEventListener('mouseenter', () => {
+        currentRow = row;
+        renderRowTooltip(row, currentMode);
+      });
+
+      row.addEventListener('mouseleave', () => {
+        helpTooltip.classList.add('help-tooltip_hidden');
+        currentRow = null;
+      });
+    });
   });
 }
 
 export function setMode(mode) {
   currentMode = mode;
 
-  if ($currentRow) {
-    renderRowTooltip($currentRow, mode);
+  if (currentRow) {
+    renderRowTooltip(currentRow, mode);
   }
 }
 
-function renderRowTooltip($row, mode) {
-  const mutualParentOffset = $mutualParent.offset();
-  const mutualParentHeight = $mutualParent.height();
+function renderRowTooltip(row, mode) {
+  const mutualParentOffset = offset(mutualParent);
+  const mutualParentHeight = mutualParent.offsetHeight;
 
-  $helpTooltipContent.html(tooltipTpl({
+  helpTooltipContent.innerHTML = tooltipTpl({
     yearMode: mode === MODE.YEAR,
     quarterMode: mode === MODE.QUARTER,
-    tooltip: $row.data('tooltip')
-  }));
+    tooltip: JSON.parse(row.dataset.tooltip)
+  });
 
-  const rowOffset = $row.offset();
-  const helpTooltipHeight = getHeight($helpTooltip.clone().css({ width: $sidebar.width() }));
+  const rowOffset = offset(row);
+  const helpTooltipHeight = getHeight(css(helpTooltip.cloneNode(true), { width: `${sidebar.offsetWidth}px` }));
   let relativeRowOffsetTop = rowOffset.top - mutualParentOffset.top;
   let arrowOffset = mutualParentHeight - helpTooltipHeight - relativeRowOffsetTop;
 
@@ -58,22 +63,22 @@ function renderRowTooltip($row, mode) {
     arrowOffset = -arrowOffset;
   }
 
-  $helpTooltip.css({ top: `${relativeRowOffsetTop}px` });
-  $helpTooltipArrow.css({ top: `${arrowOffset}px` });
-  $helpTooltip.removeClass('help-tooltip_hidden');
+  css(helpTooltip, { top: `${relativeRowOffsetTop}px` });
+  css(helpTooltipArrow, { top: `${arrowOffset}px` });
+  helpTooltip.classList.remove('help-tooltip_hidden');
 }
 
-function getHeight($tooltip) {
-  const $cloned = $tooltip
-    .css({
-      display: 'block',
-      visibility: 'hidden',
-      position: 'absolute',
-      top: 0
-    })
-    .appendTo($body);
+function getHeight(tooltip) {
+  css(tooltip, {
+    display: 'block',
+    visibility: 'hidden',
+    position: 'absolute',
+    top: 0
+  });
 
-  const height = $cloned.outerHeight();
-  $cloned.remove();
+  document.body.appendChild(tooltip);
+
+  const height = tooltip.offsetHeight;
+  document.body.removeChild(tooltip);
   return height;
 }

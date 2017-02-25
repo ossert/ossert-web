@@ -2,14 +2,10 @@ import './gem-table-chart.pcss';
 import GemTableChart from './components/gem-table-chart';
 import NanoEvents from 'nanoevents';
 import { renderGemTableChartStats } from '../gem-table-chart-stats';
-import { arrayFromNodes } from '../utils';
 
 export default GemTableChart;
 
 export function renderTableCharts({ chartsNodes, statsCellNodes, maxQuarters, onShow, onOut }) {
-  chartsNodes = arrayFromNodes(chartsNodes);
-  statsCellNodes = arrayFromNodes(statsCellNodes);
-
   const emitter = new NanoEvents();
   const tableCharts = [];
   const parsedYearValues = chartsNodes.map(chart => JSON.parse(chart.dataset.yearValues));

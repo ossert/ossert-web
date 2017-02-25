@@ -1,23 +1,22 @@
 import './gem-header.pcss';
+import { offset } from '../utils/dom';
 
-import $ from 'jquery';
-const $header = $('#sticky-project-header');
-const $fixed = $header.find('.gem-header__fixed');
-
-const $document = $(document);
+const header = document.getElementById('sticky-project-header');
+const fixed = header && header.querySelector('.gem-header__fixed');
 
 export function onScroll() {
-  $fixed.toggleClass('gem-header__fixed_hidden', !isWillBeVisible($document.scrollTop() - $header.height() - 15));
+  if (fixed) {
+    fixed.classList.toggle(
+      'gem-header__fixed_hidden',
+      !isWillBeVisible(document.body.scrollTop - header.offsetHeight - 15)
+    );
+  }
 }
 
 export function getHeight() {
-  return $fixed.height();
+  return fixed ? fixed.offsetHeight : 0;
 }
 
 export function isWillBeVisible(targetOffset) {
-  return getHeaderOffsetTop() < targetOffset;
-}
-
-function getHeaderOffsetTop() {
-  return $header.offset().top;
+  return (header ? offset(header).top : 0) < targetOffset;
 }
