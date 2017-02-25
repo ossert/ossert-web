@@ -21,8 +21,6 @@ import './blocks/mark-text';
 import './blocks/page-index';
 import './blocks/page-search-results';
 import './blocks/page-show';
-import './blocks/polyfills';
-import './blocks/raf';
 import searchForm from './blocks/search';
 import initToggleable from './blocks/toggleable';
 import { isMobileView, DOM } from './blocks/utils';
