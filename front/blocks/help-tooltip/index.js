@@ -34,9 +34,10 @@ export function init() {
 }
 
 export function setMode(mode) {
+  const oldMode = currentMode;
   currentMode = mode;
 
-  if (currentRow) {
+  if (currentRow && oldMode !== mode) {
     renderRowTooltip(currentRow, mode);
   }
 }
