@@ -105,7 +105,7 @@ export default class GemTableChart {
   }
 
   _buildVline() {
-    this.chartParts.vline = this.paper.path(`M 0 0, L 0 ${this.height}`).attr(GemTableChart.STYLES.VLINE);
+    this.chartParts.vline = this.paper.path(`M 0 0 L 0 ${this.height}`).attr(GemTableChart.STYLES.VLINE);
   }
 
   _buildHoverPoints() {
