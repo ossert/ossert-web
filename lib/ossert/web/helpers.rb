@@ -6,11 +6,11 @@ module Ossert
       # <%= include_styles %> # => <link rel="stylesheet" type="text/css" href="styles-[hash].css">
 
       def include_js(bundle_name)
-        "<script type=\"text/javascript\" src=\"#{js_filename(bundle_name)}\" defer></script>"
+        "<script type=\"text/javascript\" src=\"/#{js_filename(bundle_name)}\" defer></script>"
       end
 
       def include_styles
-        "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{styles_filename}\">"
+        "<link rel=\"stylesheet\" type=\"text/css\" href=\"/#{styles_filename}\">"
       end
 
       def js_filename(bundle_name)
