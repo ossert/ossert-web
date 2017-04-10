@@ -16,6 +16,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'timecop'
   gem 'vcr'
   gem 'webmock'
   gem 'capybara'
