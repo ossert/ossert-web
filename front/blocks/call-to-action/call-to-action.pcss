@@ -1,0 +1,51 @@
+.call-to-action {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  min-height: calc($layoutFactor * 6px);
+  font-family: $fontFamily;
+  font-size: calc($layoutFactor * 1.5px);
+  line-height: calc($layoutFactor * 2px);
+  font-weight: 700;
+  background-color: $indicatorRateA;
+  background-image: url('./pattern.svg');
+  overflow: hidden;
+  color: #fff;
+
+  &__content {
+    position: relative;
+    display: flex;
+    padding: calc($layoutFactor * 1px);
+    align-items: center;
+    background-color: $indicatorRateA;
+  }
+
+  &__content::before,
+  &__content::after {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 0;
+    bottom: 0;
+    width: calc($layoutFactor * 3px);
+  }
+
+  &__content::before {
+    left: calc($layoutFactor * -3px);
+    background: linear-gradient(to right, color($indicatorRateA a(0%)) 0%, $indicatorRateA 100%);
+  }
+
+  &__content::after {
+    right: calc($layoutFactor * -3px);
+    background: linear-gradient(to left, color($indicatorRateA a(0%)) 0%, $indicatorRateA 100%);
+  }
+
+  &__link {
+    padding: calc($layoutFactor / 2px) calc($layoutFactor * 1px);
+    margin: 0 calc($layoutFactor * 1px);
+    border: 2px solid #fff;
+    border-radius: 2px;
+    color: #fff;
+    text-decoration: none;
+  }
+}
