@@ -85,7 +85,7 @@ module.exports = {
       }
     ]),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: false
+      __DEVELOPMENT__: 'false'
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['manifest', 'shared'],

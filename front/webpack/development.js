@@ -90,7 +90,7 @@ module.exports = {
       }
     ]),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true
+      __DEVELOPMENT__: 'true'
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['manifest', 'shared'],
@@ -108,6 +108,6 @@ module.exports = {
     }),
     new LivereloadPlugin()
   ],
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval',
   watch: true
 };
