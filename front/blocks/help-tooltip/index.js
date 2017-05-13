@@ -1,13 +1,13 @@
 import './help-tooltip.pcss';
-import { qs, qsa, closest, offset, css } from '../utils/dom';
+import { query, queryAll, on, closest, offset, css, appendTo, remove } from '../utils/dom';
 import tooltipTpl from './help-tooltip.mustache';
 
-const statsTables = qsa('.gems-stats-table');
-const helpTooltip = qs('.help-tooltip');
-const helpTooltipContent = helpTooltip && helpTooltip.querySelector('.help-tooltip__content');
-const helpTooltipArrow = helpTooltip && helpTooltip.querySelector('.help-tooltip__arrow');
-const sidebar = helpTooltip && closest(helpTooltip, '.layout__sidebar-section');
-const mutualParent = helpTooltip && closest(sidebar, '.layout__content-row');
+const statsTables = queryAll('.gems-stats-table');
+const helpTooltip = query('.help-tooltip');
+const helpTooltipContent = query(helpTooltip, '.help-tooltip__content');
+const helpTooltipArrow = query(helpTooltip, '.help-tooltip__arrow');
+const sidebar = closest(helpTooltip, '.layout__sidebar-section');
+const mutualParent = closest(sidebar, '.layout__content-row');
 let currentRow = null;
 let currentMode = null;
 
@@ -16,19 +16,15 @@ export const MODE = { YEAR: 'year', QUARTER: 'quarter' };
 export function init() {
   currentMode = MODE.YEAR;
 
-  statsTables.forEach(node => {
-    const rows = Array.from(node.querySelectorAll('.gems-stats-table__row'));
+  statsTables.forEach(table => {
+    on(table, 'mouseover', '.gems-stats-table__row', (e) => {
+      currentRow = e.delegatedTarget;
+      renderRowTooltip(currentRow, currentMode);
+    });
 
-    rows.forEach((row) => {
-      row.addEventListener('mouseenter', () => {
-        currentRow = row;
-        renderRowTooltip(row, currentMode);
-      });
-
-      row.addEventListener('mouseleave', () => {
-        helpTooltip.classList.add('help-tooltip_hidden');
-        currentRow = null;
-      });
+    on(table, 'mouseout', '.gems-stats-table__row', () => {
+      helpTooltip.classList.add('help-tooltip_hidden');
+      currentRow = null;
     });
   });
 }
@@ -77,9 +73,9 @@ function getHeight(tooltip) {
     top: 0
   });
 
-  document.body.appendChild(tooltip);
+  const height = appendTo(tooltip, document.body).offsetHeight;
 
-  const height = tooltip.offsetHeight;
-  document.body.removeChild(tooltip);
+  remove(tooltip);
+
   return height;
 }

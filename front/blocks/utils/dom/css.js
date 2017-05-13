@@ -1,7 +1,11 @@
-export default function css(element, props) {
+import query from './query';
+
+export default function css(target, props) {
+  const node = query(target);
+
   Object.keys(props).forEach((prop) => {
-    element.style[prop] = props[prop];
+    node.style[prop] = props[prop];
   });
 
-  return element;
+  return node;
 }

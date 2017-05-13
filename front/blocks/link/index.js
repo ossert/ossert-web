@@ -1,25 +1,22 @@
 import './link.pcss';
-import { qsa, offset, animate, on } from '../utils/dom';
+
+import { offset, animate, on } from '../utils/dom';
 import { isWillBeVisible as headerWillBeVisible, getHeight as getHeaderHeight } from '../gem-header';
 
-const CONST_OFFSET = 15;
+const PERMANENT_OFFSET = 15;
 
 export function smoothAnchorScrolling() {
-  qsa('a[href*="#"]:not([href="#"])').forEach((node) => {
-    on(node, 'click', () => {
-      if (
-        location.pathname.replace(/^\//, '') === node.pathname.replace(/^\//, '')
-        && location.hostname === node.hostname
-      ) {
-        const target = document.querySelector(node.hash);
+  on('a[href*="#"]:not([href="#"])', 'click', (e) => {
+    e.preventDefault();
 
-        if (target) {
-          const scrollOffset = offset(target).top;
-          const offsetHeight = headerWillBeVisible(scrollOffset) ? getHeaderHeight() + CONST_OFFSET : 0;
+    if (
+      location.pathname.replace(/^\//, '') === e.delegatedTarget.pathname.replace(/^\//, '')
+      && location.hostname === e.delegatedTarget.hostname
+    ) {
+      const scrollOffset = offset(e.delegatedTarget.hash).top;
+      const offsetHeight = headerWillBeVisible(scrollOffset) ? getHeaderHeight() + PERMANENT_OFFSET : 0;
 
-          animate(document.body, { scrollTop: scrollOffset - offsetHeight }, 500);
-        }
-      }
-    });
+      animate(document.body, { scrollTop: scrollOffset - offsetHeight }, 500);
+    }
   });
 }

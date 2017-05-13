@@ -1,11 +1,11 @@
 import './gem.pcss';
-import { create } from './../utils/dom';
+import { query, create, on, appendTo } from './../utils/dom';
 
 const MAX_HEIGHT = 120;
 
 export function gemDescriptionCollapser() {
-  const descriptionContainer = document.querySelector('.gem__description-container');
-  const description = descriptionContainer && descriptionContainer.querySelector('.gem__description');
+  const descriptionContainer = query('.gem__description-container');
+  const description = query(descriptionContainer, '.gem__description');
 
   if (description && description.offsetHeight > MAX_HEIGHT) {
     description.classList.add('gem__description_has-collapser');
@@ -13,9 +13,9 @@ export function gemDescriptionCollapser() {
 
     const toggleButton = create('button', { className: 'gem__description-toggler', text: 'See Full' });
 
-    descriptionContainer.appendChild(toggleButton);
+    appendTo(toggleButton, descriptionContainer);
 
-    toggleButton.addEventListener('click', () => {
+    on(toggleButton, 'click', () => {
       const collapsed = description.classList.contains('gem__description_collapsed');
 
       description.classList.toggle('gem__description_collapsed', !collapsed);

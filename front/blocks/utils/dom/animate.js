@@ -1,10 +1,13 @@
-export default function animate(element, to, duration, easing = easeInOut) {
-  const computedCss = to.css && window.getComputedStyle(element);
-  const elemProps = Object.keys(to).filter(prop => prop !== 'css' && isNumeric(element[prop]));
+import query from './query';
+
+export default function animate(target, to, duration, easing = easeInOut) {
+  const node = query(target);
+  const computedCss = to.css && window.getComputedStyle(node);
+  const elemProps = Object.keys(to).filter(prop => prop !== 'css' && isNumeric(node[prop]));
   const cssProps = to.css ? Object.keys(to.css).filter(prop => isNumeric(computedCss[prop])) : [];
   const from = {
     props: elemProps.reduce((acc, prop) => {
-      acc[prop] = parseValue(element[prop]);
+      acc[prop] = parseValue(node[prop]);
       return acc;
     }, {}),
     css: cssProps.reduce((acc, prop) => {
@@ -41,13 +44,13 @@ export default function animate(element, to, duration, easing = easeInOut) {
     if (elapsedTime < duration) {
       rafId = requestAnimationFrame(() => {
         elemProps.forEach((prop) => {
-          element[prop] = formatValue([
+          node[prop] = formatValue([
             easing(elapsedTime, from.props[prop][0], change.props[prop], duration),
             from.props[prop][1]
           ]);
         });
         cssProps.forEach((prop) => {
-          element.style[prop] = formatValue([
+          node.style[prop] = formatValue([
             easing(elapsedTime, from.css[prop][0], change.css[prop], duration),
             from.css[prop][1]
           ]);

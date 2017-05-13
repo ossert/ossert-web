@@ -108,6 +108,6 @@ module.exports = {
     }),
     new LivereloadPlugin()
   ],
-  devtool: 'eval',
+  devtool: 'source-map',
   watch: true
 };

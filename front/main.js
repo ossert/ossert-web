@@ -24,39 +24,39 @@ import './blocks/page-show';
 import searchForm from './blocks/search';
 import initToggleable from './blocks/toggleable';
 import { isMobileView } from './blocks/utils';
-import { qsa, on, closest } from './blocks/utils/dom';
+import { queryAll, query, on, closest } from './blocks/utils/dom';
 import './blocks/width-container';
 
 import rafThrottle from 'raf-throttle';
 
 
 on(document, 'DOMContentLoaded', () => {
-  if (document.getElementById('sticky-project-header')) {
+  if (query('#sticky-project-header')) {
     on(window, 'scroll', rafThrottle(onScroll));
     onScroll();
   }
 
   smoothAnchorScrolling();
 
-  if (!isMobileView() && document.querySelector('.help-tooltip')) {
+  if (!isMobileView() && query('.help-tooltip')) {
     helpTooltipInit();
   }
 
   searchForm('.search');
   gemDescriptionCollapser();
-  qsa('.gem-stats-chart').forEach(function onEachChart(node) {
+  queryAll('.gem-stats-chart').forEach(function onEachChart(node) {
     drawTableMainChart(node, JSON.parse(node.dataset.chart));
   });
 
   initToggleable((toggleable) => {
-    const stickyHeaderTitle = document.querySelector('#sticky-header-title');
-    const table = toggleable.querySelector('.js-gems-stats-table');
-    const tablePeriodTitle = table.querySelector('.js-gems-stats-table__period-title');
+    const stickyHeaderTitle = query('#sticky-header-title');
+    const table = query(toggleable, '.js-gems-stats-table');
+    const tablePeriodTitle = query(table, '.js-gems-stats-table__period-title');
     const tableStatsType = closest(table, '.gem-stats');
 
     renderTableCharts({
-      chartsNodes: Array.from(table.querySelectorAll('.js-gems-stats-table__row-chart')),
-      statsCellNodes: Array.from(table.querySelectorAll('.js-gems-stats-table__cell-stats')),
+      chartsNodes: queryAll(table, '.js-gems-stats-table__row-chart'),
+      statsCellNodes: queryAll(table, '.js-gems-stats-table__cell-stats'),
       maxQuarters: JSON.parse(table.dataset.maxQuarters),
       onShow: value => (value ? setQuarterMode(value) : setYearMode()),
       onOut: setYearMode

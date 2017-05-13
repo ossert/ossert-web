@@ -1,8 +1,8 @@
 import './toggleable.pcss';
-import { qsa } from '../utils/dom';
+import { queryAll } from '../utils/dom';
 
 export default function init(callback) {
-  qsa('[data-toggleable]').forEach(node => {
+  queryAll('[data-toggleable]').forEach(node => {
     let callbackIsCalled = false;
 
     node.querySelector('[data-toggleable-toggler]').addEventListener('click', () => {

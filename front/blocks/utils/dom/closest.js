@@ -1,10 +1,18 @@
-export default function closest(elem, selector) {
-  while (elem) {
-    if (elem.matches(selector)) {
-      return elem;
+import query from './query';
+
+export default function closest(target, selector) {
+  if (!target) {
+    return null;
+  }
+
+  let node = query(target);
+
+  while (node) {
+    if (node.matches(selector)) {
+      return node;
     }
 
-    elem = elem.parentElement;
+    node = node.parentElement;
   }
 
   return null;

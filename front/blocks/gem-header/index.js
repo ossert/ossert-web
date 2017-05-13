@@ -1,8 +1,8 @@
 import './gem-header.pcss';
-import { offset } from '../utils/dom';
+import { query, offset } from '../utils/dom';
 
-const header = document.getElementById('sticky-project-header');
-const fixed = header && header.querySelector('.gem-header__fixed');
+const header = query('#sticky-project-header');
+const fixed = query(header, '.gem-header__fixed');
 
 export function onScroll() {
   if (fixed) {
