@@ -40,8 +40,8 @@
     "postcss-nested": "1.0.0",
     "postcss-simple-vars": "3.0.0",
     "postcss-utilities": "0.6.1",
-    "stylelint": "7.8.0",
-    "stylelint-config-standard": "16.0.0",
+    "stylelint": "^7.10.1",
+    "stylelint-config-standard": "^16.0.0",
     "stylelint-webpack-plugin": "0.6.0",
     "svg-inline-loader": "0.7.1",
     "svg-url-loader": "2.0.2",
@@ -53,9 +53,12 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config front/webpack/production.js",
     "watch": "NODE_ENV=development webpack --config front/webpack/development.js",
-    "lint": "$(npm bin)/eslint --quiet front/ --ext .js",
-    "precommit": "npm run precommit:eslint",
-    "precommit:eslint": "git diff-index --cached HEAD --name-only --diff-filter ACMR | grep -E \"\\.js$\" | xargs eslint --quiet"
+    "test": "npm run lint:eslint && npm run lint:styles",
+    "lint:js": "$(npm bin)/eslint --quiet front/ --ext .js",
+    "lint:styles": "$(npm bin)/stylelint front/blocks/**/*.pcss",
+    "precommit": "npm run precommit:js && npm run precommit:styles",
+    "precommit:js": "git diff-index --cached HEAD --name-only --diff-filter ACMR | grep -E \"\\.js$\" | xargs eslint --quiet",
+    "precommit:styles": "git diff-index --cached HEAD --name-only --diff-filter ACMR | grep -E \"\\.pcss$\" | xargs stylelint"
   },
   "keywords": [],
   "author": "Pavel Grinchenko <psdcoder@gmail.com>",
