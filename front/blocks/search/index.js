@@ -1,8 +1,8 @@
 import './search.pcss';
-import $ from 'jquery';
+import { on } from '../utils/dom';
 
 export default (selector) => {
-  $(selector).on('submit', e => {
+  on(selector, 'submit', e => {
     e.preventDefault();
 
     const packageName = e.target.package.value.trim();

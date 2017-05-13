@@ -1,7 +1,9 @@
 module Ossert
   module Web
     module Helpers
-      CONFIG_PATH = File.join(File.dirname(__FILE__), '..', '..', '..', 'public', 'stats.json')
+      PUBLIC_PATH = File.join(File.dirname(__FILE__), '..', '..', '..', 'public')
+      ASSETS_MAPPING_PATH = File.join(PUBLIC_PATH, 'assets-mapping.json')
+      MANIFEST_PATH = File.join(PUBLIC_PATH, 'manifest.json')
       # <%= include_js "shared" %> # => <script type="text/javascript" src="shared-[hash].js" defer></script>
       # <%= include_styles %> # => <link rel="stylesheet" type="text/css" href="styles-[hash].css">
 
@@ -14,17 +16,23 @@ module Ossert
       end
 
       def js_filename(bundle_name)
-        config.fetch('bundles').fetch(bundle_name)
+        assets.fetch('bundles').fetch(bundle_name)
       end
 
       def styles_filename
-        config.fetch('css')
+        assets.fetch('css')
       end
 
       private
 
-      def config
-        @config ||= MultiJson.load(IO.read(CONFIG_PATH))
+      def assets
+        @config ||= MultiJson.load(IO.read(ASSETS_MAPPING_PATH))
+      end
+
+      def inline_manifest
+        return unless File.exist?(MANIFEST_PATH)
+
+        "<script type=\"text/javascript\">window.webpackManifest = #{IO.read(MANIFEST_PATH)};</script>"
       end
     end
   end

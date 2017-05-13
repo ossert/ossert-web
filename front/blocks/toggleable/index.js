@@ -1,9 +1,8 @@
 import './toggleable.pcss';
-import { arrayFromNodes } from '../utils';
-import RAF from 'raf';
+import { queryAll } from '../utils/dom';
 
 export default function init(callback) {
-  arrayFromNodes(document.querySelectorAll('[data-toggleable]')).forEach(node => {
+  queryAll('[data-toggleable]').forEach(node => {
     let callbackIsCalled = false;
 
     node.querySelector('[data-toggleable-toggler]').addEventListener('click', () => {
@@ -11,7 +10,7 @@ export default function init(callback) {
 
       if (!node.classList.contains('toggleable_closed') && !callbackIsCalled) {
         callbackIsCalled = true;
-        RAF(() => callback(node));
+        requestAnimationFrame(() => callback(node));
       }
     });
 

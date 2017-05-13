@@ -2221,7 +2221,7 @@ jQuery.extend({
 					index = elem.selectedIndex,
 					values = [],
 					options = elem.options,
-					one = elem.type === "select-one";
+					one = elem.type === "query-one";
 
 				// Nothing was selected
 				if ( index < 0 ) {
@@ -2251,7 +2251,7 @@ jQuery.extend({
 					}
 				}
 
-				// Fixes Bug #2551 -- select.val() broken in IE after form.reset()
+				// Fixes Bug #2551 -- query.val() broken in IE after form.reset()
 				if ( one && !values.length && options.length ) {
 					return jQuery( options[ index ] ).val();
 				}
@@ -3643,7 +3643,7 @@ jQuery.fn.extend({
 
 jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick " +
 	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
-	"change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
+	"change query submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
 
 	// Handle event binding
 	jQuery.fn[ name ] = function( data, fn ) {
@@ -3826,7 +3826,7 @@ var cachedruns,
 
 	// Check if attributes should be retrieved by attribute nodes
 	assertAttributes = assert(function( div ) {
-		div.innerHTML = "<select></select>";
+		div.innerHTML = "<query></query>";
 		var type = typeof div.lastChild.getAttribute("multiple");
 		// IE8 returns a string for some attributes even when not present
 		return type !== "boolean" && type !== "string";
@@ -5190,7 +5190,7 @@ if ( document.querySelectorAll ) {
 			// setting a boolean content attribute,
 			// since its presence should be enough
 			// http://bugs.jquery.com/ticket/12359
-			div.innerHTML = "<select><option selected=''></option></select>";
+			div.innerHTML = "<query><option selected=''></option></query>";
 
 			// IE8 - Some boolean attributes are not treated correctly
 			if ( !div.querySelectorAll("[selected]").length ) {
@@ -5208,7 +5208,7 @@ if ( document.querySelectorAll ) {
 		assert(function( div ) {
 
 			// Opera 10-12/IE9 - ^= $= *= and empty values
-			// Should not select anything
+			// Should not query anything
 			div.innerHTML = "<p test=''></p>";
 			if ( div.querySelectorAll("[test^='']").length ) {
 				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:\"\"|'')" );
@@ -5664,7 +5664,7 @@ var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figca
 	rscriptType = /\/(java|ecma)script/i,
 	rcleanScript = /^\s*<!(?:\[CDATA\[|\-\-)|[\]\-]{2}>\s*$/g,
 	wrapMap = {
-		option: [ 1, "<select multiple='multiple'>", "</select>" ],
+		option: [ 1, "<query multiple='multiple'>", "</query>" ],
 		legend: [ 1, "<fieldset>", "</fieldset>" ],
 		thead: [ 1, "<table>", "</table>" ],
 		tr: [ 2, "<table><tbody>", "</tbody></table>" ],

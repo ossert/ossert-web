@@ -1,13 +1,16 @@
 import './icon.pcss';
 import iconsSprite from './icons-sprite.svg';
+import { create, prependTo, css } from '../utils/dom';
 
-const tmp = document.createElement('div');
-tmp.innerHTML = iconsSprite;
-
-const svg = tmp.firstChild;
-svg.style.position = 'absolute';
-svg.style.width = 0;
-svg.style.height = 0;
-svg.style.overflow = 'hidden';
-
-document.body.insertBefore(svg, document.body.firstChild);
+prependTo(
+  css(
+    create('div', { html: iconsSprite }).firstChild,
+    {
+      position: 'absolute',
+      width: 0,
+      height: 0,
+      overflow: 'hidden'
+    }
+  ),
+  document.body
+);

@@ -21,47 +21,42 @@ import './blocks/mark-text';
 import './blocks/page-index';
 import './blocks/page-search-results';
 import './blocks/page-show';
-import './blocks/polyfills';
-import './blocks/raf';
 import searchForm from './blocks/search';
 import initToggleable from './blocks/toggleable';
-import { isMobileView, DOM } from './blocks/utils';
+import { isMobileView } from './blocks/utils';
+import { queryAll, query, on, closest } from './blocks/utils/dom';
 import './blocks/width-container';
 
-import $ from 'jquery';
 import rafThrottle from 'raf-throttle';
 
-if (__DEVELOPMENT__) {
-  window.$ = $;
-}
 
-$(() => {
-  if ($('#sticky-project-header').length) {
-    $(window).on('scroll', rafThrottle(onScroll));
+on(document, 'DOMContentLoaded', () => {
+  if (query('#sticky-project-header')) {
+    on(window, 'scroll', rafThrottle(onScroll));
     onScroll();
   }
 
   smoothAnchorScrolling();
 
-  if (!isMobileView() && $('.help-tooltip').length) {
+  if (!isMobileView() && query('.help-tooltip')) {
     helpTooltipInit();
   }
 
   searchForm('.search');
   gemDescriptionCollapser();
-  $('.gem-stats-chart').each(function onEachChart() {
-    drawTableMainChart(this, $(this).data('chart'));
+  queryAll('.gem-stats-chart').forEach(function onEachChart(node) {
+    drawTableMainChart(node, JSON.parse(node.dataset.chart));
   });
 
   initToggleable((toggleable) => {
-    const stickyHeaderTitle = document.querySelector('#sticky-header-title');
-    const table = toggleable.querySelector('.js-gems-stats-table');
-    const tablePeriodTitle = table.querySelector('.js-gems-stats-table__period-title');
-    const tableStatsType = DOM.closest(table, '.gem-stats');
+    const stickyHeaderTitle = query('#sticky-header-title');
+    const table = query(toggleable, '.js-gems-stats-table');
+    const tablePeriodTitle = query(table, '.js-gems-stats-table__period-title');
+    const tableStatsType = closest(table, '.gem-stats');
 
     renderTableCharts({
-      chartsNodes: table.querySelectorAll('.js-gems-stats-table__row-chart'),
-      statsCellNodes: table.querySelectorAll('.js-gems-stats-table__cell-stats'),
+      chartsNodes: queryAll(table, '.js-gems-stats-table__row-chart'),
+      statsCellNodes: queryAll(table, '.js-gems-stats-table__cell-stats'),
       maxQuarters: JSON.parse(table.dataset.maxQuarters),
       onShow: value => (value ? setQuarterMode(value) : setYearMode()),
       onOut: setYearMode

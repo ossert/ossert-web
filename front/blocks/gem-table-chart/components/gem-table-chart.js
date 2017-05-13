@@ -1,6 +1,6 @@
 import Snap from 'snapsvg-cjs';
 import rafThrottle from 'raf-throttle';
-import { memoize } from 'lodash';
+import memoize from 'lodash/memoize';
 import vars from '../../../postcss/css-vars';
 
 export default class GemTableChart {
@@ -36,11 +36,11 @@ export default class GemTableChart {
 
   constructor(emitter, { width, height, segmentsCount, data }) {
     this.emitter = emitter;
-    this.id = ++GemTableChart.ID;
+    this.id = GemTableChart.ID + 1;
 
     this.width = width;
     this.height = height;
-    this.graphsHeight = height - GemTableChart.VERTICAL_OFFSET * 2;
+    this.graphsHeight = height - (GemTableChart.VERTICAL_OFFSET * 2);
     this.segmentsCount = segmentsCount;
     this.stepWidth = Math.floor(width / (segmentsCount + 1));
     this.data = data;
@@ -105,7 +105,7 @@ export default class GemTableChart {
   }
 
   _buildVline() {
-    this.chartParts.vline = this.paper.path(`M 0 0, L 0 ${this.height}`).attr(GemTableChart.STYLES.VLINE);
+    this.chartParts.vline = this.paper.path(`M 0 0 L 0 ${this.height}`).attr(GemTableChart.STYLES.VLINE);
   }
 
   _buildHoverPoints() {
@@ -130,9 +130,9 @@ export default class GemTableChart {
         const nextPoint = lineData[nextPointIndex];
 
         if (nextPoint) {
-          const x1 = this.width - (pointIndex * this.stepWidth) - this.stepWidth / 2;
+          const x1 = this.width - (pointIndex * this.stepWidth) - (this.stepWidth / 2);
           const y1 = this._getRelativeHeight(pointData.value);
-          const x2 = this.width - (nextPointIndex * this.stepWidth) - this.stepWidth / 2;
+          const x2 = this.width - (nextPointIndex * this.stepWidth) - (this.stepWidth / 2);
           const y2 = this._getRelativeHeight(nextPoint.value);
           const line = this.paper
             .line(x1, y1, x2, y2)
@@ -182,9 +182,9 @@ export default class GemTableChart {
   }
 
   _getRelativeHeight(value) {
-    const offset = this.maxValue <= 0 ? 0 : Math.floor(value / this.maxValue * this.graphsHeight);
+    const offset = this.maxValue <= 0 ? 0 : Math.floor((value / this.maxValue) * this.graphsHeight);
 
-    return this.graphsHeight - offset + GemTableChart.VERTICAL_OFFSET;
+    return (this.graphsHeight - offset) + GemTableChart.VERTICAL_OFFSET;
   }
 
   _setLineVisibility(value, values) {
@@ -209,7 +209,7 @@ export default class GemTableChart {
     const xOffset = this.width -
       (index * this.stepWidth) -
       (this.stepWidth % 2 ? 0 : GemTableChart.STYLES.VLINE.strokeWidth / 2) -
-      this.stepWidth / 2;
+      (this.stepWidth / 2);
 
     this.chartParts.vline.transform((new Snap.Matrix()).translate(xOffset, 0));
     values.forEach((pointData, i) => {

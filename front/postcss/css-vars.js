@@ -4,8 +4,7 @@ module.exports = {
   layoutFactor: 12,
 
   // TEXT
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, ' +
-    '"Helvetica Neue", sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
 
   textColorPrimary: '#333',
   textColorMuted: '#7b858e',
