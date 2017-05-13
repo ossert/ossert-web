@@ -17,7 +17,7 @@ export default function animate(element, to, duration, easing = easeInOut) {
       const parsedValue = parseValue(to[prop]);
 
       if (from.props[prop][1] !== parsedValue[1]) {
-        console.error(`Different units in current and to values of prop: ${from.props[prop][1]} -> ${parsedValue[1]}`); // eslint-disable-line no-console, max-len
+        console.error(`Different units in current and to values of prop: ${from.props[prop][1]} -> ${parsedValue[1]}`);
       }
 
       acc[prop] = parsedValue[0] - from.props[prop][0];
@@ -27,7 +27,7 @@ export default function animate(element, to, duration, easing = easeInOut) {
       const parsedValue = parseValue(to.css[prop]);
 
       if (from.css[prop][1] !== parsedValue[1]) {
-        console.error(`Different units in current and to values of css: ${from.css[prop][1]} -> ${parsedValue[1]}`); // eslint-disable-line no-console, max-len
+        console.error(`Different units in current and to values of css: ${from.css[prop][1]} -> ${parsedValue[1]}`);
       }
 
       acc[prop] = parsedValue[0] - from.css[prop][0];
@@ -88,10 +88,11 @@ function formatValue(value) {
 }
 
 export function easeInOut(time, start, change, duration) {
-  time /= duration / 2;
+  time /= (duration / 2);
+
   if (time < 1) {
-    return change / 2 * time * time + start;
+    return (((change / 2) * time) * time) + start;
   }
   time -= 1;
-  return -change / 2 * (time * (time - 2) - 1) + start;
+  return ((-change / 2) * ((time * (time - 2)) - 1)) + start;
 }

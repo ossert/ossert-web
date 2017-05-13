@@ -13,12 +13,19 @@
   "extends": "airbnb-base/legacy",
   "rules": {
     "strict": 0,
-    "no-use-before-define": [2, {"functions": false}],
-    "max-len": [2, 120],
-    "no-new": [0],
-    "no-plusplus": [0],
-    "no-underscore-dangle": [0],
-    "no-mixed-operators": [0],
-    "no-param-reassign": [0]
+    "no-use-before-define": [2, {
+      "functions": false
+    }],
+    "max-len": [2, 120, 2, {
+      "ignoreComments": true,
+      "ignoreUrls": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true
+    }],
+    "no-param-reassign": [0],
+    "no-console": [2, {
+      "allow": ["warn", "error"]
+    }],
+    "no-underscore-dangle": [0]
   }
 }
