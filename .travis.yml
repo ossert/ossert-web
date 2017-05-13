@@ -15,8 +15,12 @@ before_install:
   - "phantomjs --version"
   - "gem install bundler -v 1.14.1"
   - "nvm install node"
-  - "if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi"
-cache: bundler
+  - "npm install -g yarn"
+cache:
+  yarn: true
+  bundler: true
+  directories:
+    - node_modules
 addons:
   postgresql: "9.4"
 services:
@@ -32,7 +36,7 @@ env:
 before_script:
   - bundle exec rake db:test:prepare
   - nvm use node
-  - npm install
-  - npm run build
+  - yarn install
+  - yarn run build
 script:
  - bundle exec rspec
