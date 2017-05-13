@@ -7,7 +7,7 @@
     "lodash": "4.17.4",
     "mustache-loader": "0.4.1",
     "nanoevents": "0.3.0",
-    "raf-throttle": "1.1.1",
+    "raf-throttle": "^2.0.2",
     "snapsvg-cjs": "0.0.4"
   },
   "devDependencies": {
