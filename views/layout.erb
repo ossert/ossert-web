@@ -27,12 +27,12 @@
     <header class="header" id="header">
       <div class="width-container header__content<%= @hide_header_search ? ' header__content_center' : '' %>">
         <% if @hide_header_search %>
-          <span class="header__description header__description_left">Open-Source Maturity</span>
+          <span class="header__description header__description_left"><%= Ossert.t(:oss_maturity) %></span>
           <a href="/" class="logo header__logo"></a>
-          <span class="header__description header__description_right">Maintenance Certification</span>
+          <span class="header__description header__description_right"><%= Ossert.t(:maintenance_cert) %></span>
         <% else %>
           <a href="/" class="logo header__logo"></a>
-          <span class="header__description header__description_right">Open-Source Maturity & Maintenance Certification</span>
+          <span class="header__description header__description_right"><%= Ossert.t(:oss_maturity) %> & <%= Ossert.t(:maintenance_cert) %></span>
           <form action="#" class="header__search search">
             <input type="text" class="search__input" placeholder="Type package name..." name="package">
             <button class="search__submit">
@@ -48,7 +48,7 @@
     <footer class="footer">
       <div class="width-container footer__content">
         <a href="https://github.com/ossert/" target="_blank" rel="noopener noreferrer" class="footer__contribute"><%= Ossert.t(:participate) %></a>
-        &copy; Copyright 2015-2017 Sergey Dolganov
+        <%= Ossert.t(:copyright) %>
       </div>
     </footer>
     <%= include_js('shared') %>

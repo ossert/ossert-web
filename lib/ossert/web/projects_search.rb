@@ -58,11 +58,11 @@ module Ossert
           # Returns the Results with found projects.
           def search(including_projects: [])
             projects = ::Project
-              .where('name % ?', @project_name)
+              .where(Sequel.lit('name % ?', @project_name))
               .or(name: including_projects)
               .select(
                 Sequel.lit('name'),
-                Sequel.lit("name <-> #{::Project.db.literal(@project_name)} AS distance"))
+                Sequel.lit("name <-> #{::Project.db.literal(@project_name)}::text AS distance"))
               .order(:distance)
               .limit(Results::LIMIT)
               .to_a

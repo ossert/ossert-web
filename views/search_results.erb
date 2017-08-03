@@ -1,7 +1,7 @@
 <div class="page-search-results">
   <div class="width-container page-search-results__container">
     <h1 class="page-search-results__header">
-      Search results for <span class="page-search-results__header-gem">&quot;<%= params[:name] %>&quot;</span>
+      <%= Ossert.t(:search_results_for) % {name: params[:name]} %>
     </h1>
 
     <% search_results.local.exact_match.tap do |exact_match| %>
@@ -46,11 +46,11 @@
     <p class="page-search-results__suggestion">
       <% if !(search_results.local.exact_match || search_results.suggestions.exact_match) %>
         <% if search_results.found_any? %>
-          Not found what you are looking for?
+          <%= Ossert.t(:found_not_enough) %>
         <% else %>
-          Nothing found.
+          <%= Ossert.t(:found_nothing) %>
         <% end %>
-        You may <a class="link" href="/suggest/<%= params[:name] %>">suggest</a> it
+        <%= Ossert.t(:suggest_not_found) % {name: params[:name]} %>
       <% end %>
     </p>
 

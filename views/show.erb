@@ -1,14 +1,14 @@
 <main class="layout__content width-container page-show">
     <div class="call-to-action page-show__cta">
         <div class="call-to-action__content">
-            Contribute to OSS without single line of code.
+            <%= Ossert.t(:survey_text) %>
             <a
                 href="https://goo.gl/forms/PVgS3dCf17s2FfVc2"
                 class="call-to-action__link"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                Take part in our survey
+              <%= Ossert.t(:survey_button) %>
             </a>
         </div>
     </div>
@@ -21,25 +21,24 @@
                         <div class="gem-header__refresh-container">
                             <p class="gem-header__refresh-date">Updated
                                 at: <%= project.updated_at.strftime('%d/%m/%Y %H:%M') %></p>
-                            <a class="gem-header__refresh-button link" href="/suggest/<%= project.name %>">&#8635;
-                                Request Update</a>
+                            <a class="gem-header__refresh-button link" href="/suggest/<%= project.name %>"><%= Ossert.t(:request_update) %></a>
                         </div>
                     </div>
                     <div class="gem-header__fixed gem-header__fixed_hidden">
                         <div class="gem-header__fixed-container width-container">
                             <h1 class="gem-header__fixed-heading"><%= project.name %></h1>
                             <span class="gem-header__fixed-table-current-interval" id="sticky-header-title">
-                              Maintenance - Q3, 2015
+
                             </span>
                             <ul class="gem-header__fixed-items">
                                 <li class="gem-header__fixed-item">
-                                    <a href="#maintenance" class="gem-header__fixed-item-link link">Maintenance</a>
+                                    <a href="#maintenance" class="gem-header__fixed-item-link link"><%= Ossert.t(:maintenance) %></a>
                                 </li>
                                 <li class="gem-header__fixed-item">
-                                    <a href="#popularity" class="gem-header__fixed-item-link link">Popularity</a>
+                                    <a href="#popularity" class="gem-header__fixed-item-link link"><%= Ossert.t(:popularity) %></a>
                                 </li>
                                 <li class="gem-header__fixed-item">
-                                    <a href="#maturity" class="gem-header__fixed-item-link link">Maturity</a>
+                                    <a href="#maturity" class="gem-header__fixed-item-link link"><%= Ossert.t(:maturity) %></a>
                                 </li>
                             </ul>
                             <a href="#header" class="gem-header__top-link">
