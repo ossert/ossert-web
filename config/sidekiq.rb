@@ -1,10 +1,9 @@
+# frozen_string_literal: true
 require 'ossert'
-require 'ossert/workers'
 
 SIDEKIQ_REDIS_CONFIGURATION = {
   url: ENV.fetch('REDIS_URL'),
-  namespace: 'ossert_sidekiq',
-  size: 9
+  namespace: 'ossert_sidekiq'
 }
 
 Sidekiq.configure_server do |config|

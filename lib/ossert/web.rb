@@ -20,6 +20,12 @@ module Ossert
       end
 
       def perform
+        config_root_const = 'CONFIG_ROOT'
+        Ossert::Config.send(:remove_const, config_root_const)
+        Ossert::Config.const_set(config_root_const, File.join(File.dirname(__FILE__), '..', '..', 'config'))
+        Ossert::Config.load(
+          :stats, :classifiers_growth, :classifiers_cluster, :translations, :descriptions, :fetchers
+        )
         @popularity_metrics = (::Settings['stats']['community']['quarter']['metrics'] +
                               ::Settings['stats']['community']['total']['metrics']).uniq
 
