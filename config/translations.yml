@@ -1,0 +1,84 @@
+translations:
+  # Common
+  participate: "Join on GitHub"
+  random_projects: "Reports ready for:"
+  no_github_data: "Warning: no data was found for this project on GitHub"
+  not_found:
+    "Sorry, but the <big>\"%{name}\"</big> gem was not analyzed yet. </br> \
+    You can try to <a href=\"/suggest/%{name}\">suggest</a> it for analysis."
+  welcome:
+    Welcome to Ossert!
+  intro:
+    "%{text} </br> \
+    You can search for a report by typing a Ruby gem name"
+  maintenance_description:
+    Maintenance is a metric based on the project activity for the last year and its all-time activity. It can show if the project is still under active development and the core team is responsive enough—or if the project is outdated and slow to evolve.
+  popularity_description:
+    Popularity is a metric based on project's user activity for the last year and all-time user activity. It can show if the project's popularity is growing or if it is in slow decline.
+  maturity_description:
+    Maturity a is metric based on both project and users activity for the last year all-time activity. It shows if the project has reached good traction levels, or if it is just in its early stages of growth.
+  survey_text: Contribute to Open Source without a single line of code.
+  survey_button: Take a part in our survey!
+  oss_maturity: Open-Source Maturity
+  maintenance_cert: Maintenance Certification
+  copyright: "&copy; Copyright 2015-2017 Sergey Dolganov. Sponsored by <a href=\"https://evilmartians.com/?utm_source=ossert\">Evil Martians.</a>"
+  found_not_enough: Did not find what you were looking for?
+  found_nothing: Nothing found.
+  suggest_not_found: "You may <a class=\"link\" href=\"/suggest/%{name}\">suggest</a> it"
+  search_results_for: "Search results for <span class=\"page-search-results__header-gem\">&quot;%{name}&quot;</span>"
+  request_update: "&#8635; Request an Update"
+  maintenance: 'Maintenance'
+  popularity: 'Popularity'
+  maturity: 'Maturity'
+
+  # Agility
+  dependencies_count: 'Number of Runtime Dependencies'
+  issues_closed_percent: 'Issues Closed, %'
+  issues_non_owner_percent: 'Issues Created not by Owner'
+  issues_with_contrib_comments_percent: 'Issues With Contibutor Comments'
+  issues_all_count: 'Number of Issues'
+  issues_processed_in_avg: 'Average Issue Processing Time'
+  issues_processed_in_median: 'Median Issue Processing Time'
+  first_issue_date_int: 'First Issue Created at'
+  last_issue_date_int: 'Last Issue Created at'
+  pr_closed_percent: 'Pull Requests Closed, %'
+  pr_non_owner_percent: 'Pull Requests Created not by Owner'
+  pr_with_contrib_comments_percent: 'Pull Requests with Contibutor Comments'
+  pr_all_count: 'Number of Pull Requests'
+  pr_processed_in_avg: 'Average Pull Request Processing Time'
+  pr_processed_in_median: 'Median Pull Request Processing Time'
+  first_pr_date_int: 'First Pull Request Created at'
+  last_pr_date_int: 'Last Pull Request Created at'
+  pr_actual_count: 'Number of Legacy Pull Requests'
+  last_release_date_int: 'Last Release Date'
+  releases_count: 'Number of Releases'
+  commits_count_since_last_release_count: 'Commits Since the Last Release'
+  stale_branches_count: 'Number of Stale Branches'
+  life_period: 'Active Years'
+  last_changed: 'Last Changed at'
+  issues_actual_count: 'Number of Legacy Issues'
+  commits: 'Number of Commits Made'
+
+  # Community
+  dependants_count: 'Number of Dependants'
+  users_creating_issues_count: 'Number of Users Creating Issues'
+  users_commenting_issues_count: 'Number of Users Commenting Issues'
+  users_creating_pr_count: 'Number of Users Creating Pull Requests'
+  users_commenting_pr_count: 'Number of Users Commenting Pull Requests'
+  watchers_count: 'Number of Watchers'
+  stargazers_count: 'Number of Stargazers'
+  contributors_count: 'Number of Contributors'
+  forks_count: 'Number of Forks'
+  users_involved_count: 'Number of Total Users Involved'
+  users_involved_no_stars_count: 'Number of Users Involved without Stargazers'
+  total_downloads_count: 'Number of Downloads'
+  delta_downloads: 'Number of Downloads Increased by'
+  download_divergence: 'Downloads Growth From Previous Period, %'
+  questions_count: 'Number of Questions'
+  questions_resolved_percent: 'Resolved Questions, %'
+  last_question_date_int: 'Last Question Asked at'
+  questioner_rep_median: 'Median Questioner Reputation'
+  question_view_sum: 'Sum of Question Views'
+  answers_avg: 'Average Number of Answers'
+  question_score_sum: 'Sum of Question Scores'
+  questioners_count: 'Number of Questioners'
