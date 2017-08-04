@@ -1,5 +1,6 @@
 import './blocks/global';
 import './blocks/vendors';
+import { smoothAnchorScrolling } from './blocks/link';
 import './blocks/footer';
 import { gemDescriptionCollapser } from './blocks/gem';
 import { onScroll } from './blocks/gem-header';
@@ -15,7 +16,6 @@ import './blocks/call-to-action';
 import { init as helpTooltipInit, setMode as setTooltipMode, MODE } from './blocks/help-tooltip';
 import './blocks/icon';
 import './blocks/layout';
-import { smoothAnchorScrolling } from './blocks/link';
 import './blocks/logo';
 import './blocks/mark-text';
 import './blocks/page-index';
