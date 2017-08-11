@@ -11,13 +11,26 @@
     cursor: pointer;
   }
 
+  &__header-container:hover &__header {
+    @mixin link-hover $textLinkColor;
+  }
+
+  &__header-container:focus &__header {
+    @mixin link-focus $textLinkColor;
+  }
+
+  &__header-container:active &__header {
+    @mixin link-active $textLinkColor;
+  }
+
   &__header {
     margin: 0;
     font-family: $fontFamily;
     font-size: 33px;
     line-height: 36px;
     font-weight: 600;
-    color: $textColorPrimary;
+
+    @mixin link-states $textLinkColor;
   }
 
   &__chart {
