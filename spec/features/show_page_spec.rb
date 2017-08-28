@@ -17,7 +17,8 @@ RSpec.describe 'Show page', type: :feature do
   end
 
   context 'when browse Maintenance section' do
-    before { find('#maintenance').find('.gem-stats__toggler').click }
+    # This section should be opened by default, so we skip clicking on the Expand button
+
     context 'Maintenance Total life_period' do
       it { is_expected.to match_valid_value("2+ years B") }
     end
