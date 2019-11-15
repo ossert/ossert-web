@@ -1,5 +1,6 @@
 require "bundler/gem_tasks"
 require "ossert/rake_tasks"
+require "sequel"
 
 require "bundler"
 Bundler.require

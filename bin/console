@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+require 'dotenv'
+Dotenv.load('.env.local', '.env')
+
 require "bundler/setup"
 require "ossert/web"
 

@@ -7,9 +7,38 @@ require "slim"
 require "sass"
 require 'sinatra/redis-cache'
 require 'ostruct'
+require 'oauth2'
 
+::Ossert.init
 module Ossert
   module Web
+    class Cryptograph
+      attr_reader :cipher
+
+      def encrypt(message)
+        cipher = OpenSSL::Cipher::AES256.new.encrypt
+        cipher.pkcs5_keyivgen(
+          Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[0...32],
+          Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[-9...-1],
+        )
+
+        Base64.encode64(cipher.update(message) + cipher.final)
+      end
+
+      def decrypt(message)
+        cipher = OpenSSL::Cipher::AES256.new.decrypt
+        cipher.pkcs5_keyivgen(
+          Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[0...32],
+          Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[-9...-1],
+        )
+
+        cipher.update(Base64.decode64(message)) + cipher.final
+      end
+    end
+
+    class Users < Sequel::Model(:users)
+    end
+
     class Warmup
       attr_reader :popularity_metrics, :maintenance_metrics, :maturity_metrics, :cache
 
@@ -38,12 +67,24 @@ module Ossert
         @cache = Sinatra::RedisCache::Cache.new
 
         return if ENV.fetch('RACK_ENV', 'test') == 'test'
-        ::Ossert.init
         ::Ossert::Classifiers.train
       end
 
       def cache(key, expire_in, &block)
         @cache.do(key, expire_in, -> { yield self })
+      end
+
+      def crypto
+        Thread.current[:crypto] ||= Cryptograph.new
+      end
+
+      def oauth_client
+        @oauth_client ||= OAuth2::Client.new(
+          ENV.fetch("GITHUB_APP_ID"), ENV.fetch("GITHUB_APP_SECRET"),
+          :site => 'https://github.com/login',
+          :authorize_url => '/login/oauth/authorize',
+          :token_url => '/login/oauth/access_token'
+        )
       end
     end
 
@@ -81,6 +122,47 @@ module Ossert
         @hide_header_search = true
 
         erb :index
+      end
+
+      get '/cossma/thanks' do
+        erb :'cossma/thanks'
+      end
+
+      get '/cossma/oauth/callback' do
+        begin
+          access_token = settings.warmup.oauth_client.get_token(params)
+          user_data = JSON.parse(access_token.get('https://api.github.com/user').body)
+          secured_token = settings.warmup.crypto.encrypt(access_token.token)
+
+          user = Users.find(login: user_data["login"])
+          user ||= Users.create(login: user_data["login"], created_at: Time.now)
+          user.update(github_token: secured_token)
+
+          redirect(to("/cossma/thanks"))
+        rescue OAuth2::Error => e
+          %(<p>Outdated ?code=#{params[:code]}:</p><p>#{$!}</p><p><a href="/cossma/login">Retry</a></p>)
+        end
+      end
+
+      def oauth_redirect_uri(path = '/cossma/oauth/callback', query = nil)
+        uri = URI.parse(request.url)
+        uri.path  = path
+        uri.query = query
+        uri.to_s
+      end
+
+      get '/cossma/login' do
+        url = settings.warmup.oauth_client.authorize_url(
+          :redirect_uri => oauth_redirect_uri,
+          :scope => '',
+          :client_id => ENV.fetch("GITHUB_APP_ID"),
+        )
+        puts "Redirecting to URL: #{url.inspect}"
+        redirect url
+      end
+
+      get '/cossma/auth' do
+        erb :'cossma/auth'
       end
 
       get '/last_year_graph/:metric' do

@@ -5,6 +5,7 @@ gem 'sawyer', github: 'sclinede/sawyer'
 gem 'kmeans-clusterer', github: 'gbuesing/kmeans-clusterer'
 gem "ossert", github: 'ossert/ossert'
 gem 'whenever'
+gem 'oauth2'
 
 group :development do
   gem 'capistrano'

@@ -20,3 +20,8 @@ task :generate_sitemap do
   end
   SitemapGenerator::Sitemap.ping_search_engines
 end
+
+Rake::Task["db:migrate"].enhance do
+  Sequel::Migrator.run(DB, File.expand_path('../../../../db/migrate', __dir__), allow_missing_migration_files: true)
+  Rake::Task['db:version'].execute
+end
