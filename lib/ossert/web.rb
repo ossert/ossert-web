@@ -16,7 +16,7 @@ module Ossert
       attr_reader :cipher
 
       def encrypt(message)
-        cipher = OpenSSL::Cipher::AES256.new.encrypt
+        cipher = OpenSSL::Cipher::Cipher.new("AES256").encrypt
         cipher.pkcs5_keyivgen(
           Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[0...32],
           Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[-9...-1],
@@ -26,7 +26,7 @@ module Ossert
       end
 
       def decrypt(message)
-        cipher = OpenSSL::Cipher::AES256.new.decrypt
+        cipher = OpenSSL::Cipher::Cipher.new("AES256").decrypt
         cipher.pkcs5_keyivgen(
           Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[0...32],
           Digest::SHA2.hexdigest(ENV.fetch("GITHUB_APP_SECRET"))[-9...-1],
