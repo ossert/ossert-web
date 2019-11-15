@@ -135,7 +135,7 @@ module Ossert
           secured_token = settings.warmup.crypto.encrypt(access_token.token)
 
           user = Users.find(login: user_data["login"])
-          user ||= Users.create(login: user_data["login"], created_at: Time.now)
+          user ||= Users.create(login: user_data["login"], github_token: secured_token, created_at: Time.now)
           user.update(github_token: secured_token)
 
           redirect(to("/cossma/thanks"))
