@@ -7,10 +7,11 @@ GIT
 
 GIT
   remote: https://github.com/ossert/ossert.git
-  revision: dcd2bccddba852adc88cd516da20d64a7ce1c9b2
+  revision: e0d343dd67f6e5303397c4f43bfd5145fd0a8647
   specs:
     ossert (0.1.2)
       activesupport
+      dotenv
       gnuplot
       graphr
       json-schema
@@ -19,7 +20,7 @@ GIT
       octokit (~> 4.0)
       oj
       pg
-      rake (~> 10.0)
+      rake
       redis
       redis-namespace
       sequel (< 5)

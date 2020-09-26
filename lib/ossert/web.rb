@@ -67,7 +67,18 @@ module Ossert
         @cache = Sinatra::RedisCache::Cache.new
 
         return if ENV.fetch('RACK_ENV', 'test') == 'test'
+        ensure_references
         ::Ossert::Classifiers.train
+      end
+
+      def ensure_references
+        # refrences could be: ClassA, ClassB, ClassC, ClassD, ClassE, unused
+        return if ::Project.group(:reference).select(:reference).count >= 6
+
+        ::Project.db.transaction do
+          reference_projects = Ossert::Reference.prepare_projects!
+          Ossert::Reference.process_references(reference_projects)
+        end
       end
 
       def cache(key, expire_in, &block)
