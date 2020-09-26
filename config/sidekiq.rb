@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 require 'ossert'
+require 'dotenv'
+Dotenv.load('.env.local', '.env')
+
 
 SIDEKIQ_REDIS_CONFIGURATION = {
   url: ENV.fetch('REDIS_URL'),
