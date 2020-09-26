@@ -42,10 +42,19 @@ GIT
       addressable (>= 2.3.5, < 2.5)
       faraday (~> 0.8, < 0.10)
 
+GIT
+  remote: https://github.com/sclinede/sinatra-redis-cache.git
+  revision: f8fad0ea9816a33560adf853e252c21c8cd22589
+  specs:
+    sinatra-redis-cache (0.2.0)
+      rake (>= 10.0)
+      redis (>= 3.0)
+      sinatra (>= 1.3)
+
 PATH
   remote: .
   specs:
-    ossert-web (0.1.0)
+    ossert-web (0.1.1)
       dotenv
       erubis
       faraday
@@ -54,7 +63,6 @@ PATH
       rake (~> 10.0)
       sass
       sinatra
-      sinatra-redis-cache
       slim
 
 GEM
@@ -147,6 +155,8 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     narray (0.6.1.2)
     naught (1.1.0)
     net-scp (3.0.0)
@@ -174,8 +184,8 @@ GEM
       method_source (~> 1.0)
     puma (5.0.0)
       nio4r (~> 2.0)
-    rack (1.6.13)
-    rack-protection (1.5.5)
+    rack (2.2.3)
+    rack-protection (2.1.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -183,7 +193,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (3.3.5)
+    redis (4.2.2)
     redis-namespace (1.8.0)
       redis (>= 3.0.4)
     regexp_parser (1.8.0)
@@ -200,30 +210,27 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.3)
+    ruby2_keywords (0.0.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
     sequel (4.49.0)
-    sidekiq (5.2.8)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (< 2.1.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+    sidekiq (6.1.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sidekiq-unique-jobs (6.0.23)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       sidekiq (>= 4.0, < 7.0)
       thor (>= 0.20, < 2.0)
     simple_oauth (0.3.1)
-    sinatra (1.4.8)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
-    sinatra-redis-cache (0.2.0)
-      rake (~> 10.0)
-      redis (~> 3.0)
-      sinatra (~> 1.3)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
     sitemap_generator (6.1.2)
       builder (~> 3.0)
     slim (4.1.0)
@@ -271,7 +278,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 2.0.2)
+  bundler (~> 2.1)
   capistrano
   capistrano-bundler
   capistrano-ext
@@ -286,8 +293,10 @@ DEPENDENCIES
   ossert!
   ossert-web!
   poltergeist
+  rack (>= 2.1.4)
   rspec (~> 3.0)
   sawyer!
+  sinatra-redis-cache!
   sitemap_generator
   timecop
   vcr
@@ -295,4 +304,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

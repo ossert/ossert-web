@@ -6,6 +6,8 @@ gem 'kmeans-clusterer', github: 'gbuesing/kmeans-clusterer'
 gem "ossert", github: 'ossert/ossert'
 gem 'whenever'
 gem 'oauth2'
+gem "rack", ">= 2.1.4"
+gem "sinatra-redis-cache", github: 'sclinede/sinatra-redis-cache'
 
 group :development do
   gem 'capistrano'
