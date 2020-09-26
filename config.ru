@@ -3,7 +3,6 @@ require 'dotenv'
 Dotenv.load('.env.local', '.env')
 
 require 'sequel'
-
 Bundler.require
 
 require 'ossert'
