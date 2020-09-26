@@ -11,6 +11,9 @@ require 'webmock/rspec'
 require 'base64'
 require 'timecop'
 
+require 'dotenv'
+Dotenv.load('.env.test')
+
 require 'vcr'
 VCR.configure do |c|
   c.ignore_hosts '127.0.0.1', 'localhost'
@@ -58,9 +61,9 @@ RSpec.configure do |config|
     Ossert.init(DB_URL)
 
     db = Sequel.connect(DB_URL)
-    db.run('TRUNCATE TABLE projects;')
-    db.run('TRUNCATE TABLE exceptions;')
-    db.run('TRUNCATE TABLE classifiers;')
+    db.run('TRUNCATE TABLE projects CASCADE;')
+    db.run('TRUNCATE TABLE exceptions CASCADE;')
+    db.run('TRUNCATE TABLE classifiers CASCADE;')
 
     Timecop.freeze(Time.parse('2017-02-20').utc)
     init_projects
@@ -91,6 +94,11 @@ RSpec.configure do |config|
         Ossert::Project.fetch_all(@e_project, 'ClassE')
       end
     end
+    threads << Thread.new do
+      VCR.use_cassette 'fetch_u_project' do
+        Ossert::Project.fetch_all(@u_project, 'unused')
+      end
+    end
     threads.each(&:join)
     Ossert::Classifiers.train
   end
@@ -100,7 +108,7 @@ RSpec.configure do |config|
   config.after(:suite) do
     Timecop.return
     db = Sequel.connect(DB_URL)
-    db.run('TRUNCATE TABLE projects;')
+    db.run('TRUNCATE TABLE projects CASCADE;')
   end
 end
 
@@ -123,7 +131,8 @@ def init_projects
     @b_project = 'rake',
     @c_project = 'scientist',
     @d_project = 'dry-web',
-    @e_project = 'reifier'
+    @e_project = 'reifier',
+    @u_project = 'ruby-reports'
   ]
 end
 
