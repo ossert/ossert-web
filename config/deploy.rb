@@ -28,7 +28,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'public/system'
 set :keep_releases, 5
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.3.7'
+set :rbenv_ruby, '2.6.5'
 
 set :whenever_roles, [:app]
 
